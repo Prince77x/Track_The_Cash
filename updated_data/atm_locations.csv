@@ -1,0 +1,1412 @@
+atm_id,state,district,lat,lng,bank_name,atm_count_district
+ATM_00001,Andhra Pradesh,Tirupati,13.653242,79.389252,Bank of Baroda,22
+ATM_00002,Andhra Pradesh,Tirupati,13.631841,79.43221,HDFC Bank,22
+ATM_00003,Andhra Pradesh,Visakhapatnam,17.754072,83.179538,HDFC Bank,10
+ATM_00004,Andhra Pradesh,Visakhapatnam,17.722501,83.202807,PNB,10
+ATM_00005,Andhra Pradesh,Tirupati,13.651172,79.425609,SBI,22
+ATM_00006,Andhra Pradesh,Vijayawada,16.476413,80.631663,Kotak Mahindra Bank,8
+ATM_00007,Andhra Pradesh,Tirupati,13.648894,79.449142,HDFC Bank,22
+ATM_00008,Andhra Pradesh,Vijayawada,16.461324,80.66599,HDFC Bank,8
+ATM_00009,Andhra Pradesh,Tirupati,13.619555,79.376449,Bank of Baroda,22
+ATM_00010,Andhra Pradesh,Guntur,16.241627,80.439746,HDFC Bank,12
+ATM_00011,Andhra Pradesh,Guntur,16.314767,80.4464,SBI,12
+ATM_00012,Andhra Pradesh,Tirupati,13.587104,79.401659,HDFC Bank,22
+ATM_00013,Andhra Pradesh,Vijayawada,16.543916,80.737853,Union Bank,8
+ATM_00014,Andhra Pradesh,Tirupati,13.610109,79.391656,Axis Bank,22
+ATM_00015,Andhra Pradesh,Vijayawada,16.484316,80.64558,HDFC Bank,8
+ATM_00016,Andhra Pradesh,Visakhapatnam,17.654165,83.314281,SBI,10
+ATM_00017,Andhra Pradesh,Guntur,16.304866,80.407035,PNB,12
+ATM_00018,Andhra Pradesh,Visakhapatnam,17.694,83.213161,Union Bank,10
+ATM_00019,Andhra Pradesh,Tirupati,13.697909,79.427446,SBI,22
+ATM_00020,Andhra Pradesh,Guntur,16.372465,80.386683,HDFC Bank,12
+ATM_00021,Andhra Pradesh,Tirupati,13.692137,79.423276,SBI,22
+ATM_00022,Andhra Pradesh,Vijayawada,16.491164,80.689216,HDFC Bank,8
+ATM_00023,Andhra Pradesh,Tirupati,13.673924,79.443415,Axis Bank,22
+ATM_00024,Andhra Pradesh,Visakhapatnam,17.638003,83.222572,Canara Bank,10
+ATM_00025,Andhra Pradesh,Vijayawada,16.479618,80.662202,Bank of Baroda,8
+ATM_00026,Andhra Pradesh,Tirupati,13.604975,79.379741,Canara Bank,22
+ATM_00027,Andhra Pradesh,Tirupati,13.711461,79.549928,Union Bank,22
+ATM_00028,Andhra Pradesh,Tirupati,13.66378,79.438764,HDFC Bank,22
+ATM_00029,Andhra Pradesh,Visakhapatnam,17.66181,83.239719,HDFC Bank,10
+ATM_00030,Andhra Pradesh,Tirupati,13.643042,79.414822,Kotak Mahindra Bank,22
+ATM_00031,Andhra Pradesh,Tirupati,13.578741,79.472801,PNB,22
+ATM_00032,Andhra Pradesh,Visakhapatnam,17.665581,83.230367,IndusInd Bank,10
+ATM_00033,Andhra Pradesh,Tirupati,13.5133,79.408542,Kotak Mahindra Bank,22
+ATM_00034,Andhra Pradesh,Guntur,16.237676,80.475372,ICICI Bank,12
+ATM_00035,Andhra Pradesh,Guntur,16.384654,80.489484,IndusInd Bank,12
+ATM_00036,Andhra Pradesh,Tirupati,13.597416,79.463731,Canara Bank,22
+ATM_00037,Andhra Pradesh,Guntur,16.388629,80.469385,SBI,12
+ATM_00038,Andhra Pradesh,Vijayawada,16.474748,80.602383,Union Bank,8
+ATM_00039,Andhra Pradesh,Visakhapatnam,17.583692,83.232197,PNB,10
+ATM_00040,Andhra Pradesh,Tirupati,13.557628,79.485618,HDFC Bank,22
+ATM_00041,Andhra Pradesh,Guntur,16.317248,80.448665,Kotak Mahindra Bank,12
+ATM_00042,Andhra Pradesh,Guntur,16.301075,80.503165,Bank of Baroda,12
+ATM_00043,Andhra Pradesh,Guntur,16.345256,80.474382,IndusInd Bank,12
+ATM_00044,Andhra Pradesh,Visakhapatnam,17.691655,83.27743,Canara Bank,10
+ATM_00045,Andhra Pradesh,Guntur,16.319132,80.372926,IndusInd Bank,12
+ATM_00046,Andhra Pradesh,Guntur,16.276893,80.442721,IndusInd Bank,12
+ATM_00047,Andhra Pradesh,Tirupati,13.665724,79.401482,Union Bank,22
+ATM_00048,Andhra Pradesh,Tirupati,13.562102,79.314187,Kotak Mahindra Bank,22
+ATM_00049,Andhra Pradesh,Tirupati,13.625689,79.480111,Kotak Mahindra Bank,22
+ATM_00050,Andhra Pradesh,Visakhapatnam,17.722961,83.295935,ICICI Bank,10
+ATM_00051,Andhra Pradesh,Vijayawada,16.547973,80.620775,Union Bank,8
+ATM_00052,Andhra Pradesh,Tirupati,13.645086,79.47863,PNB,22
+ATM_00053,Bihar,Patna,25.588199,85.153295,HDFC Bank,16
+ATM_00054,Bihar,Gaya,24.806388,84.999036,Bank of Baroda,19
+ATM_00055,Bihar,Muzaffarpur,26.106506,85.478175,SBI,24
+ATM_00056,Bihar,Gaya,24.819263,84.984933,Canara Bank,19
+ATM_00057,Bihar,Muzaffarpur,26.123818,85.417135,Union Bank,24
+ATM_00058,Bihar,Gaya,24.818962,85.030151,Bank of Baroda,19
+ATM_00059,Bihar,Muzaffarpur,26.037287,85.375898,Axis Bank,24
+ATM_00060,Bihar,Muzaffarpur,25.986296,85.366543,HDFC Bank,24
+ATM_00061,Bihar,Muzaffarpur,26.124176,85.387125,Axis Bank,24
+ATM_00062,Bihar,Muzaffarpur,26.076043,85.351054,IndusInd Bank,24
+ATM_00063,Bihar,Muzaffarpur,26.13132,85.461412,Union Bank,24
+ATM_00064,Bihar,Patna,25.569855,85.189252,ICICI Bank,16
+ATM_00065,Bihar,Gaya,24.779998,84.993037,Canara Bank,19
+ATM_00066,Bihar,Patna,25.607439,85.229178,Bank of Baroda,16
+ATM_00067,Bihar,Gaya,24.76828,84.960204,Bank of Baroda,19
+ATM_00068,Bihar,Patna,25.586916,85.108219,HDFC Bank,16
+ATM_00069,Bihar,Patna,25.602643,85.072133,Union Bank,16
+ATM_00070,Bihar,Patna,25.58088,85.089354,IndusInd Bank,16
+ATM_00071,Bihar,Gaya,24.736393,85.011407,IndusInd Bank,19
+ATM_00072,Bihar,Muzaffarpur,26.130575,85.311127,IndusInd Bank,24
+ATM_00073,Bihar,Patna,25.628432,85.157764,IndusInd Bank,16
+ATM_00074,Bihar,Gaya,24.755103,84.942481,Union Bank,19
+ATM_00075,Bihar,Gaya,24.803501,84.972315,SBI,19
+ATM_00076,Bihar,Gaya,24.863892,85.11492,Kotak Mahindra Bank,19
+ATM_00077,Bihar,Muzaffarpur,26.14578,85.414603,HDFC Bank,24
+ATM_00078,Bihar,Gaya,24.819087,84.92232,HDFC Bank,19
+ATM_00079,Bihar,Patna,25.620527,85.151973,SBI,16
+ATM_00080,Bihar,Muzaffarpur,26.079091,85.375595,Union Bank,24
+ATM_00081,Bihar,Muzaffarpur,26.155018,85.403257,Union Bank,24
+ATM_00082,Bihar,Patna,25.613008,85.155047,ICICI Bank,16
+ATM_00083,Bihar,Patna,25.571562,85.118007,Kotak Mahindra Bank,16
+ATM_00084,Bihar,Muzaffarpur,26.108641,85.433842,PNB,24
+ATM_00085,Bihar,Muzaffarpur,26.11065,85.441083,Bank of Baroda,24
+ATM_00086,Bihar,Gaya,24.816535,84.990231,ICICI Bank,19
+ATM_00087,Bihar,Patna,25.539385,85.067243,PNB,16
+ATM_00088,Bihar,Gaya,24.724051,84.95867,ICICI Bank,19
+ATM_00089,Bihar,Muzaffarpur,26.122322,85.415693,Union Bank,24
+ATM_00090,Bihar,Patna,25.492973,85.182679,HDFC Bank,16
+ATM_00091,Bihar,Gaya,24.814633,84.983473,Canara Bank,19
+ATM_00092,Bihar,Muzaffarpur,26.170822,85.349562,IndusInd Bank,24
+ATM_00093,Bihar,Gaya,24.820061,85.015536,Axis Bank,19
+ATM_00094,Bihar,Patna,25.655265,85.149085,Union Bank,16
+ATM_00095,Bihar,Muzaffarpur,26.061081,85.388696,PNB,24
+ATM_00096,Bihar,Patna,25.584969,85.088891,Kotak Mahindra Bank,16
+ATM_00097,Bihar,Muzaffarpur,26.114179,85.435807,Kotak Mahindra Bank,24
+ATM_00098,Bihar,Gaya,24.808468,85.05813,Axis Bank,19
+ATM_00099,Bihar,Muzaffarpur,26.093695,85.40238,SBI,24
+ATM_00100,Bihar,Gaya,24.740126,84.978544,HDFC Bank,19
+ATM_00101,Bihar,Gaya,24.786108,85.054839,Axis Bank,19
+ATM_00102,Bihar,Muzaffarpur,26.079454,85.376318,Kotak Mahindra Bank,24
+ATM_00103,Bihar,Muzaffarpur,26.115502,85.396898,Union Bank,24
+ATM_00104,Bihar,Gaya,24.769361,85.041087,IndusInd Bank,19
+ATM_00105,Bihar,Patna,25.624096,85.093409,Axis Bank,16
+ATM_00106,Bihar,Muzaffarpur,26.101388,85.364681,HDFC Bank,24
+ATM_00107,Bihar,Muzaffarpur,26.031563,85.390446,Bank of Baroda,24
+ATM_00108,Bihar,Gaya,24.738661,84.951,IndusInd Bank,19
+ATM_00109,Bihar,Muzaffarpur,26.094602,85.372623,Canara Bank,24
+ATM_00110,Bihar,Muzaffarpur,26.050596,85.408536,ICICI Bank,24
+ATM_00111,Bihar,Patna,25.536634,85.140746,Kotak Mahindra Bank,16
+ATM_00112,Chhattisgarh,Bilaspur,22.131788,82.205534,Union Bank,10
+ATM_00113,Chhattisgarh,Raipur,21.225685,81.622123,Kotak Mahindra Bank,8
+ATM_00114,Chhattisgarh,Bhilai,21.213975,81.403339,HDFC Bank,16
+ATM_00115,Chhattisgarh,Bilaspur,22.118669,82.150422,SBI,10
+ATM_00116,Chhattisgarh,Bhilai,21.061923,81.36813,HDFC Bank,16
+ATM_00117,Chhattisgarh,Bhilai,21.255474,81.329119,SBI,16
+ATM_00118,Chhattisgarh,Bhilai,21.188862,81.349298,Bank of Baroda,16
+ATM_00119,Chhattisgarh,Bhilai,21.189022,81.36094,HDFC Bank,16
+ATM_00120,Chhattisgarh,Bhilai,21.213772,81.371752,PNB,16
+ATM_00121,Chhattisgarh,Bilaspur,22.094597,82.127282,Bank of Baroda,10
+ATM_00122,Chhattisgarh,Bhilai,21.209672,81.385407,Bank of Baroda,16
+ATM_00123,Chhattisgarh,Bilaspur,22.108226,82.141035,Bank of Baroda,10
+ATM_00124,Chhattisgarh,Bilaspur,22.144604,82.118366,Axis Bank,10
+ATM_00125,Chhattisgarh,Bilaspur,22.107587,82.156194,HDFC Bank,10
+ATM_00126,Chhattisgarh,Bhilai,21.195423,81.350692,Canara Bank,16
+ATM_00127,Chhattisgarh,Bhilai,21.193737,81.395276,Bank of Baroda,16
+ATM_00128,Chhattisgarh,Bilaspur,22.084287,82.106595,Bank of Baroda,10
+ATM_00129,Chhattisgarh,Raipur,21.242217,81.634534,Union Bank,8
+ATM_00130,Chhattisgarh,Raipur,21.271413,81.622684,ICICI Bank,8
+ATM_00131,Chhattisgarh,Raipur,21.271876,81.694631,Axis Bank,8
+ATM_00132,Chhattisgarh,Raipur,21.261605,81.688956,HDFC Bank,8
+ATM_00133,Chhattisgarh,Bhilai,21.196586,81.355868,Union Bank,16
+ATM_00134,Chhattisgarh,Bhilai,21.194183,81.386672,PNB,16
+ATM_00135,Chhattisgarh,Raipur,21.302254,81.657234,Axis Bank,8
+ATM_00136,Chhattisgarh,Bilaspur,22.13836,82.17871,Kotak Mahindra Bank,10
+ATM_00137,Chhattisgarh,Bhilai,21.244816,81.334643,Kotak Mahindra Bank,16
+ATM_00138,Chhattisgarh,Bilaspur,22.071412,82.128743,Union Bank,10
+ATM_00139,Chhattisgarh,Bhilai,21.162937,81.413077,PNB,16
+ATM_00140,Chhattisgarh,Bhilai,21.271146,81.246518,Union Bank,16
+ATM_00141,Chhattisgarh,Bhilai,21.239657,81.397259,HDFC Bank,16
+ATM_00142,Chhattisgarh,Bilaspur,22.07976,82.207183,Axis Bank,10
+ATM_00143,Chhattisgarh,Raipur,21.207068,81.590862,Union Bank,8
+ATM_00144,Chhattisgarh,Bhilai,21.18854,81.305997,Bank of Baroda,16
+ATM_00145,Chhattisgarh,Raipur,21.191978,81.668061,PNB,8
+ATM_00146,Gujarat,Rajkot,22.331483,70.795856,Canara Bank,49
+ATM_00147,Gujarat,Surat,21.11494,72.789406,PNB,30
+ATM_00148,Gujarat,Ahmedabad,22.993225,72.54106,HDFC Bank,33
+ATM_00149,Gujarat,Surat,21.161832,72.79899,ICICI Bank,30
+ATM_00150,Gujarat,Ahmedabad,23.0205,72.629475,Kotak Mahindra Bank,33
+ATM_00151,Gujarat,Surat,21.195379,72.856578,IndusInd Bank,30
+ATM_00152,Gujarat,Rajkot,22.305096,70.827874,PNB,49
+ATM_00153,Gujarat,Vadodara,22.354219,73.184259,Bank of Baroda,43
+ATM_00154,Gujarat,Rajkot,22.268039,70.815789,PNB,49
+ATM_00155,Gujarat,Surat,21.21517,72.835484,HDFC Bank,30
+ATM_00156,Gujarat,Rajkot,22.333161,70.82891,IndusInd Bank,49
+ATM_00157,Gujarat,Rajkot,22.276911,70.875103,SBI,49
+ATM_00158,Gujarat,Ahmedabad,23.025221,72.58267,Bank of Baroda,33
+ATM_00159,Gujarat,Vadodara,22.289444,73.085386,HDFC Bank,43
+ATM_00160,Gujarat,Rajkot,22.306307,70.708402,PNB,49
+ATM_00161,Gujarat,Rajkot,22.17889,70.786561,Bank of Baroda,49
+ATM_00162,Gujarat,Vadodara,22.298068,73.198122,Kotak Mahindra Bank,43
+ATM_00163,Gujarat,Rajkot,22.314195,70.845736,Canara Bank,49
+ATM_00164,Gujarat,Ahmedabad,23.061944,72.583554,SBI,33
+ATM_00165,Gujarat,Rajkot,22.267995,70.821451,Canara Bank,49
+ATM_00166,Gujarat,Ahmedabad,23.063717,72.566488,Union Bank,33
+ATM_00167,Gujarat,Rajkot,22.28697,70.77938,HDFC Bank,49
+ATM_00168,Gujarat,Surat,21.153114,72.848063,Axis Bank,30
+ATM_00169,Gujarat,Ahmedabad,23.040718,72.499163,IndusInd Bank,33
+ATM_00170,Gujarat,Ahmedabad,23.077672,72.442383,IndusInd Bank,33
+ATM_00171,Gujarat,Vadodara,22.322338,73.139988,SBI,43
+ATM_00172,Gujarat,Surat,21.197319,72.822888,IndusInd Bank,30
+ATM_00173,Gujarat,Rajkot,22.277771,70.83346,SBI,49
+ATM_00174,Gujarat,Rajkot,22.233343,70.858942,Canara Bank,49
+ATM_00175,Gujarat,Rajkot,22.294125,70.792777,Axis Bank,49
+ATM_00176,Gujarat,Rajkot,22.33336,70.835747,ICICI Bank,49
+ATM_00177,Gujarat,Ahmedabad,23.002701,72.438397,PNB,33
+ATM_00178,Gujarat,Ahmedabad,23.016019,72.584452,ICICI Bank,33
+ATM_00179,Gujarat,Rajkot,22.299165,70.784414,Kotak Mahindra Bank,49
+ATM_00180,Gujarat,Surat,21.213533,72.798493,Canara Bank,30
+ATM_00181,Gujarat,Surat,21.105979,72.751557,Bank of Baroda,30
+ATM_00182,Gujarat,Vadodara,22.40152,73.115629,ICICI Bank,43
+ATM_00183,Gujarat,Vadodara,22.342192,73.144773,Union Bank,43
+ATM_00184,Gujarat,Surat,21.142186,72.782873,HDFC Bank,30
+ATM_00185,Gujarat,Ahmedabad,22.997017,72.543293,Bank of Baroda,33
+ATM_00186,Gujarat,Rajkot,22.393788,70.808156,Union Bank,49
+ATM_00187,Gujarat,Vadodara,22.275031,73.240241,Union Bank,43
+ATM_00188,Gujarat,Vadodara,22.211139,73.208978,SBI,43
+ATM_00189,Gujarat,Vadodara,22.340915,73.105269,ICICI Bank,43
+ATM_00190,Gujarat,Vadodara,22.368573,73.17055,ICICI Bank,43
+ATM_00191,Gujarat,Vadodara,22.281023,73.164754,SBI,43
+ATM_00192,Gujarat,Rajkot,22.286258,70.808497,ICICI Bank,49
+ATM_00193,Gujarat,Vadodara,22.340037,73.109781,ICICI Bank,43
+ATM_00194,Gujarat,Rajkot,22.305224,70.848495,ICICI Bank,49
+ATM_00195,Gujarat,Rajkot,22.298529,70.729259,SBI,49
+ATM_00196,Gujarat,Vadodara,22.299377,73.148369,Kotak Mahindra Bank,43
+ATM_00197,Gujarat,Rajkot,22.301428,70.853171,Union Bank,49
+ATM_00198,Gujarat,Ahmedabad,23.012704,72.554129,Union Bank,33
+ATM_00199,Gujarat,Vadodara,22.438341,73.101236,Bank of Baroda,43
+ATM_00200,Gujarat,Ahmedabad,23.031159,72.622342,ICICI Bank,33
+ATM_00201,Gujarat,Ahmedabad,23.029067,72.570633,Canara Bank,33
+ATM_00202,Gujarat,Ahmedabad,22.9563,72.594037,PNB,33
+ATM_00203,Gujarat,Vadodara,22.299161,73.149964,PNB,43
+ATM_00204,Gujarat,Rajkot,22.321381,70.723008,HDFC Bank,49
+ATM_00205,Gujarat,Vadodara,22.360813,73.14987,Bank of Baroda,43
+ATM_00206,Gujarat,Vadodara,22.313281,73.201451,IndusInd Bank,43
+ATM_00207,Gujarat,Rajkot,22.23637,70.756057,SBI,49
+ATM_00208,Gujarat,Rajkot,22.297537,70.841488,SBI,49
+ATM_00209,Gujarat,Vadodara,22.28624,73.288057,PNB,43
+ATM_00210,Gujarat,Surat,21.180857,72.916731,Union Bank,30
+ATM_00211,Gujarat,Ahmedabad,23.051345,72.566307,Axis Bank,33
+ATM_00212,Gujarat,Surat,21.217329,72.768204,ICICI Bank,30
+ATM_00213,Gujarat,Vadodara,22.310497,73.182889,PNB,43
+ATM_00214,Gujarat,Vadodara,22.245625,73.17267,Axis Bank,43
+ATM_00215,Gujarat,Vadodara,22.337405,73.146341,Axis Bank,43
+ATM_00216,Gujarat,Vadodara,22.277663,73.155746,IndusInd Bank,43
+ATM_00217,Gujarat,Rajkot,22.250971,70.767208,HDFC Bank,49
+ATM_00218,Gujarat,Rajkot,22.262601,70.928631,ICICI Bank,49
+ATM_00219,Gujarat,Vadodara,22.246594,73.19068,IndusInd Bank,43
+ATM_00220,Gujarat,Vadodara,22.338149,73.23578,IndusInd Bank,43
+ATM_00221,Gujarat,Vadodara,22.319523,73.167666,SBI,43
+ATM_00222,Gujarat,Rajkot,22.302113,70.82211,HDFC Bank,49
+ATM_00223,Gujarat,Rajkot,22.305686,70.845433,PNB,49
+ATM_00224,Gujarat,Vadodara,22.337096,73.223169,PNB,43
+ATM_00225,Gujarat,Surat,21.130616,72.861421,PNB,30
+ATM_00226,Gujarat,Vadodara,22.33324,73.185158,PNB,43
+ATM_00227,Gujarat,Vadodara,22.346753,73.113818,HDFC Bank,43
+ATM_00228,Gujarat,Rajkot,22.275031,70.812608,Axis Bank,49
+ATM_00229,Gujarat,Ahmedabad,23.040202,72.508537,Kotak Mahindra Bank,33
+ATM_00230,Gujarat,Ahmedabad,23.013094,72.601934,SBI,33
+ATM_00231,Gujarat,Ahmedabad,22.974599,72.489122,PNB,33
+ATM_00232,Gujarat,Ahmedabad,23.001944,72.575965,Axis Bank,33
+ATM_00233,Gujarat,Ahmedabad,23.068603,72.536157,Union Bank,33
+ATM_00234,Gujarat,Ahmedabad,23.002251,72.522992,Bank of Baroda,33
+ATM_00235,Gujarat,Vadodara,22.308657,73.18783,IndusInd Bank,43
+ATM_00236,Gujarat,Ahmedabad,23.076064,72.434257,Kotak Mahindra Bank,33
+ATM_00237,Gujarat,Vadodara,22.220732,73.232005,Union Bank,43
+ATM_00238,Gujarat,Rajkot,22.226538,70.784038,HDFC Bank,49
+ATM_00239,Gujarat,Ahmedabad,22.992023,72.535327,Kotak Mahindra Bank,33
+ATM_00240,Gujarat,Surat,21.136353,72.79019,SBI,30
+ATM_00241,Gujarat,Ahmedabad,23.032189,72.525296,Kotak Mahindra Bank,33
+ATM_00242,Gujarat,Vadodara,22.29501,73.170574,Bank of Baroda,43
+ATM_00243,Gujarat,Vadodara,22.296587,73.167399,Bank of Baroda,43
+ATM_00244,Gujarat,Surat,21.241079,72.85309,SBI,30
+ATM_00245,Gujarat,Ahmedabad,23.031427,72.536875,SBI,33
+ATM_00246,Gujarat,Rajkot,22.307854,70.81984,Canara Bank,49
+ATM_00247,Gujarat,Surat,21.18973,72.842433,Bank of Baroda,30
+ATM_00248,Gujarat,Vadodara,22.250296,73.261173,Axis Bank,43
+ATM_00249,Gujarat,Ahmedabad,23.048683,72.592847,SBI,33
+ATM_00250,Gujarat,Ahmedabad,23.047932,72.454315,Bank of Baroda,33
+ATM_00251,Gujarat,Ahmedabad,23.027619,72.604558,SBI,33
+ATM_00252,Gujarat,Surat,21.25644,72.796745,Axis Bank,30
+ATM_00253,Gujarat,Surat,21.204709,72.775988,Axis Bank,30
+ATM_00254,Gujarat,Rajkot,22.22244,70.775078,IndusInd Bank,49
+ATM_00255,Gujarat,Rajkot,22.296121,70.845605,PNB,49
+ATM_00256,Gujarat,Rajkot,22.29213,70.804742,ICICI Bank,49
+ATM_00257,Gujarat,Surat,21.187618,72.779185,SBI,30
+ATM_00258,Gujarat,Rajkot,22.324952,70.81098,Axis Bank,49
+ATM_00259,Gujarat,Rajkot,22.267696,70.720834,Axis Bank,49
+ATM_00260,Gujarat,Vadodara,22.284157,73.24424,Union Bank,43
+ATM_00261,Gujarat,Vadodara,22.316136,73.203222,Bank of Baroda,43
+ATM_00262,Gujarat,Rajkot,22.30589,70.765789,Axis Bank,49
+ATM_00263,Gujarat,Vadodara,22.355281,73.18561,Bank of Baroda,43
+ATM_00264,Gujarat,Rajkot,22.341984,70.816559,PNB,49
+ATM_00265,Gujarat,Surat,21.138958,72.788679,Union Bank,30
+ATM_00266,Gujarat,Surat,21.121799,72.841193,HDFC Bank,30
+ATM_00267,Gujarat,Surat,21.127722,72.889652,HDFC Bank,30
+ATM_00268,Gujarat,Vadodara,22.279472,73.142913,IndusInd Bank,43
+ATM_00269,Gujarat,Surat,21.193048,72.858235,Union Bank,30
+ATM_00270,Gujarat,Rajkot,22.30468,70.796719,Union Bank,49
+ATM_00271,Gujarat,Surat,21.171856,72.838885,Axis Bank,30
+ATM_00272,Gujarat,Vadodara,22.299241,73.185286,PNB,43
+ATM_00273,Gujarat,Surat,21.150661,72.866668,SBI,30
+ATM_00274,Gujarat,Vadodara,22.302787,73.151983,Union Bank,43
+ATM_00275,Gujarat,Vadodara,22.317743,73.187991,Kotak Mahindra Bank,43
+ATM_00276,Gujarat,Rajkot,22.375127,70.760643,Axis Bank,49
+ATM_00277,Gujarat,Ahmedabad,22.98623,72.508685,IndusInd Bank,33
+ATM_00278,Gujarat,Rajkot,22.356355,70.755554,SBI,49
+ATM_00279,Gujarat,Rajkot,22.315001,70.851006,PNB,49
+ATM_00280,Gujarat,Rajkot,22.339421,70.82958,Axis Bank,49
+ATM_00281,Gujarat,Surat,21.03233,72.773586,ICICI Bank,30
+ATM_00282,Gujarat,Surat,21.182663,72.851735,Kotak Mahindra Bank,30
+ATM_00283,Gujarat,Surat,21.221567,72.885222,HDFC Bank,30
+ATM_00284,Gujarat,Ahmedabad,23.008725,72.54934,SBI,33
+ATM_00285,Gujarat,Rajkot,22.315664,70.839388,IndusInd Bank,49
+ATM_00286,Gujarat,Rajkot,22.322124,70.902747,ICICI Bank,49
+ATM_00287,Gujarat,Rajkot,22.327152,70.702324,Axis Bank,49
+ATM_00288,Gujarat,Surat,21.168688,72.808981,HDFC Bank,30
+ATM_00289,Gujarat,Rajkot,22.295347,70.709736,PNB,49
+ATM_00290,Gujarat,Vadodara,22.340926,73.210519,HDFC Bank,43
+ATM_00291,Gujarat,Vadodara,22.32178,73.235617,PNB,43
+ATM_00292,Gujarat,Rajkot,22.370504,70.852573,Bank of Baroda,49
+ATM_00293,Gujarat,Rajkot,22.375581,70.786239,Union Bank,49
+ATM_00294,Gujarat,Ahmedabad,23.058065,72.502421,Kotak Mahindra Bank,33
+ATM_00295,Gujarat,Surat,21.168175,72.742862,Bank of Baroda,30
+ATM_00296,Gujarat,Ahmedabad,23.014252,72.542411,SBI,33
+ATM_00297,Gujarat,Rajkot,22.329819,70.763233,Canara Bank,49
+ATM_00298,Gujarat,Surat,21.241105,72.754475,SBI,30
+ATM_00299,Gujarat,Vadodara,22.202481,73.097446,Bank of Baroda,43
+ATM_00300,Gujarat,Ahmedabad,22.996542,72.570642,Axis Bank,33
+ATM_00301,Haryana,Hisar,29.106089,75.67746,Union Bank,31
+ATM_00302,Haryana,Hisar,29.182486,75.75857,PNB,31
+ATM_00303,Haryana,Panipat,29.372758,76.987851,ICICI Bank,25
+ATM_00304,Haryana,Hisar,29.062953,75.665026,HDFC Bank,31
+ATM_00305,Haryana,Faridabad,28.468413,77.347588,HDFC Bank,31
+ATM_00306,Haryana,Hisar,29.150842,75.630277,Kotak Mahindra Bank,31
+ATM_00307,Haryana,Gurugram,28.457888,77.022087,Union Bank,26
+ATM_00308,Haryana,Gurugram,28.459399,77.063289,PNB,26
+ATM_00309,Haryana,Gurugram,28.360836,77.001937,Canara Bank,26
+ATM_00310,Haryana,Hisar,29.190574,75.790177,Canara Bank,31
+ATM_00311,Haryana,Faridabad,28.44512,77.323368,Canara Bank,31
+ATM_00312,Haryana,Faridabad,28.489103,77.308179,Canara Bank,31
+ATM_00313,Haryana,Hisar,29.124811,75.773372,Axis Bank,31
+ATM_00314,Haryana,Hisar,29.11026,75.648713,ICICI Bank,31
+ATM_00315,Haryana,Panipat,29.38885,76.94158,Bank of Baroda,25
+ATM_00316,Haryana,Faridabad,28.389387,77.223974,Kotak Mahindra Bank,31
+ATM_00317,Haryana,Panipat,29.407053,76.965573,Kotak Mahindra Bank,25
+ATM_00318,Haryana,Panipat,29.309467,76.984621,PNB,25
+ATM_00319,Haryana,Panipat,29.354188,76.92013,PNB,25
+ATM_00320,Haryana,Hisar,29.16991,75.766446,PNB,31
+ATM_00321,Haryana,Gurugram,28.480642,77.058685,IndusInd Bank,26
+ATM_00322,Haryana,Panipat,29.36643,77.027009,HDFC Bank,25
+ATM_00323,Haryana,Faridabad,28.446123,77.257911,Kotak Mahindra Bank,31
+ATM_00324,Haryana,Faridabad,28.408559,77.359667,PNB,31
+ATM_00325,Haryana,Faridabad,28.384059,77.310819,HDFC Bank,31
+ATM_00326,Haryana,Gurugram,28.456994,77.02684,IndusInd Bank,26
+ATM_00327,Haryana,Hisar,29.175689,75.717744,Canara Bank,31
+ATM_00328,Haryana,Faridabad,28.422004,77.42547,HDFC Bank,31
+ATM_00329,Haryana,Panipat,29.402967,76.920726,IndusInd Bank,25
+ATM_00330,Haryana,Faridabad,28.389885,77.323146,Union Bank,31
+ATM_00331,Haryana,Gurugram,28.438603,77.048434,Axis Bank,26
+ATM_00332,Haryana,Faridabad,28.464379,77.307828,Kotak Mahindra Bank,31
+ATM_00333,Haryana,Hisar,29.207108,75.635761,SBI,31
+ATM_00334,Haryana,Panipat,29.413187,76.970053,Canara Bank,25
+ATM_00335,Haryana,Panipat,29.400389,76.95557,IndusInd Bank,25
+ATM_00336,Haryana,Gurugram,28.456135,76.975291,SBI,26
+ATM_00337,Haryana,Hisar,29.157107,75.779747,HDFC Bank,31
+ATM_00338,Haryana,Faridabad,28.491757,77.260901,Axis Bank,31
+ATM_00339,Haryana,Hisar,29.106701,75.711118,Axis Bank,31
+ATM_00340,Haryana,Faridabad,28.454778,77.370004,ICICI Bank,31
+ATM_00341,Haryana,Faridabad,28.336042,77.322924,SBI,31
+ATM_00342,Haryana,Panipat,29.359649,76.890737,SBI,25
+ATM_00343,Haryana,Gurugram,28.496657,77.061245,ICICI Bank,26
+ATM_00344,Haryana,Panipat,29.415916,76.942629,Axis Bank,25
+ATM_00345,Haryana,Hisar,29.166515,75.725951,ICICI Bank,31
+ATM_00346,Haryana,Panipat,29.355539,76.940267,Union Bank,25
+ATM_00347,Haryana,Panipat,29.379217,77.007141,HDFC Bank,25
+ATM_00348,Haryana,Hisar,29.161725,75.659778,Bank of Baroda,31
+ATM_00349,Haryana,Gurugram,28.393689,77.061694,HDFC Bank,26
+ATM_00350,Haryana,Faridabad,28.409313,77.312568,HDFC Bank,31
+ATM_00351,Haryana,Faridabad,28.452572,77.272994,IndusInd Bank,31
+ATM_00352,Haryana,Faridabad,28.401346,77.367123,Axis Bank,31
+ATM_00353,Haryana,Panipat,29.426279,77.007419,PNB,25
+ATM_00354,Haryana,Hisar,29.146454,75.727377,IndusInd Bank,31
+ATM_00355,Haryana,Faridabad,28.360027,77.261218,Axis Bank,31
+ATM_00356,Haryana,Panipat,29.342587,76.878223,Axis Bank,25
+ATM_00357,Haryana,Panipat,29.404651,77.003721,ICICI Bank,25
+ATM_00358,Haryana,Gurugram,28.441626,77.01164,HDFC Bank,26
+ATM_00359,Haryana,Hisar,29.193248,75.725238,HDFC Bank,31
+ATM_00360,Haryana,Faridabad,28.3905,77.319653,Bank of Baroda,31
+ATM_00361,Haryana,Gurugram,28.45945,76.926023,Union Bank,26
+ATM_00362,Haryana,Faridabad,28.37641,77.327893,SBI,31
+ATM_00363,Haryana,Hisar,29.088431,75.707676,PNB,31
+ATM_00364,Haryana,Faridabad,28.329387,77.381773,ICICI Bank,31
+ATM_00365,Haryana,Faridabad,28.402955,77.328022,ICICI Bank,31
+ATM_00366,Haryana,Panipat,29.377644,76.850276,Axis Bank,25
+ATM_00367,Haryana,Hisar,29.092091,75.720465,Kotak Mahindra Bank,31
+ATM_00368,Haryana,Gurugram,28.550913,77.025139,Union Bank,26
+ATM_00369,Haryana,Faridabad,28.373608,77.312173,Bank of Baroda,31
+ATM_00370,Haryana,Gurugram,28.400039,77.006482,Union Bank,26
+ATM_00371,Haryana,Gurugram,28.456843,77.13416,ICICI Bank,26
+ATM_00372,Haryana,Faridabad,28.465106,77.348746,SBI,31
+ATM_00373,Haryana,Gurugram,28.447332,77.059883,Canara Bank,26
+ATM_00374,Haryana,Hisar,29.120807,75.769274,ICICI Bank,31
+ATM_00375,Haryana,Panipat,29.366389,76.996608,ICICI Bank,25
+ATM_00376,Haryana,Panipat,29.406971,77.012621,Axis Bank,25
+ATM_00377,Haryana,Gurugram,28.454144,76.986559,Bank of Baroda,26
+ATM_00378,Haryana,Hisar,29.21326,75.766514,Axis Bank,31
+ATM_00379,Haryana,Gurugram,28.438147,76.996367,Bank of Baroda,26
+ATM_00380,Haryana,Gurugram,28.459686,77.038142,Union Bank,26
+ATM_00381,Haryana,Gurugram,28.494181,77.083643,Union Bank,26
+ATM_00382,Haryana,Faridabad,28.359004,77.328126,HDFC Bank,31
+ATM_00383,Haryana,Hisar,29.192823,75.777417,HDFC Bank,31
+ATM_00384,Haryana,Faridabad,28.379358,77.408396,IndusInd Bank,31
+ATM_00385,Haryana,Panipat,29.39291,76.997626,SBI,25
+ATM_00386,Haryana,Hisar,29.184279,75.734628,Union Bank,31
+ATM_00387,Haryana,Gurugram,28.467848,77.057544,Canara Bank,26
+ATM_00388,Haryana,Hisar,29.165837,75.751779,IndusInd Bank,31
+ATM_00389,Haryana,Panipat,29.438856,76.987685,Axis Bank,25
+ATM_00390,Haryana,Hisar,29.1313,75.738455,ICICI Bank,31
+ATM_00391,Haryana,Hisar,29.168032,75.715669,Canara Bank,31
+ATM_00392,Haryana,Panipat,29.388579,76.9881,HDFC Bank,25
+ATM_00393,Haryana,Panipat,29.349603,76.910023,IndusInd Bank,25
+ATM_00394,Haryana,Gurugram,28.498339,77.03457,IndusInd Bank,26
+ATM_00395,Haryana,Faridabad,28.439954,77.256243,PNB,31
+ATM_00396,Haryana,Faridabad,28.412781,77.264673,HDFC Bank,31
+ATM_00397,Haryana,Panipat,29.365085,77.015857,Union Bank,25
+ATM_00398,Haryana,Gurugram,28.50544,77.001924,ICICI Bank,26
+ATM_00399,Haryana,Faridabad,28.349638,77.372172,Axis Bank,31
+ATM_00400,Haryana,Hisar,29.160679,75.695061,Bank of Baroda,31
+ATM_00401,Haryana,Hisar,29.129001,75.789644,SBI,31
+ATM_00402,Haryana,Faridabad,28.449812,77.265978,ICICI Bank,31
+ATM_00403,Haryana,Hisar,29.111229,75.660956,Union Bank,31
+ATM_00404,Haryana,Gurugram,28.442833,77.04199,IndusInd Bank,26
+ATM_00405,Haryana,Hisar,29.164073,75.794236,ICICI Bank,31
+ATM_00406,Haryana,Hisar,29.197865,75.707019,Union Bank,31
+ATM_00407,Haryana,Gurugram,28.425016,77.008613,Bank of Baroda,26
+ATM_00408,Haryana,Faridabad,28.347751,77.366097,PNB,31
+ATM_00409,Haryana,Gurugram,28.433265,77.054517,Kotak Mahindra Bank,26
+ATM_00410,Haryana,Panipat,29.433174,77.00742,Bank of Baroda,25
+ATM_00411,Haryana,Hisar,29.126422,75.750843,PNB,31
+ATM_00412,Haryana,Gurugram,28.510587,77.061425,Union Bank,26
+ATM_00413,Haryana,Faridabad,28.435236,77.320686,PNB,31
+ATM_00414,Jharkhand,Dhanbad,23.798229,86.417738,Canara Bank,6
+ATM_00415,Jharkhand,Dhanbad,23.87164,86.465596,SBI,6
+ATM_00416,Jharkhand,Dhanbad,23.798622,86.449315,SBI,6
+ATM_00417,Jharkhand,Dhanbad,23.772101,86.384519,SBI,6
+ATM_00418,Jharkhand,Ranchi,23.286417,85.31095,SBI,6
+ATM_00419,Jharkhand,Ranchi,23.317825,85.309227,Canara Bank,6
+ATM_00420,Jharkhand,Ranchi,23.35872,85.394127,SBI,6
+ATM_00421,Jharkhand,Ranchi,23.321112,85.261283,Canara Bank,6
+ATM_00422,Jharkhand,Jamshedpur,22.79289,86.119279,PNB,2
+ATM_00423,Jharkhand,Ranchi,23.287957,85.341535,Kotak Mahindra Bank,6
+ATM_00424,Jharkhand,Dhanbad,23.70469,86.436223,Kotak Mahindra Bank,6
+ATM_00425,Jharkhand,Dhanbad,23.850978,86.43076,Bank of Baroda,6
+ATM_00426,Jharkhand,Jamshedpur,22.828229,86.287371,Canara Bank,2
+ATM_00427,Jharkhand,Ranchi,23.348608,85.296816,PNB,6
+ATM_00428,Karnataka,Hubballi,15.349899,75.10504,HDFC Bank,14
+ATM_00429,Karnataka,Hubballi,15.397155,75.189781,Union Bank,14
+ATM_00430,Karnataka,Mangaluru,12.850531,74.796824,Kotak Mahindra Bank,21
+ATM_00431,Karnataka,Mangaluru,12.956238,74.786462,Kotak Mahindra Bank,21
+ATM_00432,Karnataka,Mangaluru,12.904073,74.907208,Canara Bank,21
+ATM_00433,Karnataka,Hubballi,15.413362,75.156981,Kotak Mahindra Bank,14
+ATM_00434,Karnataka,Mysuru,12.306665,76.704237,Axis Bank,15
+ATM_00435,Karnataka,Hubballi,15.424196,75.152613,Bank of Baroda,14
+ATM_00436,Karnataka,Mangaluru,12.867452,74.878982,Kotak Mahindra Bank,21
+ATM_00437,Karnataka,Hubballi,15.361996,75.124566,ICICI Bank,14
+ATM_00438,Karnataka,Hubballi,15.435269,75.141313,HDFC Bank,14
+ATM_00439,Karnataka,Mangaluru,12.929937,74.877206,Axis Bank,21
+ATM_00440,Karnataka,Mangaluru,12.92994,74.849069,Canara Bank,21
+ATM_00441,Karnataka,Mangaluru,12.93968,74.822579,PNB,21
+ATM_00442,Karnataka,Hubballi,15.383139,75.150154,ICICI Bank,14
+ATM_00443,Karnataka,Mysuru,12.371247,76.671681,ICICI Bank,15
+ATM_00444,Karnataka,Mangaluru,12.910841,74.828623,HDFC Bank,21
+ATM_00445,Karnataka,Mysuru,12.388255,76.64293,Bank of Baroda,15
+ATM_00446,Karnataka,Bengaluru Urban,12.946985,77.592368,Axis Bank,13
+ATM_00447,Karnataka,Bengaluru Urban,12.945899,77.514728,HDFC Bank,13
+ATM_00448,Karnataka,Mysuru,12.332075,76.56525,Axis Bank,15
+ATM_00449,Karnataka,Mangaluru,12.893245,74.772627,SBI,21
+ATM_00450,Karnataka,Mysuru,12.267559,76.599646,Canara Bank,15
+ATM_00451,Karnataka,Belagavi,15.878086,74.530409,Kotak Mahindra Bank,11
+ATM_00452,Karnataka,Bengaluru Urban,13.031737,77.60528,Bank of Baroda,13
+ATM_00453,Karnataka,Mysuru,12.229321,76.703439,IndusInd Bank,15
+ATM_00454,Karnataka,Hubballi,15.397059,75.152048,Bank of Baroda,14
+ATM_00455,Karnataka,Belagavi,15.86781,74.478374,Kotak Mahindra Bank,11
+ATM_00456,Karnataka,Mysuru,12.301959,76.661355,Axis Bank,15
+ATM_00457,Karnataka,Mysuru,12.323288,76.608488,ICICI Bank,15
+ATM_00458,Karnataka,Mysuru,12.30785,76.584828,IndusInd Bank,15
+ATM_00459,Karnataka,Bengaluru Urban,12.912097,77.652326,IndusInd Bank,13
+ATM_00460,Karnataka,Mangaluru,12.873981,74.822654,HDFC Bank,21
+ATM_00461,Karnataka,Bengaluru Urban,12.959079,77.61577,Canara Bank,13
+ATM_00462,Karnataka,Mangaluru,12.934122,74.876488,HDFC Bank,21
+ATM_00463,Karnataka,Belagavi,15.912115,74.507981,HDFC Bank,11
+ATM_00464,Karnataka,Belagavi,15.832834,74.500895,Kotak Mahindra Bank,11
+ATM_00465,Karnataka,Bengaluru Urban,12.937507,77.517722,Axis Bank,13
+ATM_00466,Karnataka,Bengaluru Urban,13.030071,77.581909,Bank of Baroda,13
+ATM_00467,Karnataka,Bengaluru Urban,12.965083,77.537367,Canara Bank,13
+ATM_00468,Karnataka,Belagavi,15.846773,74.550339,Axis Bank,11
+ATM_00469,Karnataka,Bengaluru Urban,12.990516,77.619174,Bank of Baroda,13
+ATM_00470,Karnataka,Bengaluru Urban,12.98848,77.511241,Canara Bank,13
+ATM_00471,Karnataka,Mysuru,12.375955,76.617221,SBI,15
+ATM_00472,Karnataka,Mysuru,12.323704,76.564718,IndusInd Bank,15
+ATM_00473,Karnataka,Mangaluru,12.92765,74.900231,PNB,21
+ATM_00474,Karnataka,Mangaluru,12.900381,74.832292,HDFC Bank,21
+ATM_00475,Karnataka,Hubballi,15.351186,75.167146,Kotak Mahindra Bank,14
+ATM_00476,Karnataka,Belagavi,15.860095,74.508288,PNB,11
+ATM_00477,Karnataka,Mysuru,12.308481,76.665417,PNB,15
+ATM_00478,Karnataka,Hubballi,15.447971,75.12787,SBI,14
+ATM_00479,Karnataka,Belagavi,15.816309,74.436779,HDFC Bank,11
+ATM_00480,Karnataka,Belagavi,15.867467,74.44304,ICICI Bank,11
+ATM_00481,Karnataka,Bengaluru Urban,12.996929,77.595389,Axis Bank,13
+ATM_00482,Karnataka,Hubballi,15.314157,75.13838,HDFC Bank,14
+ATM_00483,Karnataka,Hubballi,15.330696,75.126526,ICICI Bank,14
+ATM_00484,Karnataka,Mysuru,12.190511,76.591864,ICICI Bank,15
+ATM_00485,Karnataka,Mysuru,12.22298,76.749484,SBI,15
+ATM_00486,Karnataka,Mangaluru,12.892691,74.796581,ICICI Bank,21
+ATM_00487,Karnataka,Belagavi,15.864239,74.483474,HDFC Bank,11
+ATM_00488,Karnataka,Mysuru,12.23126,76.605401,Union Bank,15
+ATM_00489,Karnataka,Hubballi,15.418688,75.145138,Canara Bank,14
+ATM_00490,Karnataka,Bengaluru Urban,13.003236,77.650267,Axis Bank,13
+ATM_00491,Karnataka,Hubballi,15.471974,75.121021,IndusInd Bank,14
+ATM_00492,Karnataka,Bengaluru Urban,12.934301,77.653529,PNB,13
+ATM_00493,Karnataka,Mangaluru,12.867101,74.828188,IndusInd Bank,21
+ATM_00494,Karnataka,Belagavi,15.863025,74.511772,IndusInd Bank,11
+ATM_00495,Karnataka,Mangaluru,12.852551,74.819734,Canara Bank,21
+ATM_00496,Karnataka,Mangaluru,12.867565,74.842279,PNB,21
+ATM_00497,Karnataka,Mangaluru,12.857701,74.867394,Kotak Mahindra Bank,21
+ATM_00498,Karnataka,Mangaluru,12.935236,74.818289,ICICI Bank,21
+ATM_00499,Karnataka,Mangaluru,12.909013,74.923892,IndusInd Bank,21
+ATM_00500,Karnataka,Belagavi,15.780288,74.457767,PNB,11
+ATM_00501,Karnataka,Mangaluru,12.893326,74.882427,IndusInd Bank,21
+ATM_00502,Kerala,Thiruvananthapuram,8.516281,76.940748,Bank of Baroda,8
+ATM_00503,Kerala,Kochi,9.905721,76.259334,Axis Bank,9
+ATM_00504,Kerala,Kozhikode,11.275708,75.819362,Bank of Baroda,14
+ATM_00505,Kerala,Kozhikode,11.230522,75.788564,Bank of Baroda,14
+ATM_00506,Kerala,Kozhikode,11.251721,75.773187,SBI,14
+ATM_00507,Kerala,Kozhikode,11.235851,75.830245,Union Bank,14
+ATM_00508,Kerala,Kozhikode,11.181569,75.760541,Canara Bank,14
+ATM_00509,Kerala,Thiruvananthapuram,8.444692,76.961366,SBI,8
+ATM_00510,Kerala,Kozhikode,11.342069,75.764574,HDFC Bank,14
+ATM_00511,Kerala,Thiruvananthapuram,8.549233,76.907675,HDFC Bank,8
+ATM_00512,Kerala,Kochi,9.898189,76.238248,PNB,9
+ATM_00513,Kerala,Kozhikode,11.245106,75.770776,Axis Bank,14
+ATM_00514,Kerala,Kozhikode,11.23139,75.842629,IndusInd Bank,14
+ATM_00515,Kerala,Kochi,9.944031,76.250172,PNB,9
+ATM_00516,Kerala,Kochi,9.913384,76.332753,Kotak Mahindra Bank,9
+ATM_00517,Kerala,Thiruvananthapuram,8.571459,76.957121,Kotak Mahindra Bank,8
+ATM_00518,Kerala,Kochi,9.880008,76.221208,ICICI Bank,9
+ATM_00519,Kerala,Kochi,9.891478,76.233721,IndusInd Bank,9
+ATM_00520,Kerala,Kozhikode,11.313003,75.783965,ICICI Bank,14
+ATM_00521,Kerala,Kozhikode,11.226059,75.875875,IndusInd Bank,14
+ATM_00522,Kerala,Kochi,9.943948,76.193527,Kotak Mahindra Bank,9
+ATM_00523,Kerala,Thiruvananthapuram,8.58663,76.925021,IndusInd Bank,8
+ATM_00524,Kerala,Thiruvananthapuram,8.549024,76.930612,PNB,8
+ATM_00525,Kerala,Kozhikode,11.331834,75.804813,Axis Bank,14
+ATM_00526,Kerala,Thiruvananthapuram,8.494023,76.977321,Union Bank,8
+ATM_00527,Kerala,Kozhikode,11.267996,75.790575,SBI,14
+ATM_00528,Kerala,Kochi,9.941196,76.266087,IndusInd Bank,9
+ATM_00529,Kerala,Kochi,9.952907,76.184657,SBI,9
+ATM_00530,Kerala,Kozhikode,11.271932,75.830759,PNB,14
+ATM_00531,Kerala,Thiruvananthapuram,8.576209,76.928315,ICICI Bank,8
+ATM_00532,Kerala,Kozhikode,11.293278,75.769623,Kotak Mahindra Bank,14
+ATM_00533,Madhya Pradesh,Gwalior,26.199835,78.258954,Axis Bank,16
+ATM_00534,Madhya Pradesh,Bhopal,23.220944,77.47026,Axis Bank,12
+ATM_00535,Madhya Pradesh,Gwalior,26.198348,78.232126,SBI,16
+ATM_00536,Madhya Pradesh,Indore,22.734731,75.750688,Axis Bank,11
+ATM_00537,Madhya Pradesh,Indore,22.717232,75.885287,SBI,11
+ATM_00538,Madhya Pradesh,Gwalior,26.223541,78.140805,HDFC Bank,16
+ATM_00539,Madhya Pradesh,Gwalior,26.164665,78.251585,PNB,16
+ATM_00540,Madhya Pradesh,Bhopal,23.248656,77.320863,Kotak Mahindra Bank,12
+ATM_00541,Madhya Pradesh,Bhopal,23.158417,77.430921,Kotak Mahindra Bank,12
+ATM_00542,Madhya Pradesh,Indore,22.685819,75.895677,SBI,11
+ATM_00543,Madhya Pradesh,Gwalior,26.191463,78.084412,HDFC Bank,16
+ATM_00544,Madhya Pradesh,Jabalpur,23.154955,79.935266,Bank of Baroda,11
+ATM_00545,Madhya Pradesh,Jabalpur,23.121903,80.073914,Union Bank,11
+ATM_00546,Madhya Pradesh,Jabalpur,23.208995,79.913095,PNB,11
+ATM_00547,Madhya Pradesh,Bhopal,23.271163,77.415569,Kotak Mahindra Bank,12
+ATM_00548,Madhya Pradesh,Jabalpur,23.251119,79.982695,Bank of Baroda,11
+ATM_00549,Madhya Pradesh,Gwalior,26.212218,78.216389,HDFC Bank,16
+ATM_00550,Madhya Pradesh,Jabalpur,23.242618,80.038435,Union Bank,11
+ATM_00551,Madhya Pradesh,Gwalior,26.155727,78.174307,Union Bank,16
+ATM_00552,Madhya Pradesh,Gwalior,26.304158,78.220954,HDFC Bank,16
+ATM_00553,Madhya Pradesh,Gwalior,26.216628,78.136888,IndusInd Bank,16
+ATM_00554,Madhya Pradesh,Indore,22.685011,75.84659,ICICI Bank,11
+ATM_00555,Madhya Pradesh,Bhopal,23.233991,77.422145,ICICI Bank,12
+ATM_00556,Madhya Pradesh,Gwalior,26.217759,78.168628,Axis Bank,16
+ATM_00557,Madhya Pradesh,Jabalpur,23.150974,80.009467,Bank of Baroda,11
+ATM_00558,Madhya Pradesh,Bhopal,23.279297,77.422922,PNB,12
+ATM_00559,Madhya Pradesh,Indore,22.79878,75.817043,ICICI Bank,11
+ATM_00560,Madhya Pradesh,Gwalior,26.229119,78.16029,IndusInd Bank,16
+ATM_00561,Madhya Pradesh,Bhopal,23.29363,77.367238,Kotak Mahindra Bank,12
+ATM_00562,Madhya Pradesh,Gwalior,26.222408,78.225758,Bank of Baroda,16
+ATM_00563,Madhya Pradesh,Indore,22.672069,75.872026,Kotak Mahindra Bank,11
+ATM_00564,Madhya Pradesh,Gwalior,26.186613,78.247216,Canara Bank,16
+ATM_00565,Madhya Pradesh,Bhopal,23.218745,77.426132,Bank of Baroda,12
+ATM_00566,Madhya Pradesh,Bhopal,23.285312,77.413554,Kotak Mahindra Bank,12
+ATM_00567,Madhya Pradesh,Indore,22.68862,75.873826,HDFC Bank,11
+ATM_00568,Madhya Pradesh,Jabalpur,23.210487,79.953367,Axis Bank,11
+ATM_00569,Madhya Pradesh,Indore,22.748497,75.877767,HDFC Bank,11
+ATM_00570,Madhya Pradesh,Jabalpur,23.141089,79.876675,Union Bank,11
+ATM_00571,Madhya Pradesh,Bhopal,23.246615,77.433643,Bank of Baroda,12
+ATM_00572,Madhya Pradesh,Jabalpur,23.192303,79.973228,SBI,11
+ATM_00573,Madhya Pradesh,Jabalpur,23.214917,79.988386,Axis Bank,11
+ATM_00574,Madhya Pradesh,Jabalpur,23.130192,79.966955,SBI,11
+ATM_00575,Madhya Pradesh,Bhopal,23.133344,77.367477,Axis Bank,12
+ATM_00576,Madhya Pradesh,Gwalior,26.301078,78.200285,ICICI Bank,16
+ATM_00577,Madhya Pradesh,Indore,22.67926,75.804699,Kotak Mahindra Bank,11
+ATM_00578,Madhya Pradesh,Indore,22.787979,75.830091,Bank of Baroda,11
+ATM_00579,Madhya Pradesh,Bhopal,23.267551,77.401969,Bank of Baroda,12
+ATM_00580,Madhya Pradesh,Gwalior,26.179258,78.185972,SBI,16
+ATM_00581,Madhya Pradesh,Gwalior,26.331732,78.222656,Axis Bank,16
+ATM_00582,Madhya Pradesh,Indore,22.699524,75.88282,HDFC Bank,11
+ATM_00583,Maharashtra,Aurangabad,19.826907,75.415935,HDFC Bank,30
+ATM_00584,Maharashtra,Nagpur,21.078281,79.079425,Kotak Mahindra Bank,25
+ATM_00585,Maharashtra,Aurangabad,19.892445,75.375529,PNB,30
+ATM_00586,Maharashtra,Nagpur,21.157876,79.12084,Union Bank,25
+ATM_00587,Maharashtra,Aurangabad,19.85096,75.393224,Union Bank,30
+ATM_00588,Maharashtra,Aurangabad,19.883166,75.219747,SBI,30
+ATM_00589,Maharashtra,Pune,18.472806,73.871318,Axis Bank,28
+ATM_00590,Maharashtra,Mumbai,19.075834,72.842549,Kotak Mahindra Bank,23
+ATM_00591,Maharashtra,Thane,19.214773,72.96964,PNB,27
+ATM_00592,Maharashtra,Pune,18.531665,73.879437,Bank of Baroda,28
+ATM_00593,Maharashtra,Thane,19.193715,72.986163,ICICI Bank,27
+ATM_00594,Maharashtra,Thane,19.265989,72.910685,Kotak Mahindra Bank,27
+ATM_00595,Maharashtra,Nagpur,21.135134,79.120375,Bank of Baroda,25
+ATM_00596,Maharashtra,Thane,19.180041,72.992192,Bank of Baroda,27
+ATM_00597,Maharashtra,Pune,18.442746,73.716728,Canara Bank,28
+ATM_00598,Maharashtra,Nagpur,21.166103,79.068064,Union Bank,25
+ATM_00599,Maharashtra,Pune,18.460622,73.945664,Axis Bank,28
+ATM_00600,Maharashtra,Pune,18.518611,73.864567,ICICI Bank,28
+ATM_00601,Maharashtra,Nagpur,21.115546,79.154338,SBI,25
+ATM_00602,Maharashtra,Nashik,19.912457,73.730595,Canara Bank,33
+ATM_00603,Maharashtra,Nashik,19.951691,73.843819,ICICI Bank,33
+ATM_00604,Maharashtra,Nagpur,21.184868,79.128807,SBI,25
+ATM_00605,Maharashtra,Thane,19.13901,72.96754,Kotak Mahindra Bank,27
+ATM_00606,Maharashtra,Thane,19.245088,73.008083,ICICI Bank,27
+ATM_00607,Maharashtra,Pune,18.524706,73.803261,HDFC Bank,28
+ATM_00608,Maharashtra,Aurangabad,19.902228,75.366835,Bank of Baroda,30
+ATM_00609,Maharashtra,Nashik,19.981805,73.799973,Bank of Baroda,33
+ATM_00610,Maharashtra,Aurangabad,19.838688,75.304832,Union Bank,30
+ATM_00611,Maharashtra,Nagpur,21.148977,79.08936,Kotak Mahindra Bank,25
+ATM_00612,Maharashtra,Nashik,19.993232,73.754907,SBI,33
+ATM_00613,Maharashtra,Thane,19.21599,72.990754,HDFC Bank,27
+ATM_00614,Maharashtra,Mumbai,19.126515,72.931519,IndusInd Bank,23
+ATM_00615,Maharashtra,Thane,19.242434,72.960737,HDFC Bank,27
+ATM_00616,Maharashtra,Thane,19.194827,72.966201,HDFC Bank,27
+ATM_00617,Maharashtra,Pune,18.558389,73.907549,PNB,28
+ATM_00618,Maharashtra,Nagpur,21.050175,79.1156,HDFC Bank,25
+ATM_00619,Maharashtra,Mumbai,19.081663,72.859274,Bank of Baroda,23
+ATM_00620,Maharashtra,Nagpur,21.022553,79.068114,Axis Bank,25
+ATM_00621,Maharashtra,Thane,19.227112,72.901081,ICICI Bank,27
+ATM_00622,Maharashtra,Thane,19.255526,72.907883,Kotak Mahindra Bank,27
+ATM_00623,Maharashtra,Thane,19.253431,72.980338,Union Bank,27
+ATM_00624,Maharashtra,Nashik,19.925921,73.715481,SBI,33
+ATM_00625,Maharashtra,Pune,18.595749,73.872521,Bank of Baroda,28
+ATM_00626,Maharashtra,Nashik,20.046709,73.771772,Axis Bank,33
+ATM_00627,Maharashtra,Mumbai,18.991116,72.929984,Canara Bank,23
+ATM_00628,Maharashtra,Pune,18.485698,73.782387,Bank of Baroda,28
+ATM_00629,Maharashtra,Nashik,20.059257,73.830471,Axis Bank,33
+ATM_00630,Maharashtra,Aurangabad,19.843318,75.344703,SBI,30
+ATM_00631,Maharashtra,Pune,18.556481,73.812763,Canara Bank,28
+ATM_00632,Maharashtra,Pune,18.575298,73.835183,Canara Bank,28
+ATM_00633,Maharashtra,Pune,18.523548,73.894853,PNB,28
+ATM_00634,Maharashtra,Nagpur,21.204513,79.044287,IndusInd Bank,25
+ATM_00635,Maharashtra,Nashik,19.997447,73.812716,Bank of Baroda,33
+ATM_00636,Maharashtra,Nagpur,21.218079,79.135106,HDFC Bank,25
+ATM_00637,Maharashtra,Mumbai,19.103396,72.86924,IndusInd Bank,23
+ATM_00638,Maharashtra,Nashik,19.988507,73.757949,PNB,33
+ATM_00639,Maharashtra,Nagpur,21.212478,79.109793,ICICI Bank,25
+ATM_00640,Maharashtra,Nashik,19.93598,73.765521,Kotak Mahindra Bank,33
+ATM_00641,Maharashtra,Aurangabad,19.747067,75.321488,Kotak Mahindra Bank,30
+ATM_00642,Maharashtra,Nashik,19.938819,73.863025,Kotak Mahindra Bank,33
+ATM_00643,Maharashtra,Nashik,20.019772,73.761715,Union Bank,33
+ATM_00644,Maharashtra,Nashik,19.966062,73.704777,PNB,33
+ATM_00645,Maharashtra,Aurangabad,19.833158,75.435989,PNB,30
+ATM_00646,Maharashtra,Nashik,19.993907,73.787086,Axis Bank,33
+ATM_00647,Maharashtra,Aurangabad,19.881158,75.296284,Axis Bank,30
+ATM_00648,Maharashtra,Nagpur,21.149008,79.035471,SBI,25
+ATM_00649,Maharashtra,Thane,19.143997,72.967527,Bank of Baroda,27
+ATM_00650,Maharashtra,Pune,18.495676,73.837034,Canara Bank,28
+ATM_00651,Maharashtra,Aurangabad,19.917854,75.254322,ICICI Bank,30
+ATM_00652,Maharashtra,Nashik,20.014021,73.775771,Canara Bank,33
+ATM_00653,Maharashtra,Nagpur,21.106084,79.103313,Canara Bank,25
+ATM_00654,Maharashtra,Mumbai,19.123473,72.884024,Kotak Mahindra Bank,23
+ATM_00655,Maharashtra,Thane,19.295229,73.044625,Union Bank,27
+ATM_00656,Maharashtra,Mumbai,19.099544,72.918352,Union Bank,23
+ATM_00657,Maharashtra,Mumbai,19.109329,72.843809,Bank of Baroda,23
+ATM_00658,Maharashtra,Pune,18.525949,73.835511,ICICI Bank,28
+ATM_00659,Maharashtra,Nashik,20.010929,73.80687,Kotak Mahindra Bank,33
+ATM_00660,Maharashtra,Mumbai,19.091252,72.986936,IndusInd Bank,23
+ATM_00661,Maharashtra,Mumbai,19.041513,72.841272,Canara Bank,23
+ATM_00662,Maharashtra,Pune,18.581195,73.888788,Bank of Baroda,28
+ATM_00663,Maharashtra,Nagpur,21.179957,79.148044,Kotak Mahindra Bank,25
+ATM_00664,Maharashtra,Nashik,19.998476,73.863053,Bank of Baroda,33
+ATM_00665,Maharashtra,Mumbai,19.089668,72.953641,Canara Bank,23
+ATM_00666,Maharashtra,Pune,18.528863,73.865721,Kotak Mahindra Bank,28
+ATM_00667,Maharashtra,Thane,19.240989,72.976758,ICICI Bank,27
+ATM_00668,Maharashtra,Nagpur,21.05868,79.085609,Axis Bank,25
+ATM_00669,Maharashtra,Nashik,20.010627,73.879564,Axis Bank,33
+ATM_00670,Maharashtra,Pune,18.517447,73.828618,SBI,28
+ATM_00671,Maharashtra,Aurangabad,19.931332,75.313278,Union Bank,30
+ATM_00672,Maharashtra,Nashik,19.955623,73.777762,HDFC Bank,33
+ATM_00673,Maharashtra,Mumbai,19.103934,72.897385,ICICI Bank,23
+ATM_00674,Maharashtra,Nagpur,21.146023,79.098832,Kotak Mahindra Bank,25
+ATM_00675,Maharashtra,Mumbai,19.133923,72.853624,PNB,23
+ATM_00676,Maharashtra,Aurangabad,19.821715,75.385733,ICICI Bank,30
+ATM_00677,Maharashtra,Nagpur,21.150251,79.133488,Canara Bank,25
+ATM_00678,Maharashtra,Nashik,19.967141,73.763283,Canara Bank,33
+ATM_00679,Maharashtra,Aurangabad,19.873817,75.395578,Axis Bank,30
+ATM_00680,Maharashtra,Nashik,19.958334,73.868899,Axis Bank,33
+ATM_00681,Maharashtra,Nagpur,21.186265,79.113315,Bank of Baroda,25
+ATM_00682,Maharashtra,Pune,18.586856,73.87343,PNB,28
+ATM_00683,Maharashtra,Mumbai,19.028246,72.838027,SBI,23
+ATM_00684,Maharashtra,Nagpur,21.209562,79.124537,Canara Bank,25
+ATM_00685,Maharashtra,Nashik,19.891545,73.780466,Canara Bank,33
+ATM_00686,Maharashtra,Pune,18.485815,73.834514,Bank of Baroda,28
+ATM_00687,Maharashtra,Nagpur,21.09066,79.0959,SBI,25
+ATM_00688,Maharashtra,Aurangabad,19.858052,75.346674,Bank of Baroda,30
+ATM_00689,Maharashtra,Thane,19.256499,72.970883,IndusInd Bank,27
+ATM_00690,Maharashtra,Mumbai,19.103456,72.875745,ICICI Bank,23
+ATM_00691,Maharashtra,Thane,19.163751,72.984066,Axis Bank,27
+ATM_00692,Maharashtra,Aurangabad,19.92063,75.358487,Kotak Mahindra Bank,30
+ATM_00693,Maharashtra,Aurangabad,19.883587,75.354383,Union Bank,30
+ATM_00694,Maharashtra,Nashik,19.93792,73.755006,IndusInd Bank,33
+ATM_00695,Maharashtra,Mumbai,19.060538,72.807328,Bank of Baroda,23
+ATM_00696,Maharashtra,Aurangabad,19.922389,75.360737,Canara Bank,30
+ATM_00697,Maharashtra,Pune,18.555641,73.848267,SBI,28
+ATM_00698,Maharashtra,Pune,18.534813,73.84823,ICICI Bank,28
+ATM_00699,Maharashtra,Aurangabad,19.893231,75.339342,Canara Bank,30
+ATM_00700,Maharashtra,Nashik,19.966353,73.759062,SBI,33
+ATM_00701,Maharashtra,Pune,18.541671,73.970775,Union Bank,28
+ATM_00702,Maharashtra,Pune,18.32289,73.887031,IndusInd Bank,28
+ATM_00703,Maharashtra,Mumbai,18.970251,72.897776,Kotak Mahindra Bank,23
+ATM_00704,Maharashtra,Aurangabad,19.954939,75.394131,SBI,30
+ATM_00705,Maharashtra,Aurangabad,19.811839,75.378271,Kotak Mahindra Bank,30
+ATM_00706,Maharashtra,Mumbai,19.083594,72.894749,Canara Bank,23
+ATM_00707,Maharashtra,Thane,19.209922,72.948996,PNB,27
+ATM_00708,Maharashtra,Thane,19.195435,72.904039,SBI,27
+ATM_00709,Maharashtra,Pune,18.48102,73.811984,Bank of Baroda,28
+ATM_00710,Maharashtra,Thane,19.202473,72.965994,ICICI Bank,27
+ATM_00711,Maharashtra,Pune,18.437285,73.844163,SBI,28
+ATM_00712,Maharashtra,Nashik,20.016882,73.797303,PNB,33
+ATM_00713,Maharashtra,Aurangabad,19.865338,75.342944,Kotak Mahindra Bank,30
+ATM_00714,Maharashtra,Aurangabad,20.019294,75.350111,ICICI Bank,30
+ATM_00715,Maharashtra,Nagpur,21.147254,79.149884,Union Bank,25
+ATM_00716,Maharashtra,Mumbai,19.127054,72.912156,Bank of Baroda,23
+ATM_00717,Maharashtra,Thane,19.150752,72.94498,IndusInd Bank,27
+ATM_00718,Maharashtra,Aurangabad,19.886936,75.305148,PNB,30
+ATM_00719,Maharashtra,Aurangabad,19.962932,75.327666,SBI,30
+ATM_00720,Maharashtra,Mumbai,19.102331,72.875254,Canara Bank,23
+ATM_00721,Maharashtra,Nashik,19.970536,73.777276,PNB,33
+ATM_00722,Maharashtra,Thane,19.177256,72.945341,Axis Bank,27
+ATM_00723,Maharashtra,Nashik,20.015141,73.89207,ICICI Bank,33
+ATM_00724,Maharashtra,Pune,18.570703,73.842709,Canara Bank,28
+ATM_00725,Maharashtra,Nashik,20.018492,73.815558,Axis Bank,33
+ATM_00726,Maharashtra,Thane,19.233676,72.96088,PNB,27
+ATM_00727,Maharashtra,Aurangabad,19.989976,75.325696,Canara Bank,30
+ATM_00728,Maharashtra,Thane,19.12926,73.019787,PNB,27
+ATM_00729,Maharashtra,Aurangabad,19.897788,75.408058,PNB,30
+ATM_00730,Maharashtra,Nashik,20.045785,73.818985,IndusInd Bank,33
+ATM_00731,Maharashtra,Thane,19.277486,73.032063,PNB,27
+ATM_00732,Maharashtra,Nashik,19.923292,73.776864,SBI,33
+ATM_00733,Maharashtra,Aurangabad,19.877212,75.285727,SBI,30
+ATM_00734,Maharashtra,Nagpur,21.129501,79.085906,IndusInd Bank,25
+ATM_00735,Maharashtra,Nashik,19.986934,73.827092,IndusInd Bank,33
+ATM_00736,Maharashtra,Thane,19.238754,72.980413,Bank of Baroda,27
+ATM_00737,Maharashtra,Nagpur,21.106858,79.120448,PNB,25
+ATM_00738,Maharashtra,Nashik,20.011628,73.792422,PNB,33
+ATM_00739,Maharashtra,Aurangabad,19.822003,75.286624,Kotak Mahindra Bank,30
+ATM_00740,Maharashtra,Mumbai,19.044856,72.866714,HDFC Bank,23
+ATM_00741,Maharashtra,Pune,18.547898,73.773916,SBI,28
+ATM_00742,Maharashtra,Mumbai,19.036014,72.924901,Union Bank,23
+ATM_00743,Maharashtra,Nashik,20.032624,73.724624,PNB,33
+ATM_00744,Maharashtra,Mumbai,19.130961,72.841783,Axis Bank,23
+ATM_00745,Maharashtra,Nagpur,21.143525,79.146907,Axis Bank,25
+ATM_00746,Maharashtra,Aurangabad,19.943629,75.334003,SBI,30
+ATM_00747,Maharashtra,Pune,18.498088,73.761126,ICICI Bank,28
+ATM_00748,Maharashtra,Thane,19.290905,72.987242,HDFC Bank,27
+ATM_00749,Odisha,Rourkela,22.284936,84.808443,Union Bank,9
+ATM_00750,Odisha,Cuttack,20.464614,85.843757,SBI,11
+ATM_00751,Odisha,Rourkela,22.183536,84.846998,Canara Bank,9
+ATM_00752,Odisha,Rourkela,22.161298,84.869201,Bank of Baroda,9
+ATM_00753,Odisha,Cuttack,20.486971,85.846474,Kotak Mahindra Bank,11
+ATM_00754,Odisha,Bhubaneswar,20.293411,85.863957,Kotak Mahindra Bank,5
+ATM_00755,Odisha,Rourkela,22.349921,84.849263,Bank of Baroda,9
+ATM_00756,Odisha,Rourkela,22.221226,84.860596,SBI,9
+ATM_00757,Odisha,Cuttack,20.41915,85.834025,HDFC Bank,11
+ATM_00758,Odisha,Rourkela,22.220158,84.945932,Bank of Baroda,9
+ATM_00759,Odisha,Cuttack,20.400737,85.917781,Axis Bank,11
+ATM_00760,Odisha,Cuttack,20.439152,85.9037,SBI,11
+ATM_00761,Odisha,Bhubaneswar,20.264217,85.799303,Kotak Mahindra Bank,5
+ATM_00762,Odisha,Rourkela,22.227952,84.841287,Bank of Baroda,9
+ATM_00763,Odisha,Bhubaneswar,20.245333,85.802758,SBI,5
+ATM_00764,Odisha,Bhubaneswar,20.230773,85.859678,SBI,5
+ATM_00765,Odisha,Cuttack,20.39634,85.915923,SBI,11
+ATM_00766,Odisha,Rourkela,22.276392,84.94189,IndusInd Bank,9
+ATM_00767,Odisha,Cuttack,20.520419,85.853927,IndusInd Bank,11
+ATM_00768,Odisha,Bhubaneswar,20.28015,85.777954,Union Bank,5
+ATM_00769,Odisha,Cuttack,20.487113,85.912942,Union Bank,11
+ATM_00770,Odisha,Cuttack,20.408432,85.9598,HDFC Bank,11
+ATM_00771,Odisha,Rourkela,22.298455,84.766241,Axis Bank,9
+ATM_00772,Odisha,Cuttack,20.452144,85.875078,Bank of Baroda,11
+ATM_00773,Odisha,Cuttack,20.456249,85.920978,IndusInd Bank,11
+ATM_00774,Punjab,Ludhiana,30.892308,75.854465,Canara Bank,14
+ATM_00775,Punjab,Ludhiana,30.895504,75.829152,Union Bank,14
+ATM_00776,Punjab,Jalandhar,31.296227,75.616883,Kotak Mahindra Bank,8
+ATM_00777,Punjab,Ludhiana,30.887594,75.855949,Kotak Mahindra Bank,14
+ATM_00778,Punjab,Ludhiana,30.982373,75.850256,HDFC Bank,14
+ATM_00779,Punjab,Ludhiana,30.899509,75.835491,ICICI Bank,14
+ATM_00780,Punjab,Ludhiana,30.911851,75.845257,ICICI Bank,14
+ATM_00781,Punjab,Ludhiana,30.901556,75.807152,ICICI Bank,14
+ATM_00782,Punjab,Jalandhar,31.274387,75.595496,SBI,8
+ATM_00783,Punjab,Amritsar,31.773585,74.86678,IndusInd Bank,7
+ATM_00784,Punjab,Jalandhar,31.441737,75.60421,IndusInd Bank,8
+ATM_00785,Punjab,Amritsar,31.5954,74.84771,Union Bank,7
+ATM_00786,Punjab,Ludhiana,30.906038,75.901411,Union Bank,14
+ATM_00787,Punjab,Amritsar,31.728388,74.793018,Kotak Mahindra Bank,7
+ATM_00788,Punjab,Amritsar,31.721679,74.869511,ICICI Bank,7
+ATM_00789,Punjab,Jalandhar,31.303365,75.588792,ICICI Bank,8
+ATM_00790,Punjab,Ludhiana,30.908411,75.846121,Kotak Mahindra Bank,14
+ATM_00791,Punjab,Ludhiana,30.902361,75.846312,PNB,14
+ATM_00792,Punjab,Jalandhar,31.315428,75.605064,Union Bank,8
+ATM_00793,Punjab,Jalandhar,31.317501,75.612519,ICICI Bank,8
+ATM_00794,Punjab,Ludhiana,30.877445,75.84171,PNB,14
+ATM_00795,Punjab,Amritsar,31.61373,74.877983,HDFC Bank,7
+ATM_00796,Punjab,Jalandhar,31.308434,75.535936,ICICI Bank,8
+ATM_00797,Punjab,Ludhiana,30.876847,75.876265,Kotak Mahindra Bank,14
+ATM_00798,Punjab,Ludhiana,30.95356,75.800281,Bank of Baroda,14
+ATM_00799,Punjab,Amritsar,31.625845,74.909962,Canara Bank,7
+ATM_00800,Punjab,Ludhiana,30.904282,75.812196,Bank of Baroda,14
+ATM_00801,Punjab,Amritsar,31.629709,74.870681,Bank of Baroda,7
+ATM_00802,Punjab,Jalandhar,31.252038,75.632096,IndusInd Bank,8
+ATM_00803,Rajasthan,Bharatpur,27.224455,77.543529,ICICI Bank,20
+ATM_00804,Rajasthan,Udaipur,24.58131,73.713996,Union Bank,28
+ATM_00805,Rajasthan,Bharatpur,27.229401,77.488516,ICICI Bank,20
+ATM_00806,Rajasthan,Bharatpur,27.255872,77.560997,Canara Bank,20
+ATM_00807,Rajasthan,Jodhpur,26.245476,73.14101,Union Bank,19
+ATM_00808,Rajasthan,Kota,25.174535,75.862653,ICICI Bank,25
+ATM_00809,Rajasthan,Alwar,27.630575,76.664397,Canara Bank,16
+ATM_00810,Rajasthan,Kota,25.19491,75.815539,Union Bank,25
+ATM_00811,Rajasthan,Alwar,27.653341,76.6909,Kotak Mahindra Bank,16
+ATM_00812,Rajasthan,Kota,25.218646,75.835652,Canara Bank,25
+ATM_00813,Rajasthan,Udaipur,24.5199,73.660873,PNB,28
+ATM_00814,Rajasthan,Kota,25.241178,75.874236,Bank of Baroda,25
+ATM_00815,Rajasthan,Udaipur,24.571639,73.764371,Union Bank,28
+ATM_00816,Rajasthan,Udaipur,24.571081,73.642371,HDFC Bank,28
+ATM_00817,Rajasthan,Jaipur,26.98836,75.659759,Canara Bank,19
+ATM_00818,Rajasthan,Udaipur,24.588301,73.740767,Bank of Baroda,28
+ATM_00819,Rajasthan,Kota,25.193505,75.921569,Kotak Mahindra Bank,25
+ATM_00820,Rajasthan,Jodhpur,26.295245,73.091237,Union Bank,19
+ATM_00821,Rajasthan,Udaipur,24.607433,73.624793,Canara Bank,28
+ATM_00822,Rajasthan,Udaipur,24.598234,73.683384,Bank of Baroda,28
+ATM_00823,Rajasthan,Kota,25.190212,75.854208,IndusInd Bank,25
+ATM_00824,Rajasthan,Jaipur,26.92243,75.819692,Axis Bank,19
+ATM_00825,Rajasthan,Jodhpur,26.190224,73.021553,Axis Bank,19
+ATM_00826,Rajasthan,Jaipur,26.885845,75.780987,Bank of Baroda,19
+ATM_00827,Rajasthan,Jodhpur,26.227618,73.000249,PNB,19
+ATM_00828,Rajasthan,Bharatpur,27.207045,77.488526,Axis Bank,20
+ATM_00829,Rajasthan,Kota,25.166824,75.838108,ICICI Bank,25
+ATM_00830,Rajasthan,Jaipur,26.891051,75.749633,IndusInd Bank,19
+ATM_00831,Rajasthan,Kota,25.13233,75.953309,Kotak Mahindra Bank,25
+ATM_00832,Rajasthan,Bharatpur,27.251729,77.497934,HDFC Bank,20
+ATM_00833,Rajasthan,Jaipur,26.883491,75.781119,Axis Bank,19
+ATM_00834,Rajasthan,Kota,25.195847,75.85273,Union Bank,25
+ATM_00835,Rajasthan,Jodhpur,26.258654,72.968862,ICICI Bank,19
+ATM_00836,Rajasthan,Udaipur,24.628136,73.677161,Canara Bank,28
+ATM_00837,Rajasthan,Bharatpur,27.199732,77.539061,SBI,20
+ATM_00838,Rajasthan,Alwar,27.501416,76.614909,IndusInd Bank,16
+ATM_00839,Rajasthan,Bharatpur,27.152341,77.523692,SBI,20
+ATM_00840,Rajasthan,Udaipur,24.580877,73.697603,Axis Bank,28
+ATM_00841,Rajasthan,Alwar,27.507826,76.573018,IndusInd Bank,16
+ATM_00842,Rajasthan,Jaipur,26.94213,75.786604,ICICI Bank,19
+ATM_00843,Rajasthan,Udaipur,24.607401,73.692076,ICICI Bank,28
+ATM_00844,Rajasthan,Alwar,27.615205,76.618678,Canara Bank,16
+ATM_00845,Rajasthan,Kota,25.306999,75.866139,PNB,25
+ATM_00846,Rajasthan,Bharatpur,27.28526,77.55497,PNB,20
+ATM_00847,Rajasthan,Jaipur,26.883332,75.721841,Axis Bank,19
+ATM_00848,Rajasthan,Jodhpur,26.216337,73.110741,PNB,19
+ATM_00849,Rajasthan,Jodhpur,26.233357,73.051821,PNB,19
+ATM_00850,Rajasthan,Kota,25.22953,75.84401,ICICI Bank,25
+ATM_00851,Rajasthan,Bharatpur,27.22123,77.475264,HDFC Bank,20
+ATM_00852,Rajasthan,Bharatpur,27.126134,77.387904,Kotak Mahindra Bank,20
+ATM_00853,Rajasthan,Bharatpur,27.233183,77.503648,Kotak Mahindra Bank,20
+ATM_00854,Rajasthan,Alwar,27.586427,76.631915,ICICI Bank,16
+ATM_00855,Rajasthan,Kota,25.200207,75.94973,HDFC Bank,25
+ATM_00856,Rajasthan,Jodhpur,26.339678,73.045823,ICICI Bank,19
+ATM_00857,Rajasthan,Jaipur,26.886043,75.793909,Canara Bank,19
+ATM_00858,Rajasthan,Udaipur,24.530846,73.746689,ICICI Bank,28
+ATM_00859,Rajasthan,Bharatpur,27.250985,77.485975,HDFC Bank,20
+ATM_00860,Rajasthan,Jaipur,26.865097,75.770448,Kotak Mahindra Bank,19
+ATM_00861,Rajasthan,Udaipur,24.531238,73.665993,PNB,28
+ATM_00862,Rajasthan,Jodhpur,26.273079,72.978126,Kotak Mahindra Bank,19
+ATM_00863,Rajasthan,Bharatpur,27.311418,77.429666,Axis Bank,20
+ATM_00864,Rajasthan,Jodhpur,26.174883,73.01529,Axis Bank,19
+ATM_00865,Rajasthan,Udaipur,24.594635,73.649435,SBI,28
+ATM_00866,Rajasthan,Jaipur,26.887751,75.778636,PNB,19
+ATM_00867,Rajasthan,Kota,25.26778,75.952797,SBI,25
+ATM_00868,Rajasthan,Udaipur,24.617187,73.703265,Axis Bank,28
+ATM_00869,Rajasthan,Udaipur,24.662939,73.702579,ICICI Bank,28
+ATM_00870,Rajasthan,Kota,25.26272,75.874214,Union Bank,25
+ATM_00871,Rajasthan,Jaipur,26.841167,75.859733,Union Bank,19
+ATM_00872,Rajasthan,Udaipur,24.618713,73.682667,Union Bank,28
+ATM_00873,Rajasthan,Jodhpur,26.287609,73.010346,PNB,19
+ATM_00874,Rajasthan,Kota,25.204448,75.830553,Axis Bank,25
+ATM_00875,Rajasthan,Kota,25.186496,75.846753,Axis Bank,25
+ATM_00876,Rajasthan,Jodhpur,26.243153,73.029881,IndusInd Bank,19
+ATM_00877,Rajasthan,Kota,25.27189,75.873664,IndusInd Bank,25
+ATM_00878,Rajasthan,Bharatpur,27.194517,77.448413,Union Bank,20
+ATM_00879,Rajasthan,Jodhpur,26.142049,73.115122,HDFC Bank,19
+ATM_00880,Rajasthan,Jodhpur,26.262258,73.10354,Axis Bank,19
+ATM_00881,Rajasthan,Kota,25.281099,75.866006,Union Bank,25
+ATM_00882,Rajasthan,Alwar,27.595117,76.537217,Kotak Mahindra Bank,16
+ATM_00883,Rajasthan,Kota,25.266955,75.762259,PNB,25
+ATM_00884,Rajasthan,Udaipur,24.57932,73.751908,SBI,28
+ATM_00885,Rajasthan,Jodhpur,26.191822,72.948481,Canara Bank,19
+ATM_00886,Rajasthan,Jodhpur,26.231219,73.041388,Union Bank,19
+ATM_00887,Rajasthan,Alwar,27.57183,76.650117,HDFC Bank,16
+ATM_00888,Rajasthan,Jodhpur,26.171663,73.019136,ICICI Bank,19
+ATM_00889,Rajasthan,Udaipur,24.51134,73.728316,Canara Bank,28
+ATM_00890,Rajasthan,Alwar,27.553847,76.641258,Union Bank,16
+ATM_00891,Rajasthan,Kota,25.362023,75.883746,HDFC Bank,25
+ATM_00892,Rajasthan,Bharatpur,27.287612,77.528488,IndusInd Bank,20
+ATM_00893,Rajasthan,Jaipur,26.993474,75.825572,Kotak Mahindra Bank,19
+ATM_00894,Rajasthan,Alwar,27.534276,76.649795,IndusInd Bank,16
+ATM_00895,Rajasthan,Alwar,27.546615,76.63096,Bank of Baroda,16
+ATM_00896,Rajasthan,Bharatpur,27.24306,77.506321,Axis Bank,20
+ATM_00897,Rajasthan,Udaipur,24.557539,73.744456,Kotak Mahindra Bank,28
+ATM_00898,Rajasthan,Jaipur,26.880949,75.843793,Kotak Mahindra Bank,19
+ATM_00899,Rajasthan,Udaipur,24.609589,73.715812,Axis Bank,28
+ATM_00900,Rajasthan,Alwar,27.539495,76.583831,HDFC Bank,16
+ATM_00901,Rajasthan,Bharatpur,27.211371,77.463611,Kotak Mahindra Bank,20
+ATM_00902,Rajasthan,Alwar,27.49618,76.658875,SBI,16
+ATM_00903,Rajasthan,Jaipur,26.929542,75.839972,PNB,19
+ATM_00904,Rajasthan,Kota,25.232709,75.759424,HDFC Bank,25
+ATM_00905,Rajasthan,Bharatpur,27.171597,77.481662,IndusInd Bank,20
+ATM_00906,Rajasthan,Udaipur,24.648014,73.665644,Axis Bank,28
+ATM_00907,Rajasthan,Alwar,27.528703,76.662318,Canara Bank,16
+ATM_00908,Rajasthan,Jodhpur,26.193146,72.997755,PNB,19
+ATM_00909,Rajasthan,Kota,25.270007,75.866725,IndusInd Bank,25
+ATM_00910,Rajasthan,Bharatpur,27.295106,77.464708,Kotak Mahindra Bank,20
+ATM_00911,Rajasthan,Udaipur,24.587602,73.715707,IndusInd Bank,28
+ATM_00912,Rajasthan,Udaipur,24.599977,73.630836,HDFC Bank,28
+ATM_00913,Rajasthan,Kota,25.192055,75.86409,Canara Bank,25
+ATM_00914,Rajasthan,Udaipur,24.651277,73.749868,IndusInd Bank,28
+ATM_00915,Rajasthan,Udaipur,24.588306,73.824731,Union Bank,28
+ATM_00916,Rajasthan,Jaipur,26.890575,75.740816,Bank of Baroda,19
+ATM_00917,Rajasthan,Alwar,27.610904,76.618891,HDFC Bank,16
+ATM_00918,Rajasthan,Jaipur,26.921432,75.740758,HDFC Bank,19
+ATM_00919,Rajasthan,Udaipur,24.564584,73.768097,PNB,28
+ATM_00920,Rajasthan,Kota,25.244709,75.89208,Canara Bank,25
+ATM_00921,Rajasthan,Jaipur,26.851806,75.775756,HDFC Bank,19
+ATM_00922,Rajasthan,Jaipur,26.943735,75.796445,Canara Bank,19
+ATM_00923,Rajasthan,Alwar,27.492594,76.635262,SBI,16
+ATM_00924,Rajasthan,Kota,25.14714,75.8238,IndusInd Bank,25
+ATM_00925,Rajasthan,Bharatpur,27.25164,77.461975,Kotak Mahindra Bank,20
+ATM_00926,Rajasthan,Jaipur,26.922044,75.780585,IndusInd Bank,19
+ATM_00927,Rajasthan,Udaipur,24.577903,73.759672,Bank of Baroda,28
+ATM_00928,Rajasthan,Jodhpur,26.287448,73.029312,Union Bank,19
+ATM_00929,Rajasthan,Udaipur,24.580473,73.761511,Kotak Mahindra Bank,28
+ATM_00930,Tamil Nadu,Salem,11.69865,78.076239,IndusInd Bank,22
+ATM_00931,Tamil Nadu,Chennai,13.098491,80.263759,ICICI Bank,21
+ATM_00932,Tamil Nadu,Salem,11.702087,78.152703,SBI,22
+ATM_00933,Tamil Nadu,Chennai,13.111298,80.224667,IndusInd Bank,21
+ATM_00934,Tamil Nadu,Coimbatore,11.032022,76.976738,HDFC Bank,19
+ATM_00935,Tamil Nadu,Madurai,9.842046,78.070967,IndusInd Bank,18
+ATM_00936,Tamil Nadu,Coimbatore,10.919051,76.930834,Canara Bank,19
+ATM_00937,Tamil Nadu,Coimbatore,10.982011,76.999453,Axis Bank,19
+ATM_00938,Tamil Nadu,Chennai,13.07495,80.290248,Bank of Baroda,21
+ATM_00939,Tamil Nadu,Chennai,13.10164,80.297459,ICICI Bank,21
+ATM_00940,Tamil Nadu,Coimbatore,11.037188,77.096052,SBI,19
+ATM_00941,Tamil Nadu,Salem,11.637884,78.083302,Canara Bank,22
+ATM_00942,Tamil Nadu,Coimbatore,11.047625,76.961827,SBI,19
+ATM_00943,Tamil Nadu,Chennai,13.100309,80.289326,PNB,21
+ATM_00944,Tamil Nadu,Salem,11.67628,78.202967,Bank of Baroda,22
+ATM_00945,Tamil Nadu,Coimbatore,11.015791,77.016298,Canara Bank,19
+ATM_00946,Tamil Nadu,Salem,11.643694,78.178208,SBI,22
+ATM_00947,Tamil Nadu,Chennai,13.063795,80.268683,Union Bank,21
+ATM_00948,Tamil Nadu,Madurai,9.858502,78.158117,PNB,18
+ATM_00949,Tamil Nadu,Chennai,13.081922,80.267038,ICICI Bank,21
+ATM_00950,Tamil Nadu,Chennai,13.120146,80.259224,ICICI Bank,21
+ATM_00951,Tamil Nadu,Madurai,9.925403,78.133683,Union Bank,18
+ATM_00952,Tamil Nadu,Madurai,9.903521,78.163003,Canara Bank,18
+ATM_00953,Tamil Nadu,Coimbatore,11.055473,76.895851,Kotak Mahindra Bank,19
+ATM_00954,Tamil Nadu,Coimbatore,10.932026,76.820722,ICICI Bank,19
+ATM_00955,Tamil Nadu,Madurai,9.906611,78.121312,HDFC Bank,18
+ATM_00956,Tamil Nadu,Chennai,13.131068,80.264724,PNB,21
+ATM_00957,Tamil Nadu,Salem,11.637046,78.147199,Canara Bank,22
+ATM_00958,Tamil Nadu,Salem,11.68825,78.140623,SBI,22
+ATM_00959,Tamil Nadu,Chennai,13.047267,80.281808,IndusInd Bank,21
+ATM_00960,Tamil Nadu,Salem,11.717371,78.123789,ICICI Bank,22
+ATM_00961,Tamil Nadu,Salem,11.645848,78.225028,Axis Bank,22
+ATM_00962,Tamil Nadu,Salem,11.632764,78.113465,IndusInd Bank,22
+ATM_00963,Tamil Nadu,Salem,11.671978,78.17072,IndusInd Bank,22
+ATM_00964,Tamil Nadu,Salem,11.615507,78.13283,IndusInd Bank,22
+ATM_00965,Tamil Nadu,Coimbatore,10.997158,76.954646,HDFC Bank,19
+ATM_00966,Tamil Nadu,Coimbatore,11.006592,76.994241,Canara Bank,19
+ATM_00967,Tamil Nadu,Chennai,13.09108,80.179263,Canara Bank,21
+ATM_00968,Tamil Nadu,Salem,11.577171,78.152004,Canara Bank,22
+ATM_00969,Tamil Nadu,Coimbatore,10.951798,76.966849,HDFC Bank,19
+ATM_00970,Tamil Nadu,Madurai,9.875302,78.234623,PNB,18
+ATM_00971,Tamil Nadu,Chennai,13.072128,80.220483,Union Bank,21
+ATM_00972,Tamil Nadu,Coimbatore,10.947057,76.948572,IndusInd Bank,19
+ATM_00973,Tamil Nadu,Chennai,13.04227,80.335614,PNB,21
+ATM_00974,Tamil Nadu,Chennai,13.121389,80.213973,ICICI Bank,21
+ATM_00975,Tamil Nadu,Coimbatore,11.048972,76.927479,PNB,19
+ATM_00976,Tamil Nadu,Chennai,13.127509,80.277621,SBI,21
+ATM_00977,Tamil Nadu,Coimbatore,10.997358,77.048922,IndusInd Bank,19
+ATM_00978,Tamil Nadu,Chennai,13.139239,80.283029,PNB,21
+ATM_00979,Tamil Nadu,Salem,11.709076,78.171951,SBI,22
+ATM_00980,Tamil Nadu,Madurai,9.849035,78.102319,Union Bank,18
+ATM_00981,Tamil Nadu,Salem,11.61745,78.09991,IndusInd Bank,22
+ATM_00982,Tamil Nadu,Chennai,13.080022,80.318519,PNB,21
+ATM_00983,Tamil Nadu,Chennai,13.106029,80.234126,Bank of Baroda,21
+ATM_00984,Tamil Nadu,Madurai,9.858772,78.09207,IndusInd Bank,18
+ATM_00985,Tamil Nadu,Salem,11.637424,78.220267,IndusInd Bank,22
+ATM_00986,Tamil Nadu,Coimbatore,11.054869,77.004499,SBI,19
+ATM_00987,Tamil Nadu,Coimbatore,10.902661,76.982592,Union Bank,19
+ATM_00988,Tamil Nadu,Madurai,9.930503,78.146056,ICICI Bank,18
+ATM_00989,Tamil Nadu,Chennai,13.010803,80.27136,Axis Bank,21
+ATM_00990,Tamil Nadu,Coimbatore,10.984012,77.004857,Bank of Baroda,19
+ATM_00991,Tamil Nadu,Salem,11.688088,78.179553,ICICI Bank,22
+ATM_00992,Tamil Nadu,Coimbatore,11.074299,76.891547,ICICI Bank,19
+ATM_00993,Tamil Nadu,Madurai,9.940264,78.15023,PNB,18
+ATM_00994,Tamil Nadu,Madurai,9.953334,78.082891,Axis Bank,18
+ATM_00995,Tamil Nadu,Salem,11.658392,78.223837,ICICI Bank,22
+ATM_00996,Tamil Nadu,Madurai,9.886806,78.13591,Canara Bank,18
+ATM_00997,Tamil Nadu,Madurai,9.896224,78.239356,Axis Bank,18
+ATM_00998,Tamil Nadu,Madurai,9.936378,78.134812,IndusInd Bank,18
+ATM_00999,Tamil Nadu,Salem,11.62857,78.137613,ICICI Bank,22
+ATM_01000,Tamil Nadu,Madurai,9.977163,78.146256,Bank of Baroda,18
+ATM_01001,Tamil Nadu,Chennai,13.0605,80.228836,Bank of Baroda,21
+ATM_01002,Tamil Nadu,Salem,11.677969,78.170361,Canara Bank,22
+ATM_01003,Tamil Nadu,Salem,11.738187,78.124666,Kotak Mahindra Bank,22
+ATM_01004,Tamil Nadu,Chennai,13.038744,80.320239,IndusInd Bank,21
+ATM_01005,Tamil Nadu,Madurai,9.930412,78.091343,Axis Bank,18
+ATM_01006,Tamil Nadu,Madurai,9.88228,78.177264,Union Bank,18
+ATM_01007,Tamil Nadu,Madurai,9.98725,78.193197,IndusInd Bank,18
+ATM_01008,Tamil Nadu,Salem,11.727909,78.173771,ICICI Bank,22
+ATM_01009,Tamil Nadu,Coimbatore,11.013846,77.00242,Axis Bank,19
+ATM_01010,Telangana,Karimnagar,18.46922,79.159908,Union Bank,21
+ATM_01011,Telangana,Karimnagar,18.518611,79.184923,SBI,21
+ATM_01012,Telangana,Warangal,18.015056,79.484934,Canara Bank,28
+ATM_01013,Telangana,Karimnagar,18.417525,79.153192,ICICI Bank,21
+ATM_01014,Telangana,Karimnagar,18.40282,79.190032,SBI,21
+ATM_01015,Telangana,Warangal,17.959447,79.535823,HDFC Bank,28
+ATM_01016,Telangana,Hyderabad,17.452945,78.512311,Bank of Baroda,18
+ATM_01017,Telangana,Warangal,17.957931,79.614075,Canara Bank,28
+ATM_01018,Telangana,Nizamabad,18.626662,78.085384,PNB,26
+ATM_01019,Telangana,Warangal,18.000688,79.692502,Axis Bank,28
+ATM_01020,Telangana,Warangal,17.93652,79.579416,PNB,28
+ATM_01021,Telangana,Warangal,18.051539,79.604551,Bank of Baroda,28
+ATM_01022,Telangana,Warangal,17.920755,79.623835,PNB,28
+ATM_01023,Telangana,Hyderabad,17.356601,78.49406,PNB,18
+ATM_01024,Telangana,Nizamabad,18.635626,78.151686,Kotak Mahindra Bank,26
+ATM_01025,Telangana,Hyderabad,17.378175,78.513331,PNB,18
+ATM_01026,Telangana,Hyderabad,17.408628,78.430278,SBI,18
+ATM_01027,Telangana,Nizamabad,18.611472,78.063831,ICICI Bank,26
+ATM_01028,Telangana,Nizamabad,18.659173,78.074918,Union Bank,26
+ATM_01029,Telangana,Warangal,18.035125,79.600959,Bank of Baroda,28
+ATM_01030,Telangana,Nizamabad,18.680897,78.063974,SBI,26
+ATM_01031,Telangana,Nizamabad,18.639166,78.102817,PNB,26
+ATM_01032,Telangana,Hyderabad,17.396663,78.54688,PNB,18
+ATM_01033,Telangana,Warangal,17.996536,79.644992,ICICI Bank,28
+ATM_01034,Telangana,Karimnagar,18.428955,79.111979,PNB,21
+ATM_01035,Telangana,Nizamabad,18.693601,78.085462,IndusInd Bank,26
+ATM_01036,Telangana,Warangal,17.956904,79.570978,SBI,28
+ATM_01037,Telangana,Nizamabad,18.695863,78.030492,ICICI Bank,26
+ATM_01038,Telangana,Hyderabad,17.348687,78.459377,PNB,18
+ATM_01039,Telangana,Warangal,17.962441,79.510609,Bank of Baroda,28
+ATM_01040,Telangana,Warangal,17.934025,79.632998,SBI,28
+ATM_01041,Telangana,Hyderabad,17.437495,78.482372,ICICI Bank,18
+ATM_01042,Telangana,Karimnagar,18.356648,79.171329,PNB,21
+ATM_01043,Telangana,Karimnagar,18.476319,79.071758,HDFC Bank,21
+ATM_01044,Telangana,Nizamabad,18.635428,78.08067,Bank of Baroda,26
+ATM_01045,Telangana,Karimnagar,18.451799,79.08484,Kotak Mahindra Bank,21
+ATM_01046,Telangana,Warangal,17.888259,79.572934,PNB,28
+ATM_01047,Telangana,Nizamabad,18.662922,78.109028,Bank of Baroda,26
+ATM_01048,Telangana,Karimnagar,18.428442,79.07664,Canara Bank,21
+ATM_01049,Telangana,Warangal,17.947375,79.646259,Canara Bank,28
+ATM_01050,Telangana,Karimnagar,18.483996,79.124854,SBI,21
+ATM_01051,Telangana,Hyderabad,17.427139,78.478681,Canara Bank,18
+ATM_01052,Telangana,Karimnagar,18.43616,79.152703,Kotak Mahindra Bank,21
+ATM_01053,Telangana,Nizamabad,18.640916,78.086316,Axis Bank,26
+ATM_01054,Telangana,Karimnagar,18.394185,79.188937,Axis Bank,21
+ATM_01055,Telangana,Warangal,17.909154,79.684541,HDFC Bank,28
+ATM_01056,Telangana,Warangal,18.002353,79.56861,ICICI Bank,28
+ATM_01057,Telangana,Hyderabad,17.417173,78.513967,Kotak Mahindra Bank,18
+ATM_01058,Telangana,Hyderabad,17.398402,78.554306,Canara Bank,18
+ATM_01059,Telangana,Nizamabad,18.662315,78.098415,HDFC Bank,26
+ATM_01060,Telangana,Nizamabad,18.642387,78.012331,SBI,26
+ATM_01061,Telangana,Hyderabad,17.429309,78.577091,PNB,18
+ATM_01062,Telangana,Hyderabad,17.334294,78.488941,Axis Bank,18
+ATM_01063,Telangana,Nizamabad,18.658057,78.066351,SBI,26
+ATM_01064,Telangana,Warangal,17.944646,79.552793,IndusInd Bank,28
+ATM_01065,Telangana,Nizamabad,18.663736,78.119127,Bank of Baroda,26
+ATM_01066,Telangana,Nizamabad,18.687148,78.185389,Canara Bank,26
+ATM_01067,Telangana,Karimnagar,18.505523,79.094111,PNB,21
+ATM_01068,Telangana,Warangal,17.955153,79.636515,HDFC Bank,28
+ATM_01069,Telangana,Nizamabad,18.717929,78.143755,Bank of Baroda,26
+ATM_01070,Telangana,Warangal,17.925391,79.561881,Union Bank,28
+ATM_01071,Telangana,Warangal,17.887777,79.595528,HDFC Bank,28
+ATM_01072,Telangana,Karimnagar,18.433494,79.184073,Kotak Mahindra Bank,21
+ATM_01073,Telangana,Nizamabad,18.676024,78.084973,Canara Bank,26
+ATM_01074,Telangana,Hyderabad,17.403079,78.523876,PNB,18
+ATM_01075,Telangana,Hyderabad,17.369459,78.443941,IndusInd Bank,18
+ATM_01076,Telangana,Hyderabad,17.37902,78.327886,Bank of Baroda,18
+ATM_01077,Telangana,Nizamabad,18.622929,78.12863,IndusInd Bank,26
+ATM_01078,Telangana,Warangal,17.935207,79.641253,Union Bank,28
+ATM_01079,Telangana,Hyderabad,17.424614,78.564625,PNB,18
+ATM_01080,Telangana,Nizamabad,18.651962,78.082002,PNB,26
+ATM_01081,Telangana,Karimnagar,18.387776,79.058496,Axis Bank,21
+ATM_01082,Telangana,Warangal,17.996114,79.47684,Canara Bank,28
+ATM_01083,Telangana,Nizamabad,18.614099,78.161956,HDFC Bank,26
+ATM_01084,Telangana,Warangal,17.978855,79.600979,PNB,28
+ATM_01085,Telangana,Nizamabad,18.647207,78.077326,HDFC Bank,26
+ATM_01086,Telangana,Nizamabad,18.701359,78.146596,Axis Bank,26
+ATM_01087,Telangana,Warangal,18.023007,79.567004,PNB,28
+ATM_01088,Telangana,Karimnagar,18.412873,79.181786,Union Bank,21
+ATM_01089,Telangana,Nizamabad,18.675021,78.026665,IndusInd Bank,26
+ATM_01090,Telangana,Warangal,17.939094,79.608431,IndusInd Bank,28
+ATM_01091,Telangana,Warangal,17.957606,79.55503,Union Bank,28
+ATM_01092,Telangana,Hyderabad,17.316303,78.428128,PNB,18
+ATM_01093,Telangana,Nizamabad,18.590426,78.093995,Canara Bank,26
+ATM_01094,Telangana,Warangal,17.953332,79.563045,Axis Bank,28
+ATM_01095,Telangana,Karimnagar,18.458165,79.134723,SBI,21
+ATM_01096,Telangana,Karimnagar,18.363026,79.051098,Kotak Mahindra Bank,21
+ATM_01097,Telangana,Karimnagar,18.445724,79.006862,HDFC Bank,21
+ATM_01098,Telangana,Karimnagar,18.368125,79.197195,Canara Bank,21
+ATM_01099,Telangana,Karimnagar,18.459151,79.113085,PNB,21
+ATM_01100,Telangana,Hyderabad,17.351277,78.474848,Kotak Mahindra Bank,18
+ATM_01101,Telangana,Warangal,18.04805,79.573892,Bank of Baroda,28
+ATM_01102,Telangana,Nizamabad,18.660032,78.089581,IndusInd Bank,26
+ATM_01103,Uttarakhand,Dehradun,30.241167,78.026908,SBI,9
+ATM_01104,Uttarakhand,Dehradun,30.248793,78.055862,Bank of Baroda,9
+ATM_01105,Uttarakhand,Haridwar,29.938803,78.054971,IndusInd Bank,7
+ATM_01106,Uttarakhand,Dehradun,30.403522,77.968447,Union Bank,9
+ATM_01107,Uttarakhand,Dehradun,30.299319,77.98064,Axis Bank,9
+ATM_01108,Uttarakhand,Haldwani,29.283384,79.578813,Axis Bank,6
+ATM_01109,Uttarakhand,Haridwar,29.92471,78.128269,Kotak Mahindra Bank,7
+ATM_01110,Uttarakhand,Haldwani,29.211096,79.488304,Bank of Baroda,6
+ATM_01111,Uttarakhand,Haridwar,29.971951,78.22132,Union Bank,7
+ATM_01112,Uttarakhand,Haldwani,29.154107,79.538431,Bank of Baroda,6
+ATM_01113,Uttarakhand,Haridwar,29.980818,78.094575,Canara Bank,7
+ATM_01114,Uttarakhand,Haridwar,29.936006,78.114938,ICICI Bank,7
+ATM_01115,Uttarakhand,Dehradun,30.316438,78.010477,Bank of Baroda,9
+ATM_01116,Uttarakhand,Haridwar,30.018319,78.211643,SBI,7
+ATM_01117,Uttarakhand,Haldwani,29.268809,79.584607,PNB,6
+ATM_01118,Uttarakhand,Dehradun,30.374924,78.07514,Axis Bank,9
+ATM_01119,Uttarakhand,Haldwani,29.26501,79.504896,HDFC Bank,6
+ATM_01120,Uttarakhand,Dehradun,30.36169,78.017108,Bank of Baroda,9
+ATM_01121,Uttarakhand,Dehradun,30.263914,77.981886,Union Bank,9
+ATM_01122,Uttarakhand,Haldwani,29.227036,79.416069,PNB,6
+ATM_01123,Uttarakhand,Haridwar,29.896332,78.197352,HDFC Bank,7
+ATM_01124,Uttarakhand,Dehradun,30.24441,78.096876,ICICI Bank,9
+ATM_01125,Uttar Pradesh,Meerut,29.107252,77.728177,IndusInd Bank,32
+ATM_01126,Uttar Pradesh,Varanasi,25.34709,83.040603,SBI,39
+ATM_01127,Uttar Pradesh,Ghaziabad,28.677538,77.549722,PNB,25
+ATM_01128,Uttar Pradesh,Lucknow,26.877683,80.948444,ICICI Bank,31
+ATM_01129,Uttar Pradesh,Kanpur Nagar,26.511563,80.287294,Kotak Mahindra Bank,45
+ATM_01130,Uttar Pradesh,Kanpur Nagar,26.441514,80.370331,IndusInd Bank,45
+ATM_01131,Uttar Pradesh,Kanpur Nagar,26.47094,80.352241,Union Bank,45
+ATM_01132,Uttar Pradesh,Lucknow,26.904191,80.965482,Canara Bank,31
+ATM_01133,Uttar Pradesh,Kanpur Nagar,26.409077,80.368941,IndusInd Bank,45
+ATM_01134,Uttar Pradesh,Kanpur Nagar,26.42643,80.309734,SBI,45
+ATM_01135,Uttar Pradesh,Gautam Buddha Nagar,28.550987,77.36504,IndusInd Bank,27
+ATM_01136,Uttar Pradesh,Ghaziabad,28.5888,77.429092,Bank of Baroda,25
+ATM_01137,Uttar Pradesh,Meerut,29.005106,77.672196,PNB,32
+ATM_01138,Uttar Pradesh,Kanpur Nagar,26.444609,80.35641,ICICI Bank,45
+ATM_01139,Uttar Pradesh,Meerut,28.840712,77.703244,Canara Bank,32
+ATM_01140,Uttar Pradesh,Lucknow,26.865117,80.921134,PNB,31
+ATM_01141,Uttar Pradesh,Lucknow,26.875363,80.900244,Axis Bank,31
+ATM_01142,Uttar Pradesh,Kanpur Nagar,26.493286,80.251252,Canara Bank,45
+ATM_01143,Uttar Pradesh,Lucknow,26.85785,80.950511,Canara Bank,31
+ATM_01144,Uttar Pradesh,Kanpur Nagar,26.525466,80.303803,Kotak Mahindra Bank,45
+ATM_01145,Uttar Pradesh,Kanpur Nagar,26.471007,80.292423,Axis Bank,45
+ATM_01146,Uttar Pradesh,Ghaziabad,28.646358,77.559901,Kotak Mahindra Bank,25
+ATM_01147,Uttar Pradesh,Kanpur Nagar,26.429486,80.379108,Union Bank,45
+ATM_01148,Uttar Pradesh,Varanasi,25.357038,82.949415,PNB,39
+ATM_01149,Uttar Pradesh,Gautam Buddha Nagar,28.609297,77.488431,Axis Bank,27
+ATM_01150,Uttar Pradesh,Lucknow,26.833828,80.903786,SBI,31
+ATM_01151,Uttar Pradesh,Agra,27.270907,77.944053,Bank of Baroda,23
+ATM_01152,Uttar Pradesh,Agra,27.135293,77.997573,PNB,23
+ATM_01153,Uttar Pradesh,Kanpur Nagar,26.455332,80.420746,PNB,45
+ATM_01154,Uttar Pradesh,Lucknow,26.854469,80.912717,PNB,31
+ATM_01155,Uttar Pradesh,Varanasi,25.463107,83.028794,IndusInd Bank,39
+ATM_01156,Uttar Pradesh,Kanpur Nagar,26.486247,80.259369,SBI,45
+ATM_01157,Uttar Pradesh,Meerut,28.91529,77.615088,IndusInd Bank,32
+ATM_01158,Uttar Pradesh,Kanpur Nagar,26.46937,80.31762,IndusInd Bank,45
+ATM_01159,Uttar Pradesh,Ghaziabad,28.608452,77.477536,SBI,25
+ATM_01160,Uttar Pradesh,Meerut,28.984369,77.675526,PNB,32
+ATM_01161,Uttar Pradesh,Kanpur Nagar,26.497104,80.2905,ICICI Bank,45
+ATM_01162,Uttar Pradesh,Ghaziabad,28.67109,77.447971,IndusInd Bank,25
+ATM_01163,Uttar Pradesh,Prayagraj,25.424969,81.879331,Kotak Mahindra Bank,29
+ATM_01164,Uttar Pradesh,Varanasi,25.233269,82.910207,Kotak Mahindra Bank,39
+ATM_01165,Uttar Pradesh,Agra,27.13995,78.015066,Canara Bank,23
+ATM_01166,Uttar Pradesh,Gautam Buddha Nagar,28.549208,77.340721,HDFC Bank,27
+ATM_01167,Uttar Pradesh,Prayagraj,25.436119,81.833782,SBI,29
+ATM_01168,Uttar Pradesh,Gautam Buddha Nagar,28.515845,77.376597,HDFC Bank,27
+ATM_01169,Uttar Pradesh,Varanasi,25.287782,82.88081,HDFC Bank,39
+ATM_01170,Uttar Pradesh,Lucknow,26.838173,80.93448,Axis Bank,31
+ATM_01171,Uttar Pradesh,Meerut,28.995805,77.74552,Bank of Baroda,32
+ATM_01172,Uttar Pradesh,Meerut,28.953281,77.72375,Axis Bank,32
+ATM_01173,Uttar Pradesh,Kanpur Nagar,26.455804,80.447486,Canara Bank,45
+ATM_01174,Uttar Pradesh,Meerut,28.960446,77.73583,Union Bank,32
+ATM_01175,Uttar Pradesh,Lucknow,26.800004,80.964813,Axis Bank,31
+ATM_01176,Uttar Pradesh,Agra,27.208664,78.028906,SBI,23
+ATM_01177,Uttar Pradesh,Ghaziabad,28.635037,77.453406,Bank of Baroda,25
+ATM_01178,Uttar Pradesh,Prayagraj,25.382683,81.802247,Canara Bank,29
+ATM_01179,Uttar Pradesh,Agra,27.172214,77.943613,Union Bank,23
+ATM_01180,Uttar Pradesh,Prayagraj,25.398662,81.806436,ICICI Bank,29
+ATM_01181,Uttar Pradesh,Varanasi,25.29858,83.000801,Bank of Baroda,39
+ATM_01182,Uttar Pradesh,Varanasi,25.253081,83.056623,Kotak Mahindra Bank,39
+ATM_01183,Uttar Pradesh,Meerut,28.99209,77.75744,PNB,32
+ATM_01184,Uttar Pradesh,Kanpur Nagar,26.437987,80.304374,IndusInd Bank,45
+ATM_01185,Uttar Pradesh,Prayagraj,25.452459,81.793711,Kotak Mahindra Bank,29
+ATM_01186,Uttar Pradesh,Prayagraj,25.424608,81.929599,Kotak Mahindra Bank,29
+ATM_01187,Uttar Pradesh,Lucknow,26.846236,80.988204,ICICI Bank,31
+ATM_01188,Uttar Pradesh,Lucknow,26.919713,80.933023,SBI,31
+ATM_01189,Uttar Pradesh,Gautam Buddha Nagar,28.556342,77.41976,Kotak Mahindra Bank,27
+ATM_01190,Uttar Pradesh,Varanasi,25.328072,82.904502,Axis Bank,39
+ATM_01191,Uttar Pradesh,Varanasi,25.423454,82.992083,SBI,39
+ATM_01192,Uttar Pradesh,Varanasi,25.363777,82.89979,SBI,39
+ATM_01193,Uttar Pradesh,Kanpur Nagar,26.431192,80.358386,Canara Bank,45
+ATM_01194,Uttar Pradesh,Lucknow,26.903905,80.946447,Canara Bank,31
+ATM_01195,Uttar Pradesh,Ghaziabad,28.710713,77.36529,SBI,25
+ATM_01196,Uttar Pradesh,Prayagraj,25.419236,81.906379,Canara Bank,29
+ATM_01197,Uttar Pradesh,Agra,27.224933,78.005425,Union Bank,23
+ATM_01198,Uttar Pradesh,Ghaziabad,28.650871,77.450075,SBI,25
+ATM_01199,Uttar Pradesh,Varanasi,25.355229,82.97877,SBI,39
+ATM_01200,Uttar Pradesh,Varanasi,25.257882,83.003767,SBI,39
+ATM_01201,Uttar Pradesh,Meerut,28.922176,77.720264,Canara Bank,32
+ATM_01202,Uttar Pradesh,Varanasi,25.195058,82.98245,Canara Bank,39
+ATM_01203,Uttar Pradesh,Kanpur Nagar,26.473724,80.331756,PNB,45
+ATM_01204,Uttar Pradesh,Agra,27.151199,78.030828,Union Bank,23
+ATM_01205,Uttar Pradesh,Prayagraj,25.508561,81.919166,HDFC Bank,29
+ATM_01206,Uttar Pradesh,Ghaziabad,28.654022,77.50959,SBI,25
+ATM_01207,Uttar Pradesh,Prayagraj,25.400945,81.889194,Canara Bank,29
+ATM_01208,Uttar Pradesh,Prayagraj,25.492779,81.82135,PNB,29
+ATM_01209,Uttar Pradesh,Meerut,28.98557,77.757904,Kotak Mahindra Bank,32
+ATM_01210,Uttar Pradesh,Varanasi,25.343659,83.020806,ICICI Bank,39
+ATM_01211,Uttar Pradesh,Ghaziabad,28.645313,77.517121,SBI,25
+ATM_01212,Uttar Pradesh,Gautam Buddha Nagar,28.503929,77.375922,Union Bank,27
+ATM_01213,Uttar Pradesh,Gautam Buddha Nagar,28.455641,77.386867,Kotak Mahindra Bank,27
+ATM_01214,Uttar Pradesh,Agra,27.152531,77.928966,Canara Bank,23
+ATM_01215,Uttar Pradesh,Prayagraj,25.380939,81.848172,HDFC Bank,29
+ATM_01216,Uttar Pradesh,Ghaziabad,28.750841,77.50449,Union Bank,25
+ATM_01217,Uttar Pradesh,Lucknow,26.846556,80.966225,HDFC Bank,31
+ATM_01218,Uttar Pradesh,Prayagraj,25.399662,81.924489,Kotak Mahindra Bank,29
+ATM_01219,Uttar Pradesh,Varanasi,25.359203,82.919012,Axis Bank,39
+ATM_01220,Uttar Pradesh,Prayagraj,25.414453,81.869757,ICICI Bank,29
+ATM_01221,Uttar Pradesh,Varanasi,25.312113,82.964394,Union Bank,39
+ATM_01222,Uttar Pradesh,Varanasi,25.362731,82.999821,ICICI Bank,39
+ATM_01223,Uttar Pradesh,Kanpur Nagar,26.475991,80.332801,IndusInd Bank,45
+ATM_01224,Uttar Pradesh,Gautam Buddha Nagar,28.575638,77.406674,IndusInd Bank,27
+ATM_01225,Uttar Pradesh,Agra,27.146442,77.940538,Canara Bank,23
+ATM_01226,Uttar Pradesh,Varanasi,25.305297,82.925612,SBI,39
+ATM_01227,Uttar Pradesh,Ghaziabad,28.608639,77.448171,Union Bank,25
+ATM_01228,Uttar Pradesh,Lucknow,26.827336,80.883153,Axis Bank,31
+ATM_01229,Uttar Pradesh,Prayagraj,25.358363,81.870588,HDFC Bank,29
+ATM_01230,Uttar Pradesh,Gautam Buddha Nagar,28.551192,77.376802,HDFC Bank,27
+ATM_01231,Uttar Pradesh,Gautam Buddha Nagar,28.50097,77.400645,Canara Bank,27
+ATM_01232,Uttar Pradesh,Meerut,28.895527,77.763869,HDFC Bank,32
+ATM_01233,Uttar Pradesh,Ghaziabad,28.706349,77.373125,Axis Bank,25
+ATM_01234,Uttar Pradesh,Varanasi,25.288871,82.963926,SBI,39
+ATM_01235,Uttar Pradesh,Agra,27.177294,78.020841,SBI,23
+ATM_01236,Uttar Pradesh,Meerut,29.053235,77.681688,Kotak Mahindra Bank,32
+ATM_01237,Uttar Pradesh,Gautam Buddha Nagar,28.470322,77.388373,Axis Bank,27
+ATM_01238,Uttar Pradesh,Ghaziabad,28.689149,77.473277,SBI,25
+ATM_01239,Uttar Pradesh,Varanasi,25.407181,82.931595,Axis Bank,39
+ATM_01240,Uttar Pradesh,Agra,27.182465,77.938897,Axis Bank,23
+ATM_01241,Uttar Pradesh,Varanasi,25.352997,82.96495,PNB,39
+ATM_01242,Uttar Pradesh,Varanasi,25.313257,82.877929,ICICI Bank,39
+ATM_01243,Uttar Pradesh,Gautam Buddha Nagar,28.581479,77.266235,PNB,27
+ATM_01244,Uttar Pradesh,Ghaziabad,28.656808,77.483215,SBI,25
+ATM_01245,Uttar Pradesh,Kanpur Nagar,26.496571,80.38859,Bank of Baroda,45
+ATM_01246,Uttar Pradesh,Ghaziabad,28.639001,77.452867,SBI,25
+ATM_01247,Uttar Pradesh,Agra,27.217844,78.043868,SBI,23
+ATM_01248,Uttar Pradesh,Ghaziabad,28.700537,77.425581,Union Bank,25
+ATM_01249,Uttar Pradesh,Meerut,29.024961,77.640148,Union Bank,32
+ATM_01250,Uttar Pradesh,Kanpur Nagar,26.484536,80.370861,Axis Bank,45
+ATM_01251,Uttar Pradesh,Gautam Buddha Nagar,28.576184,77.338532,IndusInd Bank,27
+ATM_01252,Uttar Pradesh,Prayagraj,25.411533,81.833156,Kotak Mahindra Bank,29
+ATM_01253,Uttar Pradesh,Prayagraj,25.529747,81.812646,Union Bank,29
+ATM_01254,Uttar Pradesh,Kanpur Nagar,26.519185,80.354594,Union Bank,45
+ATM_01255,Uttar Pradesh,Prayagraj,25.459205,81.841693,HDFC Bank,29
+ATM_01256,Uttar Pradesh,Prayagraj,25.379661,81.809868,Kotak Mahindra Bank,29
+ATM_01257,Uttar Pradesh,Kanpur Nagar,26.409503,80.362908,PNB,45
+ATM_01258,Uttar Pradesh,Kanpur Nagar,26.466048,80.2531,HDFC Bank,45
+ATM_01259,Uttar Pradesh,Kanpur Nagar,26.530558,80.337814,Bank of Baroda,45
+ATM_01260,Uttar Pradesh,Varanasi,25.260111,82.967972,HDFC Bank,39
+ATM_01261,Uttar Pradesh,Gautam Buddha Nagar,28.67254,77.365598,IndusInd Bank,27
+ATM_01262,Uttar Pradesh,Meerut,28.991775,77.645594,IndusInd Bank,32
+ATM_01263,Uttar Pradesh,Agra,27.137556,77.975926,Bank of Baroda,23
+ATM_01264,Uttar Pradesh,Meerut,29.030784,77.689898,Union Bank,32
+ATM_01265,Uttar Pradesh,Agra,27.232188,78.070224,Bank of Baroda,23
+ATM_01266,Uttar Pradesh,Meerut,28.939244,77.703461,Union Bank,32
+ATM_01267,Uttar Pradesh,Meerut,28.989349,77.679571,Kotak Mahindra Bank,32
+ATM_01268,Uttar Pradesh,Ghaziabad,28.703412,77.488331,IndusInd Bank,25
+ATM_01269,Uttar Pradesh,Gautam Buddha Nagar,28.494814,77.358692,Kotak Mahindra Bank,27
+ATM_01270,Uttar Pradesh,Varanasi,25.319368,82.958436,ICICI Bank,39
+ATM_01271,Uttar Pradesh,Gautam Buddha Nagar,28.526243,77.3699,SBI,27
+ATM_01272,Uttar Pradesh,Varanasi,25.264343,82.951964,Bank of Baroda,39
+ATM_01273,Uttar Pradesh,Kanpur Nagar,26.431327,80.352139,Bank of Baroda,45
+ATM_01274,Uttar Pradesh,Lucknow,26.795202,80.992856,IndusInd Bank,31
+ATM_01275,Uttar Pradesh,Prayagraj,25.429422,81.83895,Bank of Baroda,29
+ATM_01276,Uttar Pradesh,Meerut,28.985412,77.623726,Axis Bank,32
+ATM_01277,Uttar Pradesh,Lucknow,26.831949,80.965762,Axis Bank,31
+ATM_01278,Uttar Pradesh,Agra,27.213298,78.053676,Axis Bank,23
+ATM_01279,Uttar Pradesh,Varanasi,25.296785,82.964794,Union Bank,39
+ATM_01280,Uttar Pradesh,Meerut,28.922782,77.73663,ICICI Bank,32
+ATM_01281,Uttar Pradesh,Ghaziabad,28.661789,77.543772,Canara Bank,25
+ATM_01282,Uttar Pradesh,Agra,27.195986,77.995994,PNB,23
+ATM_01283,Uttar Pradesh,Varanasi,25.293648,83.024794,IndusInd Bank,39
+ATM_01284,Uttar Pradesh,Kanpur Nagar,26.496903,80.316511,SBI,45
+ATM_01285,Uttar Pradesh,Kanpur Nagar,26.47214,80.317985,Canara Bank,45
+ATM_01286,Uttar Pradesh,Lucknow,26.872982,80.928922,PNB,31
+ATM_01287,Uttar Pradesh,Agra,27.149819,77.991996,PNB,23
+ATM_01288,Uttar Pradesh,Kanpur Nagar,26.420468,80.320222,Union Bank,45
+ATM_01289,Uttar Pradesh,Kanpur Nagar,26.467979,80.33031,Kotak Mahindra Bank,45
+ATM_01290,Uttar Pradesh,Varanasi,25.301493,82.939924,PNB,39
+ATM_01291,Uttar Pradesh,Lucknow,26.820916,80.914338,ICICI Bank,31
+ATM_01292,Uttar Pradesh,Kanpur Nagar,26.386765,80.323768,Canara Bank,45
+ATM_01293,Uttar Pradesh,Varanasi,25.235312,82.896439,Kotak Mahindra Bank,39
+ATM_01294,Uttar Pradesh,Agra,27.157953,78.054348,Kotak Mahindra Bank,23
+ATM_01295,Uttar Pradesh,Kanpur Nagar,26.444358,80.403572,Kotak Mahindra Bank,45
+ATM_01296,Uttar Pradesh,Meerut,29.012986,77.718754,Bank of Baroda,32
+ATM_01297,Uttar Pradesh,Agra,27.262105,77.987794,Kotak Mahindra Bank,23
+ATM_01298,Uttar Pradesh,Gautam Buddha Nagar,28.526616,77.416021,IndusInd Bank,27
+ATM_01299,Uttar Pradesh,Prayagraj,25.471554,81.775632,Canara Bank,29
+ATM_01300,Uttar Pradesh,Kanpur Nagar,26.456314,80.378224,Kotak Mahindra Bank,45
+ATM_01301,Uttar Pradesh,Prayagraj,25.361662,81.768999,HDFC Bank,29
+ATM_01302,Uttar Pradesh,Lucknow,26.892965,80.896086,HDFC Bank,31
+ATM_01303,Uttar Pradesh,Lucknow,26.846735,80.992123,Bank of Baroda,31
+ATM_01304,Uttar Pradesh,Meerut,28.96375,77.734301,Canara Bank,32
+ATM_01305,Uttar Pradesh,Varanasi,25.360638,82.973056,Bank of Baroda,39
+ATM_01306,Uttar Pradesh,Gautam Buddha Nagar,28.546745,77.437607,HDFC Bank,27
+ATM_01307,Uttar Pradesh,Varanasi,25.331555,83.005296,Bank of Baroda,39
+ATM_01308,Uttar Pradesh,Lucknow,26.860598,80.92537,HDFC Bank,31
+ATM_01309,Uttar Pradesh,Varanasi,25.282149,82.930316,PNB,39
+ATM_01310,Uttar Pradesh,Lucknow,26.848725,80.894125,Union Bank,31
+ATM_01311,Uttar Pradesh,Lucknow,26.764168,80.968774,Bank of Baroda,31
+ATM_01312,Uttar Pradesh,Ghaziabad,28.718373,77.510897,Canara Bank,25
+ATM_01313,Uttar Pradesh,Varanasi,25.226575,82.977043,ICICI Bank,39
+ATM_01314,Uttar Pradesh,Kanpur Nagar,26.401915,80.352523,SBI,45
+ATM_01315,Uttar Pradesh,Varanasi,25.299277,83.051507,Union Bank,39
+ATM_01316,Uttar Pradesh,Gautam Buddha Nagar,28.528336,77.372863,Union Bank,27
+ATM_01317,Uttar Pradesh,Kanpur Nagar,26.404891,80.378258,HDFC Bank,45
+ATM_01318,Uttar Pradesh,Lucknow,26.871237,80.958601,PNB,31
+ATM_01319,Uttar Pradesh,Gautam Buddha Nagar,28.465753,77.365359,Axis Bank,27
+ATM_01320,Uttar Pradesh,Lucknow,26.925114,80.893592,ICICI Bank,31
+ATM_01321,Uttar Pradesh,Prayagraj,25.41532,81.903725,Canara Bank,29
+ATM_01322,Uttar Pradesh,Prayagraj,25.504862,81.905536,Axis Bank,29
+ATM_01323,Uttar Pradesh,Kanpur Nagar,26.472161,80.389836,ICICI Bank,45
+ATM_01324,Uttar Pradesh,Kanpur Nagar,26.476977,80.381035,Bank of Baroda,45
+ATM_01325,Uttar Pradesh,Ghaziabad,28.73213,77.472952,Canara Bank,25
+ATM_01326,Uttar Pradesh,Kanpur Nagar,26.480455,80.275861,SBI,45
+ATM_01327,Uttar Pradesh,Prayagraj,25.477844,81.780326,IndusInd Bank,29
+ATM_01328,Uttar Pradesh,Meerut,29.03193,77.727839,Union Bank,32
+ATM_01329,Uttar Pradesh,Gautam Buddha Nagar,28.615244,77.429149,ICICI Bank,27
+ATM_01330,Uttar Pradesh,Varanasi,25.37981,82.988248,SBI,39
+ATM_01331,Uttar Pradesh,Gautam Buddha Nagar,28.523736,77.428393,Canara Bank,27
+ATM_01332,Uttar Pradesh,Meerut,28.926653,77.74942,IndusInd Bank,32
+ATM_01333,Uttar Pradesh,Kanpur Nagar,26.499581,80.301038,Union Bank,45
+ATM_01334,Uttar Pradesh,Kanpur Nagar,26.469654,80.375241,ICICI Bank,45
+ATM_01335,Uttar Pradesh,Meerut,29.01688,77.682121,Axis Bank,32
+ATM_01336,Uttar Pradesh,Gautam Buddha Nagar,28.507945,77.423322,IndusInd Bank,27
+ATM_01337,Uttar Pradesh,Lucknow,26.929497,80.917523,IndusInd Bank,31
+ATM_01338,Uttar Pradesh,Meerut,28.954136,77.731053,IndusInd Bank,32
+ATM_01339,Uttar Pradesh,Lucknow,26.853858,80.969797,PNB,31
+ATM_01340,Uttar Pradesh,Varanasi,25.274164,82.937391,PNB,39
+ATM_01341,Uttar Pradesh,Agra,27.036324,78.00217,HDFC Bank,23
+ATM_01342,Uttar Pradesh,Lucknow,26.792814,80.936053,Kotak Mahindra Bank,31
+ATM_01343,Uttar Pradesh,Kanpur Nagar,26.389398,80.264446,IndusInd Bank,45
+ATM_01344,Uttar Pradesh,Prayagraj,25.409753,81.876968,Kotak Mahindra Bank,29
+ATM_01345,Uttar Pradesh,Ghaziabad,28.609367,77.478732,Canara Bank,25
+ATM_01346,Uttar Pradesh,Meerut,29.015478,77.773698,Kotak Mahindra Bank,32
+ATM_01347,Uttar Pradesh,Agra,27.167429,77.953761,IndusInd Bank,23
+ATM_01348,Uttar Pradesh,Lucknow,26.929523,80.931425,ICICI Bank,31
+ATM_01349,Uttar Pradesh,Lucknow,26.791092,80.929031,Axis Bank,31
+ATM_01350,Uttar Pradesh,Varanasi,25.292255,82.952579,SBI,39
+ATM_01351,Uttar Pradesh,Meerut,28.959451,77.699914,Bank of Baroda,32
+ATM_01352,Uttar Pradesh,Varanasi,25.299666,82.984685,Axis Bank,39
+ATM_01353,Uttar Pradesh,Gautam Buddha Nagar,28.497263,77.451295,Union Bank,27
+ATM_01354,Uttar Pradesh,Meerut,28.974,77.683541,ICICI Bank,32
+ATM_01355,Uttar Pradesh,Gautam Buddha Nagar,28.498496,77.358611,Kotak Mahindra Bank,27
+ATM_01356,Uttar Pradesh,Ghaziabad,28.77707,77.450476,Bank of Baroda,25
+ATM_01357,Uttar Pradesh,Varanasi,25.266339,82.989722,HDFC Bank,39
+ATM_01358,Uttar Pradesh,Kanpur Nagar,26.48232,80.202397,IndusInd Bank,45
+ATM_01359,Uttar Pradesh,Prayagraj,25.352221,81.830123,HDFC Bank,29
+ATM_01360,Uttar Pradesh,Ghaziabad,28.701346,77.412479,Axis Bank,25
+ATM_01361,Uttar Pradesh,Kanpur Nagar,26.432748,80.327254,HDFC Bank,45
+ATM_01362,Uttar Pradesh,Ghaziabad,28.669765,77.418964,IndusInd Bank,25
+ATM_01363,Uttar Pradesh,Prayagraj,25.485094,81.84958,Kotak Mahindra Bank,29
+ATM_01364,Uttar Pradesh,Meerut,29.03518,77.65199,Kotak Mahindra Bank,32
+ATM_01365,Uttar Pradesh,Kanpur Nagar,26.435108,80.287517,ICICI Bank,45
+ATM_01366,Uttar Pradesh,Prayagraj,25.498,81.864294,ICICI Bank,29
+ATM_01367,Uttar Pradesh,Lucknow,26.823786,80.968329,SBI,31
+ATM_01368,Uttar Pradesh,Agra,27.221559,78.009966,HDFC Bank,23
+ATM_01369,Uttar Pradesh,Gautam Buddha Nagar,28.58648,77.362151,Axis Bank,27
+ATM_01370,Uttar Pradesh,Prayagraj,25.427452,81.784922,Axis Bank,29
+ATM_01371,Uttar Pradesh,Kanpur Nagar,26.537319,80.300751,Canara Bank,45
+ATM_01372,Uttar Pradesh,Meerut,28.986882,77.612967,Bank of Baroda,32
+ATM_01373,Uttar Pradesh,Meerut,28.939422,77.789117,Kotak Mahindra Bank,32
+ATM_01374,Uttar Pradesh,Agra,27.107885,78.028975,ICICI Bank,23
+ATM_01375,Uttar Pradesh,Gautam Buddha Nagar,28.539291,77.362555,PNB,27
+ATM_01376,West Bengal,Kolkata,22.53469,88.378009,SBI,10
+ATM_01377,West Bengal,Asansol,23.675256,87.14012,HDFC Bank,9
+ATM_01378,West Bengal,Siliguri,26.765634,88.37475,Kotak Mahindra Bank,9
+ATM_01379,West Bengal,Asansol,23.709099,87.265671,HDFC Bank,9
+ATM_01380,West Bengal,Kolkata,22.52495,88.377948,PNB,10
+ATM_01381,West Bengal,Siliguri,26.777042,88.407537,SBI,9
+ATM_01382,West Bengal,Kolkata,22.578478,88.398249,Axis Bank,10
+ATM_01383,West Bengal,Siliguri,26.688228,88.413651,HDFC Bank,9
+ATM_01384,West Bengal,Siliguri,26.713114,88.464712,Bank of Baroda,9
+ATM_01385,West Bengal,Kolkata,22.553532,88.308559,Axis Bank,10
+ATM_01386,West Bengal,Kolkata,22.554125,88.347109,SBI,10
+ATM_01387,West Bengal,Durgapur,23.603173,87.379962,ICICI Bank,8
+ATM_01388,West Bengal,Durgapur,23.548439,87.306447,HDFC Bank,8
+ATM_01389,West Bengal,Asansol,23.643245,87.159568,SBI,9
+ATM_01390,West Bengal,Durgapur,23.506566,87.279346,Bank of Baroda,8
+ATM_01391,West Bengal,Asansol,23.599301,87.078854,Axis Bank,9
+ATM_01392,West Bengal,Durgapur,23.616354,87.330266,HDFC Bank,8
+ATM_01393,West Bengal,Durgapur,23.458354,87.316539,Canara Bank,8
+ATM_01394,West Bengal,Kolkata,22.500416,88.369818,IndusInd Bank,10
+ATM_01395,West Bengal,Asansol,23.632717,87.200435,HDFC Bank,9
+ATM_01396,West Bengal,Kolkata,22.621743,88.338381,SBI,10
+ATM_01397,West Bengal,Asansol,23.737856,87.138285,Kotak Mahindra Bank,9
+ATM_01398,West Bengal,Asansol,23.698723,87.122632,ICICI Bank,9
+ATM_01399,West Bengal,Durgapur,23.574547,87.292058,SBI,8
+ATM_01400,West Bengal,Siliguri,26.707785,88.349843,ICICI Bank,9
+ATM_01401,West Bengal,Kolkata,22.616461,88.377395,SBI,10
+ATM_01402,West Bengal,Durgapur,23.599995,87.270293,Canara Bank,8
+ATM_01403,West Bengal,Kolkata,22.586657,88.384349,Union Bank,10
+ATM_01404,West Bengal,Durgapur,23.506787,87.295513,IndusInd Bank,8
+ATM_01405,West Bengal,Kolkata,22.510712,88.366714,Axis Bank,10
+ATM_01406,West Bengal,Asansol,23.637528,87.130507,ICICI Bank,9
+ATM_01407,West Bengal,Asansol,23.659611,87.137879,Kotak Mahindra Bank,9
+ATM_01408,West Bengal,Siliguri,26.747103,88.43255,PNB,9
+ATM_01409,West Bengal,Siliguri,26.696619,88.36994,Kotak Mahindra Bank,9
+ATM_01410,West Bengal,Siliguri,26.715587,88.377708,Axis Bank,9
+ATM_01411,West Bengal,Siliguri,26.79143,88.321982,Bank of Baroda,9
