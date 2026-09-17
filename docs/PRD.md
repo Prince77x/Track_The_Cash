@@ -1,6 +1,6 @@
 # PRD: Track the Cash
 
-> **Status:** Draft | **Version:** 1.0 | **Last Updated:** September 16, 2026
+> **Status:** Draft | **Version:** 1.1 | **Last Updated:** September 17, 2026
 
 ---
 
@@ -89,15 +89,63 @@ Track the Cash is an AI-powered predictive analytics framework built for SIH 202
 
 ### Feature: Synthetic Data Generator
 
-- **Description:** Generates realistic complaint events, mule account records, and links them to ATM zones — calibrated to I4C published statistics since raw NCRP data is restricted.
-- **Inputs:** Configuration parameters (num complaints/day, state distribution weights, crime type ratios, cross-state mismatch rate)
-- **Outputs:** PostgreSQL tables: `complaints`, `mule_accounts`, `atm_locations`, `predictions`
+- **Description:** Python CLI script that generates all training and simulation data calibrated to I4C published statistics. Operates in two modes: `batch` (30-day offline training dataset) and `live` (real-time complaint stream replay for demo). Spike injection is controllable via CLI flag or Admin dashboard button.
+- **Inputs:** CLI args — `--days` (default 30), `--mode batch|live|spike`, `--inject-spike` (bool), `--complaints-per-day` (default 8000)
+- **Outputs:** Populates PostgreSQL tables: `complaints`, `mule_accounts`, `atm_risk_history`; ATM locations sourced separately from OSM
+
+**Calibration Anchors (real-world statistics):**
+
+| Parameter | Value | Source |
+|---|---|---|
+| Daily complaints | 8,000 | PS / I4C |
+| Top fraud states | UP, Maharashtra, Rajasthan, Telangana, Karnataka | I4C annual report |
+| Cross-state mule rate | 20% of cases | Lit review assumption |
+| Avg fraud amount | ₹10,000–₹5,00,000 | CFCFRMS data |
+| OTP fraud share | 45% | NCRB category ratios |
+| ATM card fraud share | 30% | NCRB |
+| Investment scam share | 25% | NCRB |
+
+**Database Schemas:**
+
+`complaints` table:
+```
+complaint_id, timestamp, state, district,
+crime_type (otp_fraud | atm_card_fraud | investment_scam),
+amount_inr, mule_account_id (FK), status (pending | resolved)
+```
+
+`mule_accounts` table:
+```
+mule_id, registered_state, registered_district,
+registered_lat, registered_lng, account_bank,
+is_cross_state (bool), linked_atm_ids (array of nearest 3 ATM IDs)
+```
+
+`atm_risk_history` table:
+```
+history_id, atm_id, date, risk_score,
+complaint_count, spike_flag (bool), district, state
+```
+
+**Demo Spike Scenario (scripted, triggered via Admin dashboard "Inject Spike" button):**
+1. **T+0s** — Cross-state event: fraud complaints originate in Rajasthan, mule accounts registered in UP → cross-state CRITICAL alert fires, UP ATMs highlighted on map
+2. **T+60s** — Single-state spike: UP complaint count exceeds 2× 7-day rolling average → WARNING alert fires, additional UP ATMs elevated to red zone
+
+**Live Mode Behaviour:**
+- Replays complaints at configurable rate (default: 1 complaint/2 seconds)
+- Random mode: probabilistic generation from calibrated distributions
+- Scripted mode: deterministic scenario replay for demo control
+
 - **Acceptance Criteria:**
-  - [ ] Generates ≥ 8,000 complaint records per simulated day
-  - [ ] State distribution matches top-5 fraud states (UP, Maharashtra, Rajasthan, Telangana, Karnataka) by approximate I4C ratios
-  - [ ] ≥ 20% of mule accounts have district different from complaint district (cross-state cases)
-  - [ ] Temporal pattern applied: weekday complaints > weekend, with configurable spike injection
-  - [ ] All generated records persist to PostgreSQL on script run
+  - [ ] `batch` mode generates 30 days × 8,000 complaints = ~240,000 records, completes in < 5 minutes
+  - [ ] State distribution matches top-5 fraud states within ±5% of calibration ratios
+  - [ ] Crime type split: OTP 45% / ATM card 30% / Investment scam 25% within ±3%
+  - [ ] ≥ 20% of mule accounts have `is_cross_state = true`
+  - [ ] Temporal pattern applied: weekday complaint count > weekend by factor of 1.3×
+  - [ ] `live` mode streams complaints to DB at configured rate without errors
+  - [ ] `--inject-spike` flag or Admin dashboard button triggers scripted 2-stage scenario correctly
+  - [ ] All generated records persist to PostgreSQL; script is idempotent with `--reset` flag
+  - [ ] `atm_risk_history` populated with 30 days of historical risk scores for Admin velocity chart
 
 ---
 
@@ -336,6 +384,22 @@ LEA deploys field team to flagged ATM zone — demo complete
 
 ---
 
+### `POST /simulation/inject-spike`
+- **Purpose:** Trigger the scripted 2-stage demo spike scenario (Admin only) — inserts calibrated spike records into DB and fires spike detector
+- **Input:** Header: `Authorization: Bearer <token>`; Body: `{ "stage": 1 | 2 | "all" }` — stage 1 = cross-state Rajasthan→UP, stage 2 = UP single-state spike, "all" = both in sequence
+- **Output:** `{ "status": "injected", "stage": ..., "alerts_fired": [...], "affected_atms": [...] }` — 200 OK
+- **Error Cases:** 401 unauthorized; 403 if role is not admin; 409 if spike already active
+
+---
+
+### `POST /simulation/mode`
+- **Purpose:** Switch live complaint stream between random and scripted modes
+- **Input:** Header: `Authorization: Bearer <token>`; Body: `{ "mode": "random" | "scripted", "rate_per_second": float }`
+- **Output:** `{ "status": "updated", "mode": ..., "rate_per_second": ... }` — 200 OK
+- **Error Cases:** 401 unauthorized; 403 if role is not admin
+
+---
+
 ### `GET /analytics/velocity`
 - **Purpose:** Return complaint velocity trend data for Admin dashboard charts
 - **Input:** Header: `Authorization: Bearer <token>`; Query: `days` (default 7), `states` (comma-separated, default top 5)
@@ -355,12 +419,16 @@ LEA deploys field team to flagged ATM zone — demo complete
 ## 15. Architecture Overview
 
 ```
-[Synthetic Data Generator (Python script)]
-        ↓ seed on startup
+[Synthetic Data Generator (Python CLI)]
+   ├── --mode batch   → seeds 30-day training data
+   ├── --mode live    → streams complaints to DB (random or scripted)
+   └── --inject-spike → triggers 2-stage demo scenario
+        ↓
 [PostgreSQL on Supabase/Neon]
    ├── complaints
    ├── mule_accounts
    ├── atm_locations (pre-fetched from OSM)
+   ├── atm_risk_history
    ├── predictions
    └── alerts
         ↓
@@ -376,7 +444,9 @@ LEA deploys field team to flagged ATM zone — demo complete
    ├── /alerts/trigger
    ├── /alerts/spike-check
    ├── /analytics/velocity
-   └── /reports/export
+   ├── /reports/export
+   ├── /simulation/inject-spike
+   └── /simulation/mode
         ↓ REST JSON / GeoJSON
 [Frontend: Vanilla JS + Leaflet.js]
    ├── Login Page
@@ -406,6 +476,8 @@ LEA deploys field team to flagged ATM zone — demo complete
 | XGBoost model underperforms on synthetic data (AUC < 0.75) | Medium | High | Tune class weights; inject stronger signal into synthetic features; Shubham validates early (by Hour 16) |
 | SMTP email blocked or misconfigured | Medium | Medium | Test SMTP in Hour 12; use Gmail App Password as primary, SendGrid as backup |
 | Frontend Leaflet GeoJSON render fails | Low | Medium | Validate GeoJSON with geojson.io before integration; fallback to simple marker layer |
+| Synthetic data signal too weak — XGBoost finds no pattern | Medium | High | Inject strong synthetic signal: cross-state mules always within 50km of high-fraud ATMs; Shubham validates AUC by Hour 16 |
+| Live stream DB writes cause latency spike during demo | Low | Medium | Batch-insert complaints in groups of 10; use async DB writes in generator |
 | Time overrun — not all features complete by Hour 48 | High | High | Core must-haves (heatmap + predict + login) by Hour 36; alerts + admin view by Hour 44; polish Hour 44–48 |
 | Docker Compose port conflicts on demo machine | Low | Medium | Document port config in README; test docker compose up on clean machine by Hour 46 |
 
