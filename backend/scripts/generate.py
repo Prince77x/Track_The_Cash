@@ -99,9 +99,15 @@ def generate_batch_complaints(
     db: Session,
     days: int = 30,
     complaints_per_day: int = 8000,
-    mule_ids: Optional[List[str]] = None
+    mule_ids: Optional[List[str]] = None,
+    force: bool = False
 ) -> int:
     """Generates batch complaints and historical ATM risk records."""
+    existing_count = db.query(Complaint).count()
+    if existing_count >= 1000 and not force:
+        print(f"Database already populated with {existing_count} complaints. Skipping batch generation.")
+        return existing_count
+
     if not mule_ids:
         existing_mules = db.query(MuleAccount.mule_id).all()
         mule_ids = [m[0] for m in existing_mules]

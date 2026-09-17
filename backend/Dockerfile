@@ -2,18 +2,24 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
+# Install build dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
+# Install python dependencies
 COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy application files
 COPY backend/ /app/backend/
 COPY data/ /app/data/
+
+# Create models and cache directories
+RUN mkdir -p /app/models /app/data/cache && chmod +x /app/backend/entrypoint.sh
 
 ENV PYTHONPATH=/app
 EXPOSE 8000
 
-CMD ["sh", "-c", "python backend/scripts/init_db.py && python backend/scripts/fetch_atms.py && python backend/scripts/generate.py --mode batch --days 30 && uvicorn backend.app.main:app --host 0.0.0.0 --port 8000"]
+ENTRYPOINT ["/app/backend/entrypoint.sh"]

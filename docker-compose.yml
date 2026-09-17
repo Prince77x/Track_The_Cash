@@ -1,4 +1,5 @@
 services:
+  # PostgreSQL Database Service
   db:
     image: postgres:16-alpine
     container_name: ttc-db
@@ -12,11 +13,15 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d track_the_cash"]
       interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
+      start_period: 5s
+    networks:
+      - ttc-network
 
+  # FastAPI Backend Service
   api:
     build:
       context: .
@@ -41,21 +46,16 @@ services:
         condition: service_healthy
     volumes:
       - model_data:/app/models
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - ttc-network
 
-  ml-runner:
-    build:
-      context: .
-      dockerfile: backend/Dockerfile.ml
-    container_name: ttc-ml-runner
-    environment:
-      DATABASE_URL: postgresql://postgres:postgrespassword@db:5432/track_the_cash
-      MODEL_PATH: /app/models/xgboost_atm_risk.joblib
-    depends_on:
-      db:
-        condition: service_healthy
-    volumes:
-      - model_data:/app/models
-
+  # React Frontend Service (Served via Nginx)
   frontend:
     build:
       context: ./frontend
@@ -65,8 +65,17 @@ services:
     ports:
       - "3000:80"
     depends_on:
-      - api
+      api:
+        condition: service_healthy
+    networks:
+      - ttc-network
 
 volumes:
   postgres_data:
+    driver: local
   model_data:
+    driver: local
+
+networks:
+  ttc-network:
+    driver: bridge
