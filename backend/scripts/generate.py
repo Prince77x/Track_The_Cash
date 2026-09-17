@@ -52,9 +52,16 @@ def get_random_district(state: str) -> Tuple[str, float, float]:
 def generate_mule_accounts(
     db: Session,
     num_mules: int = 5000,
-    cross_state_ratio: float = 0.25
+    cross_state_ratio: float = 0.25,
+    force: bool = False
 ) -> List[str]:
     """Generates mule accounts with linked ATM IDs and cross-state distribution."""
+    existing_mules = [m[0] for m in db.query(MuleAccount.mule_id).all()]
+    if existing_mules and len(existing_mules) >= min(50, num_mules) and not force:
+        print(f"Mule accounts already populated ({len(existing_mules)} records). Reusing existing mules.")
+        return existing_mules
+
+    existing_set = set(existing_mules)
     atms = db.query(ATMLocation).all()
     atm_ids_by_state = {}
     for a in atms:
@@ -63,10 +70,16 @@ def generate_mule_accounts(
     all_atm_ids = [a.atm_id for a in atms] if atms else [f"ATM_{i:05d}" for i in range(1, 100)]
 
     mules = []
-    mule_ids = []
-    for i in range(1, num_mules + 1):
+    mule_ids = list(existing_mules)
+    start_idx = len(existing_mules) + 1
+
+    for i in range(start_idx, start_idx + num_mules):
         mule_id = f"MULE_{i:06d}"
+        if mule_id in existing_set:
+            continue
         mule_ids.append(mule_id)
+        existing_set.add(mule_id)
+
         state = get_random_state()
         district, lat, lng = get_random_district(state)
         is_cross_state = random.random() < cross_state_ratio
@@ -86,11 +99,12 @@ def generate_mule_accounts(
             "linked_atm_ids": linked
         })
 
-    # Bulk insert in batches
-    batch_size = 2000
-    for i in range(0, len(mules), batch_size):
-        db.bulk_insert_mappings(MuleAccount, mules[i:i + batch_size])
-    db.commit()
+    if mules:
+        # Bulk insert in batches
+        batch_size = 2000
+        for i in range(0, len(mules), batch_size):
+            db.bulk_insert_mappings(MuleAccount, mules[i:i + batch_size])
+        db.commit()
 
     return mule_ids
 

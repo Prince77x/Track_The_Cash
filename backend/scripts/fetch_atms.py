@@ -185,8 +185,13 @@ def fetch_from_overpass() -> Optional[List[Dict[str, Any]]]:
     return None
 
 
-def ingest_atms(db: Session, target_count: int = 1200) -> int:
+def ingest_atms(db: Session, target_count: int = 1200, force: bool = False) -> int:
     """Ingests ATM locations into database idempotently."""
+    existing_count = db.query(ATMLocation).count()
+    if existing_count >= target_count and not force:
+        print(f"ATM locations already populated ({existing_count} ATMs). Skipping ingestion.")
+        return existing_count
+
     atms_data = None
     cache_path = os.path.abspath(CACHE_FILE)
 
