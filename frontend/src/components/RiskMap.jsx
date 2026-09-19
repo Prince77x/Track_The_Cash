@@ -1,7 +1,7 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, Tooltip } from 'react-leaflet';
+import React, { useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, Tooltip, LayersControl } from 'react-leaflet';
 import L from 'leaflet';
-import { ShieldAlert, AlertTriangle, Building, MapPin, Clock } from 'lucide-react';
+import { ShieldAlert, AlertTriangle, Building, MapPin, Clock, Layers } from 'lucide-react';
 
 // Create custom leaflet DivIcons for clean colored radar markers
 const createRiskIcon = (riskScore, isCrossState, isStale) => {
@@ -69,6 +69,44 @@ export const RiskMap = ({
   const defaultCenter = [22.9734, 78.6569];
   const defaultZoom = 5;
 
+  // Check for optional custom API key or tile URL in env
+  const mapboxToken = import.meta.env.VITE_MAPBOX_TOKEN || import.meta.env.VITE_MAP_API_KEY || '';
+  const customTileUrl = import.meta.env.VITE_MAP_TILE_URL;
+
+  // Selected base tile style
+  const [tileStyle, setTileStyle] = useState('carto_dark');
+
+  const getTileConfig = () => {
+    if (customTileUrl) {
+      return {
+        url: customTileUrl,
+        attribution: '&copy; Custom Tile Provider'
+      };
+    }
+
+    if (tileStyle === 'mapbox' && mapboxToken) {
+      return {
+        url: `https://api.mapbox.com/styles/v1/mapbox/dark-v11/tiles/{z}/{x}/{y}?access_token=${mapboxToken}`,
+        attribution: '&copy; <a href="https://www.mapbox.com/">Mapbox</a>'
+      };
+    }
+
+    if (tileStyle === 'osm_standard') {
+      return {
+        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      };
+    }
+
+    // Default Carto Dark (Keyless and fast)
+    return {
+      url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+      attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; OpenStreetMap'
+    };
+  };
+
+  const tileConfig = getTileConfig();
+
   return (
     <div style={{ width: '100%', height: '100%', minHeight: '560px', position: 'relative' }}>
       <MapContainer
@@ -77,8 +115,10 @@ export const RiskMap = ({
         style={{ width: '100%', height: '100%', minHeight: '560px', borderRadius: '12px' }}
       >
         <TileLayer
-          attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          key={tileStyle}
+          attribution={tileConfig.attribution}
+          url={tileConfig.url}
+          maxZoom={19}
         />
 
         {/* ATM Risk Markers */}
@@ -187,6 +227,44 @@ export const RiskMap = ({
           </Polyline>
         ))}
       </MapContainer>
+
+      {/* Map Style Selector Toggle (Top Right) */}
+      <div style={{
+        position: 'absolute',
+        top: '12px',
+        right: '12px',
+        backgroundColor: 'rgba(15, 23, 42, 0.92)',
+        backdropFilter: 'blur(8px)',
+        border: '1px solid #334155',
+        borderRadius: '8px',
+        padding: '0.4rem 0.6rem',
+        zIndex: 500,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.4rem',
+        fontSize: '0.75rem',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.5)'
+      }}>
+        <Layers size={14} color="#38bdf8" />
+        <select
+          value={tileStyle}
+          onChange={(e) => setTileStyle(e.target.value)}
+          style={{
+            backgroundColor: '#1e293b',
+            color: '#f8fafc',
+            border: '1px solid #475569',
+            borderRadius: '4px',
+            padding: '0.2rem 0.4rem',
+            fontSize: '0.75rem',
+            outline: 'none',
+            cursor: 'pointer'
+          }}
+        >
+          <option value="carto_dark">🌙 Dark Map (CARTO - Free)</option>
+          <option value="osm_standard">🗺️ Standard Street (OpenStreetMap - Free)</option>
+          {mapboxToken && <option value="mapbox">🛰️ Mapbox Dark (Custom Key)</option>}
+        </select>
+      </div>
 
       {/* Map Legend */}
       <div style={{
