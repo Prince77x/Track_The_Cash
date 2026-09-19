@@ -43,21 +43,24 @@ class Complaint(Base):
     timestamp = Column(DateTime, default=utc_now, nullable=False, index=True)
     state = Column(String(64), nullable=False, index=True)
     district = Column(String(64), nullable=False, index=True)
-    crime_type = Column(String(32), nullable=False)
+    crime_type = Column(String(64), nullable=False)
     amount_inr = Column(Float, nullable=False)
     mule_account_id = Column(String(64), ForeignKey("mule_accounts.mule_id"), nullable=True, index=True)
-    status = Column(String(32), default="pending", nullable=False)
+    status = Column(String(32), default="NEW", nullable=False, index=True)
 
-    __table_args__ = (
-        CheckConstraint(
-            "crime_type IN ('otp_fraud', 'atm_card_fraud', 'investment_scam')",
-            name="check_crime_type"
-        ),
-        CheckConstraint(
-            "status IN ('pending', 'resolved')",
-            name="check_complaint_status"
-        ),
-    )
+    # Extended fields for LEA surveillance & investigation
+    complainant_name = Column(String(128), default="Citizen User", nullable=True)
+    contact_phone = Column(String(64), default="+91 98765 43210", nullable=True)
+    transaction_id = Column(String(64), nullable=True, index=True)
+    atm_id = Column(String(64), nullable=True, index=True)
+    category = Column(String(64), default="ATM Cash-Out Anomaly", nullable=True)
+    description = Column(Text, default="Suspicious cash withdrawal activity detected", nullable=True)
+    priority = Column(String(16), default="HIGH", nullable=False, index=True)
+    assigned_officer = Column(String(128), nullable=True)
+    investigation_notes = Column(JSON, default=list, nullable=True)
+    resolution_summary = Column(Text, nullable=True)
+    resolved_at = Column(DateTime, nullable=True)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now, nullable=True)
 
     mule_account = relationship("MuleAccount", back_populates="complaints")
 
