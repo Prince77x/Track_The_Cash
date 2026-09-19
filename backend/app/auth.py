@@ -1,17 +1,35 @@
 import datetime
-from typing import Optional, Dict
+from typing import Optional, Dict, Any
 import jwt
-from fastapi import Depends, HTTPException, status
+import bcrypt
+from fastapi import Depends, HTTPException, status, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from sqlalchemy.orm import Session
+
 from backend.app.config import settings
+from backend.app.database import get_db
+from backend.app.models import LEAOfficer, AuditLog, utc_now
 
 security = HTTPBearer(auto_error=False)
 
-# Hardcoded demo users for SIH hackathon evaluation
+# Hardcoded demo users for fast SIH hackathon evaluation
 DEMO_USERS = {
-    "lea_user": {"password": "lea_pass", "role": "lea"},
-    "admin_user": {"password": "admin_pass", "role": "admin"}
+    "lea_user": {"password": "lea_pass", "role": "lea", "full_name": "Insp. Vikram Rathore"},
+    "admin_user": {"password": "admin_pass", "role": "admin", "full_name": "Director S. Verma"}
 }
+
+
+def hash_password(password: str) -> str:
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
+
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    try:
+        return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
+    except Exception:
+        # Fallback for plain demo passwords if any
+        return plain_password == hashed_password
 
 
 def create_access_token(data: dict, expires_delta: Optional[datetime.timedelta] = None) -> str:
@@ -41,7 +59,7 @@ def decode_access_token(token: str) -> dict:
         )
 
 
-def get_current_user(credentials: Optional[HTTPAuthorizationCredentials] = Depends(security)) -> Dict[str, str]:
+def get_current_user(credentials: Optional[HTTPAuthorizationCredentials] = Depends(security)) -> Dict[str, Any]:
     if not credentials:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -56,10 +74,15 @@ def get_current_user(credentials: Optional[HTTPAuthorizationCredentials] = Depen
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid token claims"
         )
-    return {"username": username, "role": role}
+    return {
+        "username": username,
+        "role": role,
+        "full_name": payload.get("full_name", username),
+        "officer_id": payload.get("officer_id", None)
+    }
 
 
-def require_admin(user: Dict[str, str] = Depends(get_current_user)) -> Dict[str, str]:
+def require_admin(user: Dict[str, Any] = Depends(get_current_user)) -> Dict[str, Any]:
     if user.get("role") != "admin":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
@@ -68,5 +91,29 @@ def require_admin(user: Dict[str, str] = Depends(get_current_user)) -> Dict[str,
     return user
 
 
-def require_authenticated(user: Dict[str, str] = Depends(get_current_user)) -> Dict[str, str]:
+def require_authenticated(user: Dict[str, Any] = Depends(get_current_user)) -> Dict[str, Any]:
     return user
+
+
+def record_audit(
+    db: Session,
+    admin_user: str,
+    action: str,
+    resource: str,
+    resource_id: Optional[str] = None,
+    details: Optional[Dict[str, Any]] = None,
+    ip_address: str = "127.0.0.1"
+) -> AuditLog:
+    """Helper to persist audit logs for all administrative actions."""
+    log_entry = AuditLog(
+        timestamp=utc_now(),
+        admin_user=admin_user,
+        action=action,
+        resource=resource,
+        resource_id=resource_id,
+        details=details or {},
+        ip_address=ip_address
+    )
+    db.add(log_entry)
+    db.commit()
+    return log_entry

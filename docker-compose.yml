@@ -45,6 +45,8 @@ services:
       db:
         condition: service_healthy
     volumes:
+      - ./backend:/app/backend
+      - ./data:/app/data
       - model_data:/app/models
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]

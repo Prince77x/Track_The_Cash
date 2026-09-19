@@ -1,81 +1,195 @@
 import csv
 import io
+import json
 import datetime
-from fastapi import APIRouter, Depends, Response
+from typing import Optional
+from fastapi import APIRouter, Depends, Query, Response
 from sqlalchemy.orm import Session
 from sqlalchemy import desc
 
 from backend.app.database import get_db
-from backend.app.auth import require_authenticated
-from backend.app.models import Prediction, ATMLocation, MuleAccount, Complaint, Alert, utc_now
+from backend.app.auth import require_authenticated, record_audit
+from backend.app.models import (
+    Prediction, ATMLocation, MuleAccount, Complaint, Alert,
+    LEAOfficer, Case, utc_now
+)
 
 router = APIRouter(prefix="/reports", tags=["Reports"])
 
 
 @router.get("/export")
-def export_predictions_csv(
+def export_reports(
+    report_type: str = Query("predictions", description="predictions, complaints, alerts, mules, officers, cases"),
+    format: str = Query("csv", description="csv, json"),
+    state: Optional[str] = Query(None),
+    limit: int = Query(500, ge=1, le=5000),
     db: Session = Depends(get_db),
     user: dict = Depends(require_authenticated)
 ):
     now = utc_now()
     cutoff_stale = now - datetime.timedelta(hours=24)
 
-    cross_districts = set(
-        d[0] for d in db.query(MuleAccount.registered_district).filter_by(is_cross_state=True).all()
-    )
+    # 1. Predictions Report
+    if report_type == "predictions":
+        cross_districts = set(
+            d[0] for d in db.query(MuleAccount.registered_district).filter_by(is_cross_state=True).all()
+        )
+        query = db.query(Prediction, ATMLocation).join(ATMLocation, Prediction.atm_id == ATMLocation.atm_id).order_by(desc(Prediction.risk_score))
+        if state:
+            query = query.filter(ATMLocation.state == state)
+        results = query.limit(limit).all()
 
-    results = (
-        db.query(Prediction, ATMLocation)
-        .join(ATMLocation, Prediction.atm_id == ATMLocation.atm_id)
-        .order_by(desc(Prediction.risk_score))
-        .all()
-    )
+        if format == "json":
+            data = [
+                {
+                    "atm_id": atm.atm_id,
+                    "bank_name": atm.bank_name,
+                    "district": atm.district,
+                    "state": atm.state,
+                    "risk_score": round(pred.risk_score, 4),
+                    "cross_state": atm.district in cross_districts,
+                    "predicted_at": pred.predicted_at.isoformat() if pred.predicted_at else ""
+                }
+                for pred, atm in results
+            ]
+            return Response(
+                content=json.dumps(data, indent=2),
+                media_type="application/json",
+                headers={"Content-Disposition": f'attachment; filename="atm_risk_intelligence_{now.strftime("%Y%m%d")}.json"'}
+            )
 
-    output = io.StringIO()
-    writer = csv.writer(output)
+        output = io.StringIO()
+        writer = csv.writer(output)
+        writer.writerow(["atm_id", "lat", "lng", "district", "state", "bank_name", "risk_score", "predicted_at", "cross_state_flag", "stale"])
+        for pred, atm in results:
+            pred_time = pred.predicted_at
+            if pred_time and pred_time.tzinfo is None:
+                pred_time = pred_time.replace(tzinfo=datetime.timezone.utc)
+            is_stale = pred_time < cutoff_stale if pred_time else False
+            is_cross = atm.district in cross_districts
+            writer.writerow([
+                atm.atm_id, atm.lat, atm.lng, atm.district, atm.state,
+                atm.bank_name or "", round(pred.risk_score, 4),
+                pred_time.isoformat() if pred_time else "", is_cross, is_stale
+            ])
+        return Response(
+            content=output.getvalue(),
+            media_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="atm_risk_intelligence_{now.strftime("%Y%m%d")}.csv"'}
+        )
 
-    # Header
-    writer.writerow([
-        "atm_id",
-        "lat",
-        "lng",
-        "district",
-        "state",
-        "bank_name",
-        "risk_score",
-        "predicted_at",
-        "cross_state_flag",
-        "stale"
-    ])
+    # 2. Complaints Report
+    elif report_type == "complaints":
+        query = db.query(Complaint).order_by(desc(Complaint.timestamp))
+        if state:
+            query = query.filter(Complaint.state == state)
+        results = query.limit(limit).all()
 
-    for pred, atm in results:
-        pred_time = pred.predicted_at
-        if pred_time.tzinfo is None:
-            pred_time = pred_time.replace(tzinfo=datetime.timezone.utc)
-        is_stale = pred_time < cutoff_stale
-        is_cross = atm.district in cross_districts
+        if format == "json":
+            data = [
+                {
+                    "complaint_id": c.complaint_id,
+                    "timestamp": c.timestamp.isoformat() if c.timestamp else "",
+                    "state": c.state,
+                    "district": c.district,
+                    "amount_inr": c.amount_inr,
+                    "priority": c.priority,
+                    "status": c.status,
+                    "atm_id": c.atm_id,
+                    "mule_id": c.mule_account_id
+                }
+                for c in results
+            ]
+            return Response(
+                content=json.dumps(data, indent=2),
+                media_type="application/json",
+                headers={"Content-Disposition": f'attachment; filename="complaint_intelligence_{now.strftime("%Y%m%d")}.json"'}
+            )
 
-        writer.writerow([
-            atm.atm_id,
-            atm.lat,
-            atm.lng,
-            atm.district,
-            atm.state,
-            atm.bank_name or "",
-            round(pred.risk_score, 4),
-            pred_time.isoformat(),
-            is_cross,
-            is_stale
-        ])
+        output = io.StringIO()
+        writer = csv.writer(output)
+        writer.writerow(["complaint_id", "timestamp", "state", "district", "crime_type", "amount_inr", "priority", "status", "atm_id", "mule_account_id"])
+        for c in results:
+            writer.writerow([
+                c.complaint_id, c.timestamp.isoformat() if c.timestamp else "",
+                c.state, c.district, c.crime_type, c.amount_inr,
+                c.priority, c.status, c.atm_id or "", c.mule_account_id or ""
+            ])
+        return Response(
+            content=output.getvalue(),
+            media_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="complaint_intelligence_{now.strftime("%Y%m%d")}.csv"'}
+        )
 
-    csv_data = output.getvalue()
-    return Response(
-        content=csv_data,
-        media_type="text/csv",
-        headers={
-            "Content-Disposition": 'attachment; filename="predictions.csv"'
-        }
-    )
+    # 3. Alerts Report
+    elif report_type == "alerts":
+        query = db.query(Alert).order_by(desc(Alert.detected_at))
+        if state:
+            query = query.filter(Alert.state == state)
+        results = query.limit(limit).all()
+
+        output = io.StringIO()
+        writer = csv.writer(output)
+        writer.writerow(["alert_id", "detected_at", "severity", "district", "state", "triggered_by", "complaint_count", "cross_state", "status", "assigned_officer", "message"])
+        for a in results:
+            writer.writerow([
+                a.alert_id, a.detected_at.isoformat() if a.detected_at else "",
+                a.severity, a.district, a.state, a.triggered_by,
+                a.complaint_count, a.cross_state, a.status or "ACTIVE",
+                a.assigned_officer or "", a.message or ""
+            ])
+        return Response(
+            content=output.getvalue(),
+            media_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="alert_intelligence_{now.strftime("%Y%m%d")}.csv"'}
+        )
+
+    # 4. Mule Accounts Report
+    elif report_type == "mules":
+        query = db.query(MuleAccount).order_by(MuleAccount.mule_id.asc())
+        if state:
+            query = query.filter(MuleAccount.registered_state == state)
+        results = query.limit(limit).all()
+
+        output = io.StringIO()
+        writer = csv.writer(output)
+        writer.writerow(["mule_id", "registered_state", "registered_district", "account_bank", "is_cross_state", "linked_atm_count"])
+        for m in results:
+            writer.writerow([
+                m.mule_id, m.registered_state, m.registered_district,
+                m.account_bank, m.is_cross_state, len(m.linked_atm_ids or [])
+            ])
+        return Response(
+            content=output.getvalue(),
+            media_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="mule_intelligence_{now.strftime("%Y%m%d")}.csv"'}
+        )
+
+    # 5. Cases Report
+    elif report_type == "cases":
+        query = db.query(Case).order_by(desc(Case.updated_at))
+        if state:
+            query = query.filter(Case.state == state)
+        results = query.limit(limit).all()
+
+        output = io.StringIO()
+        writer = csv.writer(output)
+        writer.writerow(["case_id", "title", "state", "district", "amount_inr", "priority", "status", "assigned_officer", "created_at", "resolved_at"])
+        for c in results:
+            writer.writerow([
+                c.case_id, c.title, c.state, c.district, c.amount_inr,
+                c.priority, c.status, c.assigned_officer_name or "",
+                c.created_at.isoformat() if c.created_at else "",
+                c.resolved_at.isoformat() if c.resolved_at else ""
+            ])
+        return Response(
+            content=output.getvalue(),
+            media_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="cases_investigation_{now.strftime("%Y%m%d")}.csv"'}
+        )
+
+    # Default fallback to predictions
+    return export_predictions_csv(db=db, user=user)
 
 
 @router.get("/dossier")
