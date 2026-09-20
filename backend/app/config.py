@@ -1,3 +1,4 @@
+import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -13,6 +14,7 @@ class Settings(BaseSettings):
     SMTP_FROM: str = "alerts@trackthecash.gov.in"
     SIMULATION_DEFAULT_RATE: float = 0.5
     MODEL_PATH: str = "models/xgboost_atm_risk.joblib"
+    APP_BASE_URL: str = os.getenv("RENDER_EXTERNAL_URL", "https://track-the-cash.onrender.com")
 
     model_config = SettingsConfigDict(
         env_file=".env",

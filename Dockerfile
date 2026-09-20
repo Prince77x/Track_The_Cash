@@ -34,11 +34,14 @@ COPY data/ /app/data/
 # Copy built frontend assets from Stage 1 into /app/frontend/dist
 COPY --from=frontend-builder /frontend/dist /app/frontend/dist
 
-# Create runtime directories
+# Create runtime directories and make entrypoint executable
 RUN mkdir -p /app/models /app/data/cache && chmod +x /app/backend/entrypoint.sh
 
 ENV PYTHONPATH=/app
 ENV DATABASE_URL=sqlite:///./track_the_cash.db
+ENV APP_BASE_URL=https://track-the-cash.onrender.com
+ENV PORT=8000
+
 EXPOSE 8000
 
 ENTRYPOINT ["/app/backend/entrypoint.sh"]
