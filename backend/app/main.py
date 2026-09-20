@@ -3,6 +3,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from backend.app.database import engine, Base
 from backend.app.routers import (
     auth,
     predict,
@@ -10,8 +11,13 @@ from backend.app.routers import (
     alerts,
     analytics,
     reports,
-    simulation
+    simulation,
+    complaints,
+    admin
 )
+
+# Ensure all database tables exist on startup
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Track the Cash API",
@@ -35,6 +41,8 @@ app.include_router(alerts.router)
 app.include_router(analytics.router)
 app.include_router(reports.router)
 app.include_router(simulation.router)
+app.include_router(complaints.router)
+app.include_router(admin.router)
 
 
 @app.get("/health")
@@ -61,7 +69,13 @@ async def serve_spa_or_static(full_path: str = ""):
         if os.path.isfile(target_file):
             return FileResponse(target_file)
 
-    # 2. Known API prefixes: if reached here, it means the API route does not exist -> 404
+    # 2. Known client SPA routes
+    if full_path in ("admin", "lea", "login", ""):
+        index_file = os.path.join(FRONTEND_DIST, "index.html")
+        if os.path.exists(index_file):
+            return FileResponse(index_file)
+
+    # 3. Known API prefixes: if reached here, it means the API route does not exist -> 404
     api_prefixes = (
         "auth",
         "predict",
@@ -70,6 +84,8 @@ async def serve_spa_or_static(full_path: str = ""):
         "analytics",
         "reports",
         "simulation",
+        "complaints",
+        "admin",
         "health",
         "docs",
         "openapi.json",
@@ -82,7 +98,7 @@ async def serve_spa_or_static(full_path: str = ""):
             detail=f"API endpoint '/{full_path}' not found"
         )
 
-    # 3. For all client-side React routes (/login, /lea, /admin, /) return index.html
+    # 4. For any other client-side React routes return index.html
     index_file = os.path.join(FRONTEND_DIST, "index.html")
     if os.path.exists(index_file):
         return FileResponse(index_file)

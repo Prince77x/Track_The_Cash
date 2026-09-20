@@ -43,21 +43,24 @@ class Complaint(Base):
     timestamp = Column(DateTime, default=utc_now, nullable=False, index=True)
     state = Column(String(64), nullable=False, index=True)
     district = Column(String(64), nullable=False, index=True)
-    crime_type = Column(String(32), nullable=False)
+    crime_type = Column(String(64), nullable=False)
     amount_inr = Column(Float, nullable=False)
     mule_account_id = Column(String(64), ForeignKey("mule_accounts.mule_id"), nullable=True, index=True)
-    status = Column(String(32), default="pending", nullable=False)
+    status = Column(String(32), default="NEW", nullable=False, index=True)
 
-    __table_args__ = (
-        CheckConstraint(
-            "crime_type IN ('otp_fraud', 'atm_card_fraud', 'investment_scam')",
-            name="check_crime_type"
-        ),
-        CheckConstraint(
-            "status IN ('pending', 'resolved')",
-            name="check_complaint_status"
-        ),
-    )
+    # Extended fields for LEA surveillance & investigation
+    complainant_name = Column(String(128), default="Citizen User", nullable=True)
+    contact_phone = Column(String(64), default="+91 98765 43210", nullable=True)
+    transaction_id = Column(String(64), nullable=True, index=True)
+    atm_id = Column(String(64), nullable=True, index=True)
+    category = Column(String(64), default="ATM Cash-Out Anomaly", nullable=True)
+    description = Column(Text, default="Suspicious cash withdrawal activity detected", nullable=True)
+    priority = Column(String(16), default="HIGH", nullable=False, index=True)
+    assigned_officer = Column(String(128), nullable=True)
+    investigation_notes = Column(JSON, default=list, nullable=True)
+    resolution_summary = Column(Text, nullable=True)
+    resolved_at = Column(DateTime, nullable=True)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now, nullable=True)
 
     mule_account = relationship("MuleAccount", back_populates="complaints")
 
@@ -116,6 +119,12 @@ class Alert(Base):
     cross_state = Column(Boolean, default=False, nullable=False)
     message = Column(Text, nullable=True)
 
+    # Operational lifecycle fields
+    status = Column(String(32), default="ACTIVE", nullable=False, index=True)  # ACTIVE, ACKNOWLEDGED, INVESTIGATING, RESOLVED, ESCALATED
+    assigned_officer = Column(String(128), nullable=True)
+    investigation_notes = Column(JSON, default=list, nullable=True)
+    action_history = Column(JSON, default=list, nullable=True)
+
     __table_args__ = (
         CheckConstraint(
             "severity IN ('WARNING', 'CRITICAL')",
@@ -126,3 +135,79 @@ class Alert(Base):
             name="check_triggered_by"
         ),
     )
+
+
+class LEAOfficer(Base):
+    __tablename__ = "lea_officers"
+
+    officer_id = Column(String(64), primary_key=True, index=True)
+    username = Column(String(64), unique=True, nullable=False, index=True)
+    full_name = Column(String(128), nullable=False)
+    email = Column(String(128), unique=True, nullable=False, index=True)
+    phone = Column(String(64), nullable=True)
+    state = Column(String(64), nullable=False, index=True)
+    district = Column(String(64), nullable=False, index=True)
+    unit = Column(String(128), nullable=False)
+    designation = Column(String(64), nullable=False)
+    password_hash = Column(String(256), nullable=False)
+    is_active = Column(Boolean, default=True, nullable=False, index=True)
+    role = Column(String(32), default="lea", nullable=False)
+    created_at = Column(DateTime, default=utc_now, nullable=False)
+    last_active_at = Column(DateTime, default=utc_now, nullable=True)
+
+
+class Case(Base):
+    __tablename__ = "cases"
+
+    case_id = Column(String(64), primary_key=True, index=True)
+    title = Column(String(256), nullable=False)
+    complaint_id = Column(String(64), nullable=True, index=True)
+    alert_id = Column(Integer, nullable=True, index=True)
+    atm_id = Column(String(64), nullable=True, index=True)
+    mule_id = Column(String(64), nullable=True, index=True)
+    state = Column(String(64), nullable=False, index=True)
+    district = Column(String(64), nullable=False, index=True)
+    amount_inr = Column(Float, default=0.0, nullable=False)
+    priority = Column(String(16), default="HIGH", nullable=False, index=True)  # CRITICAL, HIGH, MEDIUM, LOW
+    status = Column(String(32), default="NEW", nullable=False, index=True)  # NEW, ASSIGNED, INVESTIGATING, ESCALATED, RESOLVED, CLOSED
+    assigned_officer_id = Column(String(64), nullable=True, index=True)
+    assigned_officer_name = Column(String(128), nullable=True)
+    investigation_notes = Column(JSON, default=list, nullable=True)
+    created_at = Column(DateTime, default=utc_now, nullable=False, index=True)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
+    resolved_at = Column(DateTime, nullable=True)
+
+
+class AuditLog(Base):
+    __tablename__ = "audit_logs"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    timestamp = Column(DateTime, default=utc_now, nullable=False, index=True)
+    admin_user = Column(String(64), nullable=False, index=True)
+    action = Column(String(64), nullable=False, index=True)  # e.g., CREATE_OFFICER, ASSIGN_CASE, DISPATCH_ALERT, INJECT_SPIKE
+    resource = Column(String(64), nullable=False, index=True)  # officers, cases, alerts, simulation, settings
+    resource_id = Column(String(64), nullable=True)
+    details = Column(JSON, default=dict, nullable=True)
+    ip_address = Column(String(64), default="127.0.0.1", nullable=True)
+
+
+class AdminNotification(Base):
+    __tablename__ = "admin_notifications"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    timestamp = Column(DateTime, default=utc_now, nullable=False, index=True)
+    title = Column(String(256), nullable=False)
+    message = Column(Text, nullable=False)
+    type = Column(String(64), default="SYSTEM", nullable=False, index=True)  # CRITICAL_ALERT, VELOCITY_SPIKE, MULE_FLOW, CASE_STATUS, SYSTEM
+    severity = Column(String(32), default="info", nullable=False)  # critical, warning, info, success
+    is_read = Column(Boolean, default=False, nullable=False, index=True)
+    metadata_json = Column(JSON, default=dict, nullable=True)
+
+
+class AdminSetting(Base):
+    __tablename__ = "admin_settings"
+
+    key = Column(String(64), primary_key=True, index=True)
+    value = Column(JSON, nullable=False)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
+    updated_by = Column(String(64), default="admin_user", nullable=False)
