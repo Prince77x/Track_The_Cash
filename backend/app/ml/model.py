@@ -4,9 +4,12 @@ from typing import List, Dict, Any, Tuple, Optional
 import numpy as np
 import pandas as pd
 import joblib
-from xgboost import XGBClassifier
-from sklearn.metrics import roc_auc_score
 from sqlalchemy.orm import Session
+
+try:
+    from xgboost import XGBClassifier
+except Exception:
+    XGBClassifier = None
 
 from backend.app.config import settings
 from backend.app.models import ATMLocation, Prediction, utc_now
@@ -33,7 +36,7 @@ def precision_at_k(y_true: np.ndarray, y_scores: np.ndarray, k: int = 10) -> flo
 class ATMDefenseModel:
     def __init__(self, model_path: Optional[str] = None):
         self.model_path = model_path or settings.MODEL_PATH
-        self.model: Optional[XGBClassifier] = None
+        self.model = None
         self.metadata: Dict[str, Any] = {
             "roc_auc": 0.85,
             "precision_at_10": 0.80,
@@ -49,6 +52,8 @@ class ATMDefenseModel:
     ) -> Dict[str, float]:
         """Trains XGBoost model and calculates evaluation metrics."""
         from sklearn.model_selection import train_test_split
+        from sklearn.metrics import roc_auc_score
+        from sklearn.ensemble import GradientBoostingClassifier
 
         X_clean = X[FEATURE_COLUMNS].copy()
 
@@ -57,16 +62,24 @@ class ATMDefenseModel:
         neg_count = max(1, int(np.sum(y == 0)))
         scale_pos_weight = float(neg_count / pos_count)
 
-        self.model = XGBClassifier(
-            n_estimators=100,
-            max_depth=4,
-            learning_rate=0.08,
-            subsample=0.8,
-            colsample_bytree=0.8,
-            scale_pos_weight=scale_pos_weight,
-            eval_metric="logloss",
-            random_state=42
-        )
+        if XGBClassifier is not None:
+            self.model = XGBClassifier(
+                n_estimators=100,
+                max_depth=4,
+                learning_rate=0.08,
+                subsample=0.8,
+                colsample_bytree=0.8,
+                scale_pos_weight=scale_pos_weight,
+                eval_metric="logloss",
+                random_state=42
+            )
+        else:
+            self.model = GradientBoostingClassifier(
+                n_estimators=100,
+                max_depth=4,
+                learning_rate=0.08,
+                random_state=42
+            )
 
         X_train, X_test, y_train, y_test = train_test_split(
             X_clean, y, test_size=test_size, random_state=42, stratify=y if len(np.unique(y)) > 1 else None

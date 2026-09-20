@@ -1,108 +1,129 @@
-import datetime
-from typing import List, Optional, Dict, Any
-from fastapi import APIRouter, Depends, Query, HTTPException, status
+from typing import Optional
+
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
-from sqlalchemy import desc
 
+from backend.app.auth import get_current_user, require_roles
 from backend.app.database import get_db
-from backend.app.auth import require_authenticated, require_admin
-from backend.app.models import Alert, utc_now
-from backend.app.schemas import (
-    AlertTriggerRequest,
-    AlertTriggerResponse,
-    SpikeCheckResponse,
-    SpikeItem
-)
+from backend.app.models import Alert, AlertDelivery, AlertFactor, User
+from backend.app.schemas import AlertOut
 from backend.app.ml.spike_detector import detect_spikes
-from backend.app.email_service import send_alert_email
 
-router = APIRouter(prefix="/alerts", tags=["Alerts"])
+router = APIRouter(prefix="/api/v1/alerts", tags=["Alerts"])
+legacy_router = APIRouter(prefix="/alerts", tags=["Alerts"])
 
 
-@router.get("/spike-check", response_model=SpikeCheckResponse)
-def trigger_spike_check(
+@legacy_router.get("/spike-check")
+def spike_check(
     db: Session = Depends(get_db),
-    user: dict = Depends(require_authenticated)
+    current_user: User = Depends(require_roles("LEA", "I4C", "BANK", "ADMIN")),
 ):
-    """Runs the spike detector on-demand and returns newly identified spikes."""
-    spikes = detect_spikes(db, send_email=True)
-    items = []
-    for s in spikes:
-        items.append(SpikeItem(
-            district=s["district"],
-            state=s["state"],
-            severity=s["severity"],
-            complaint_count=s["complaint_count"],
-            rolling_avg=s["rolling_avg"],
-            cross_state=s["cross_state"],
-            detected_at=s["detected_at"]
-        ))
-    return SpikeCheckResponse(spikes=items)
+    return {"spikes": detect_spikes(db)}
 
 
-@router.get("", response_model=List[Dict[str, Any]])
-@router.get("/feed", response_model=List[Dict[str, Any]])
-def get_alert_feed(
-    limit: int = Query(20, ge=1, le=100),
+@legacy_router.post("/trigger")
+def trigger_alert(
+    payload: dict,
     db: Session = Depends(get_db),
-    user: dict = Depends(require_authenticated)
+    current_user: User = Depends(require_roles("ADMIN")),
 ):
-    """Returns the latest alerts for dashboard feed displays."""
-    alerts = db.query(Alert).order_by(desc(Alert.detected_at)).limit(limit).all()
-    results = []
-    for a in alerts:
-        results.append({
-            "alert_id": a.alert_id,
-            "district": a.district,
-            "state": a.state,
-            "severity": a.severity,
-            "detected_at": a.detected_at.isoformat() if a.detected_at else "",
-            "triggered_by": a.triggered_by,
-            "complaint_count": a.complaint_count,
-            "rolling_avg": a.rolling_avg,
-            "cross_state": a.cross_state,
-            "message": a.message
-        })
-    return results
-
-
-@router.post("/trigger", response_model=AlertTriggerResponse)
-def manual_trigger_alert(
-    request: AlertTriggerRequest,
-    db: Session = Depends(get_db),
-    admin: dict = Depends(require_admin)
-):
-    """Manually triggers an alert email and logs it to the database (Admin only)."""
-    now = utc_now()
-    # Find state for the district if possible
-    state = "State Jurisdiction"
-
-    # Send email
-    res = send_alert_email(
-        district=request.district,
-        state=state,
-        severity=request.severity,
-        complaint_count=1,
-        message=request.message
-    )
-
-    # Record in alerts table
     alert = Alert(
-        district=request.district,
-        state=state,
-        severity=request.severity,
-        detected_at=now,
+        district=payload.get("district", ""),
+        state=payload.get("state", ""),
+        severity=payload.get("severity", "WARNING"),
         triggered_by="manual",
-        complaint_count=1,
-        rolling_avg=0.0,
-        cross_state=False,
-        message=request.message
+        message=payload.get("message", "Manual alert"),
     )
     db.add(alert)
     db.commit()
+    db.refresh(alert)
+    return {"status": "sent", "alert_id": alert.alert_id}
 
-    return AlertTriggerResponse(
-        status="sent",
-        recipients=res.get("recipients", [f"lea_{request.district.lower()}@police.gov.in"]),
-        triggered_at=now.isoformat()
-    )
+
+@legacy_router.get("/feed")
+def alert_feed(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_roles("LEA", "I4C", "BANK", "ADMIN")),
+):
+    return db.query(Alert).order_by(Alert.detected_at.desc()).all()
+
+
+@router.get("", response_model=list[AlertOut])
+def list_alerts(
+    state: Optional[str] = None,
+    district: Optional[str] = None,
+    severity: Optional[str] = None,
+    status: Optional[str] = None,
+    page: int = Query(1, ge=1),
+    page_size: int = Query(20, ge=1, le=100),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    if current_user.role.upper() not in {"ADMIN", "LEA", "I4C", "BANK"}:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied")
+
+    query = db.query(Alert)
+    if state:
+        query = query.filter(Alert.state == state)
+    if district:
+        query = query.filter(Alert.district == district)
+    if severity:
+        query = query.filter(Alert.severity == severity)
+    if status:
+        query = query.filter(Alert.status == status)
+
+    alerts = query.order_by(Alert.detected_at.desc()).offset((page - 1) * page_size).limit(page_size).all()
+    return alerts
+
+
+@router.get("/{alert_id}", response_model=AlertOut)
+def get_alert(alert_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    alert = db.query(Alert).filter(Alert.alert_id == alert_id).first()
+    if not alert:
+        raise HTTPException(status_code=404, detail="Alert not found")
+    return alert
+
+
+@router.post("/{alert_id}/acknowledge")
+def acknowledge_alert(alert_id: int, db: Session = Depends(get_db), current_user: User = Depends(require_roles("LEA", "I4C", "BANK", "ADMIN"))):
+    alert = db.query(Alert).filter(Alert.alert_id == alert_id).first()
+    if not alert:
+        raise HTTPException(status_code=404, detail="Alert not found")
+    alert.status = "ACKNOWLEDGED"
+    alert.updated_at = __import__("datetime").datetime.now(__import__("datetime").timezone.utc)
+    db.commit()
+    return {"message": "Alert acknowledged", "alert_id": alert.alert_id}
+
+
+@router.post("/{alert_id}/escalate")
+def escalate_alert(alert_id: int, db: Session = Depends(get_db), current_user: User = Depends(require_roles("LEA", "I4C", "ADMIN"))):
+    alert = db.query(Alert).filter(Alert.alert_id == alert_id).first()
+    if not alert:
+        raise HTTPException(status_code=404, detail="Alert not found")
+    alert.status = "ESCALATED"
+    db.commit()
+    return {"message": "Alert escalated", "alert_id": alert.alert_id}
+
+
+@router.post("/{alert_id}/resolve")
+def resolve_alert(alert_id: int, db: Session = Depends(get_db), current_user: User = Depends(require_roles("LEA", "I4C", "ADMIN"))):
+    alert = db.query(Alert).filter(Alert.alert_id == alert_id).first()
+    if not alert:
+        raise HTTPException(status_code=404, detail="Alert not found")
+    alert.status = "RESOLVED"
+    db.commit()
+    return {"message": "Alert resolved", "alert_id": alert.alert_id}
+
+
+@router.get("/{alert_id}/deliveries")
+def get_alert_deliveries(alert_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    deliveries = db.query(AlertDelivery).filter(AlertDelivery.alert_id == alert_id).all()
+    return deliveries
+
+
+@router.post("/{alert_id}/notify")
+def notify_alert(alert_id: int, db: Session = Depends(get_db), current_user: User = Depends(require_roles("ADMIN", "LEA", "I4C"))):
+    alert = db.query(Alert).filter(Alert.alert_id == alert_id).first()
+    if not alert:
+        raise HTTPException(status_code=404, detail="Alert not found")
+    return {"status": "scheduled", "alert_id": alert_id}

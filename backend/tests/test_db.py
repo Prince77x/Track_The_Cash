@@ -6,8 +6,10 @@ from backend.app.models import (
     ATMLocation,
     ATMRiskHistory,
     Prediction,
-    Alert
+    Alert,
+    User
 )
+from backend.app.auth import hash_password, verify_password
 
 
 def test_tables_created(test_engine):
@@ -20,9 +22,27 @@ def test_tables_created(test_engine):
         "atm_locations",
         "atm_risk_history",
         "predictions",
-        "alerts"
+        "alerts",
+        "users"
     }
     assert expected_tables.issubset(set(table_names))
+
+
+def test_user_stores_hashed_password(db_session):
+    password = "correct horse battery staple"
+    user = User(
+        username="test_user",
+        email="test@example.com",
+        password_hash=hash_password(password)
+    )
+    db_session.add(user)
+    db_session.commit()
+
+    queried_user = db_session.query(User).filter_by(username="test_user").one()
+    assert queried_user.id is not None
+    assert queried_user.password_hash != password
+    assert verify_password(password, queried_user.password_hash)
+    assert not verify_password("wrong password", queried_user.password_hash)
 
 
 def test_insert_and_query_models(db_session):
