@@ -128,14 +128,21 @@ Test Coverage:
 
 ---
 
-## 🐳 Docker Compose Deployment (Single Command)
+## 🐳 Single-Container Deployment
 
+### Option A: Docker Compose
 ```bash
-docker compose up --build
+docker compose up --build -d
 ```
-- **Frontend**: `http://localhost:3000`
-- **Backend API**: `http://localhost:8000`
-- **API Docs (Swagger)**: `http://localhost:8000/docs`
+
+### Option B: Direct Docker Run
+```bash
+docker build -t track-the-cash .
+docker run -p 8000:8000 track-the-cash
+```
+
+- **Frontend & App Dashboard:** `http://localhost:8000`
+- **Backend API & Docs:** `http://localhost:8000/docs`
 
 ---
 

@@ -1,37 +1,15 @@
 services:
-  # PostgreSQL Database Service
-  db:
-    image: postgres:16-alpine
-    container_name: ttc-db
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: track_the_cash
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgrespassword
-    ports:
-      - "5433:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d track_the_cash"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-      start_period: 5s
-    networks:
-      - ttc-network
-
-  # FastAPI Backend Service
-  api:
+  # Single Standalone Track the Cash Application Container
+  app:
     build:
       context: .
-      dockerfile: backend/Dockerfile
-    container_name: ttc-api
+      dockerfile: Dockerfile
+    container_name: track-the-cash
     restart: unless-stopped
     ports:
       - "8000:8000"
     environment:
-      DATABASE_URL: postgresql://postgres:postgrespassword@db:5432/track_the_cash
+      DATABASE_URL: sqlite:///./track_the_cash.db
       JWT_SECRET: ${JWT_SECRET:-super-secret-track-the-cash-sih2026-key}
       JWT_ALGORITHM: HS256
       JWT_EXPIRATION_HOURS: 8
@@ -41,41 +19,18 @@ services:
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
       SMTP_FROM: ${SMTP_FROM:-alerts@trackthecash.gov.in}
       MODEL_PATH: /app/models/xgboost_atm_risk.joblib
-    depends_on:
-      db:
-        condition: service_healthy
     volumes:
-      - model_data:/app/models
+      - data_volume:/app/data
+      - model_volume:/app/models
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 10s
       timeout: 5s
-      retries: 10
-      start_period: 45s
-    networks:
-      - ttc-network
-
-  # React Frontend Service (Served via Nginx)
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: ttc-frontend
-    restart: unless-stopped
-    ports:
-      - "3000:80"
-    depends_on:
-      api:
-        condition: service_healthy
-    networks:
-      - ttc-network
+      retries: 5
+      start_period: 30s
 
 volumes:
-  postgres_data:
+  data_volume:
     driver: local
-  model_data:
+  model_volume:
     driver: local
-
-networks:
-  ttc-network:
-    driver: bridge
