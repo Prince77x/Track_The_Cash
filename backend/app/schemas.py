@@ -333,6 +333,31 @@ class PredictResponse(BaseModel):
     generated_at: str
 
 
+class ATMScoreRequest(BaseModel):
+    state: Optional[str] = None
+    district: Optional[str] = None
+    complaint_velocity_6h: float = Field(0.0, ge=0)
+    district_fraud_density: float = Field(0.0, ge=0)
+    mule_proximity_km: float = Field(50.0, ge=0)
+    atm_count_in_district: int = Field(1, ge=1)
+    cross_state_flag: bool = False
+    limit: int = Field(10, ge=1, le=500)
+
+
+class ATMScoreItem(BaseModel):
+    atm_id: str
+    state: str
+    district: str
+    bank_name: Optional[str]
+    risk_score: float
+    risk_level: str
+
+
+class ATMScoreResponse(BaseModel):
+    predictions: List[ATMScoreItem]
+    generated_at: str
+
+
 class SimulationSpikeRequest(BaseModel):
     stage: Any = "all"
     fast: bool = False

@@ -101,5 +101,26 @@ async def test_predict_and_heatmap_endpoints(db_session, auth_header):
 
             f2 = next(f for f in geo["features"] if f["properties"]["atm_id"] == "ATM_PRED_002")
             assert f2["properties"]["severity"] == "low"
+
+            resp_score = await client.post(
+                "/predict/score",
+                headers=auth_header,
+                json={
+                    "state": "Delhi",
+                    "district": "New Delhi",
+                    "complaint_velocity_6h": 18,
+                    "district_fraud_density": 7.5,
+                    "mule_proximity_km": 3.5,
+                    "atm_count_in_district": 20,
+                    "cross_state_flag": True,
+                    "limit": 5,
+                },
+            )
+            assert resp_score.status_code == 200
+            body = resp_score.json()
+            assert "predictions" in body
+            assert len(body["predictions"]) >= 1
+            assert 0.0 <= body["predictions"][0]["risk_score"] <= 1.0
+            assert body["predictions"][0]["state"] == "Delhi"
     finally:
         app.dependency_overrides.pop(get_db, None)
