@@ -1,5 +1,13 @@
 import os
 import sys
+
+# 1. Inject the absolute root directory so "backend.app..." works in all contexts
+current_dir = os.path.dirname(os.path.abspath(__file__))
+backend_dir = os.path.dirname(current_dir)
+root_dir = os.path.dirname(backend_dir)
+if root_dir not in sys.path:
+    sys.path.insert(0, root_dir)
+
 import time
 import uuid
 import random
@@ -9,6 +17,7 @@ from typing import List, Dict, Tuple, Optional, Any
 from sqlalchemy.orm import Session
 from sqlalchemy import delete
 
+# 2. Use 'backend.app.' strictly to match FastAPI and prevent double-loading
 from backend.app.database import engine, SessionLocal, Base
 from backend.app.models import (
     MuleAccount,
@@ -18,7 +27,69 @@ from backend.app.models import (
     Alert,
     utc_now
 )
-from backend.scripts.fetch_atms import TOP_STATES_DISTRICTS, BANKS
+
+# 2. Define data dictionaries directly to prevent cross-import crashes
+TOP_STATES_DISTRICTS = {
+    "Uttar Pradesh": {
+        "Lucknow": (26.8467, 80.9462),
+        "Kanpur": (26.4499, 80.3319),
+        "Noida": (28.5355, 77.3910),
+        "Ghaziabad": (28.6692, 77.4538),
+        "Varanasi": (25.3176, 82.9739),
+    },
+    "Maharashtra": {
+        "Mumbai": (19.0760, 72.8777),
+        "Pune": (18.5204, 73.8567),
+        "Nagpur": (21.1458, 79.0882),
+        "Thane": (19.2183, 72.9781),
+    },
+    "Rajasthan": {
+        "Jaipur": (26.9124, 75.7873),
+        "Jodhpur": (26.2389, 73.0243),
+        "Kota": (25.2138, 75.8648),
+    },
+    "Telangana": {
+        "Hyderabad": (17.3850, 78.4867),
+        "Warangal": (17.9689, 79.5941),
+    },
+    "Karnataka": {
+        "Bengaluru Urban": (12.9716, 77.5946),
+        "Mysuru": (12.2958, 76.6394),
+    },
+    "Delhi": {
+        "New Delhi": (28.6139, 77.2090),
+        "South Delhi": (28.5246, 77.2066),
+    },
+    "West Bengal": {
+        "Kolkata": (22.5726, 88.3639),
+        "Howrah": (22.5958, 88.2636),
+    },
+    "Bihar": {
+        "Patna": (25.5941, 85.1376),
+        "Gaya": (24.7914, 85.0002),
+    },
+    "Madhya Pradesh": {
+        "Indore": (22.7196, 75.8577),
+        "Bhopal": (23.2599, 77.4126),
+    },
+    "Gujarat": {
+        "Ahmedabad": (23.0225, 72.5714),
+        "Surat": (21.1702, 72.8311),
+    }
+}
+
+BANKS = [
+    "State Bank of India",
+    "HDFC Bank",
+    "ICICI Bank",
+    "Punjab National Bank",
+    "Bank of Baroda",
+    "Axis Bank",
+    "Canara Bank",
+    "Union Bank of India",
+    "Kotak Mahindra Bank",
+    "IndusInd Bank"
+]
 
 # Calibrated probabilities
 STATE_WEIGHTS = {

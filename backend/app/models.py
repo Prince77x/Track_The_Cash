@@ -110,11 +110,23 @@ class ATMRiskHistory(Base):
     )
 
 
+from sqlalchemy import Column, String, Float, DateTime, Integer
+# Ensure utc_now is imported from your app.models or utils
+
 class Prediction(Base):
     __tablename__ = "predictions"
 
-    atm_id = Column(String(64), primary_key=True, index=True)
+    # Dedicated primary key to allow saving multiple historical predictions
+    prediction_id = Column(Integer, primary_key=True, autoincrement=True)
+    
+    # Core fields mapped directly from your JSON output
+    atm_id = Column(String(64), nullable=False, index=True)
+    state = Column(String(64), nullable=False, index=True)
+    district = Column(String(64), nullable=False, index=True)
     risk_score = Column(Float, nullable=False, index=True)
+    risk_level = Column(String(32), nullable=False)
+    
+    # Timestamp to track when this prediction was generated
     predicted_at = Column(DateTime, default=utc_now, nullable=False, index=True)
 
 

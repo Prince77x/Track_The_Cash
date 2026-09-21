@@ -9,9 +9,52 @@ from backend.app.auth import require_authenticated, require_admin, record_audit
 from backend.app.models import Prediction, ATMLocation, MuleAccount, utc_now
 from backend.app.schemas import PredictResponse, ATMPredictionItem
 from backend.app.ml.model import ATMDefenseModel, run_predictions
+from backend.app.database import SessionLocal # or your get_db dependency
+from backend.app.models import Prediction
+from pydantic import BaseModel
 
 router = APIRouter(tags=["Predictions"])
 
+
+class PredictionInput(BaseModel):
+    atm_id: str
+    state: str
+    district: str
+    risk_score: float
+    risk_level: str
+
+# Dependency to get DB session
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+# 2. Create the POST endpoint
+@router.post("/api/predictions/save")
+def save_boosted_predictions(predictions: List[PredictionInput], db: Session = Depends(get_db)):
+    try:
+        # 1. Clear out old predictions so they don't stack up
+        db.query(Prediction).delete()
+        
+        # 2. Insert the fresh boosted predictions
+        db_preds = [
+            Prediction(
+                atm_id=p.atm_id,
+                state=p.state,
+                district=p.district,
+                risk_score=p.risk_score,
+                risk_level=p.risk_level
+            ) for p in predictions
+        ]
+        
+        db.bulk_save_objects(db_preds)
+        db.commit()
+        return {"status": "success", "inserted_count": len(db_preds)}
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/predict", response_model=PredictResponse)
 def get_predictions(

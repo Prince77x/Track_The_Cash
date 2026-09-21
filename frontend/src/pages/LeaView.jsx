@@ -218,6 +218,28 @@ export const LeaView = () => {
         
         // Pass the boosted data directly to the state
         setPredictions(boostedPredictions);
+        if (boostedPredictions.length > 0) {
+          try {
+            // Note: Update the URL if your local FastAPI runs on a different port/path
+            const dbSaveRes = await fetch('http://localhost:8000/api/predictions/save', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                ...headers 
+              },
+              body: JSON.stringify(boostedPredictions)
+            });
+            
+            if (dbSaveRes.ok) {
+              const saveResult = await dbSaveRes.json();
+              console.log(`✅ Saved ${saveResult.inserted_count} predictions to DB.`);
+            } else {
+              console.error("❌ Failed to save to DB:", dbSaveRes.statusText);
+            }
+          } catch (dbError) {
+            console.error("❌ Database save error:", dbError);
+          }
+        }
       }
       
       if (alertRes.ok) {
