@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Shield, Lock, Key, User, Fingerprint, Clock, Zap, ChevronRight, AlertCircle, UserPlus, UserCheck, Phone, Mail, MapPin } from 'lucide-react';
+import { Shield, Lock, Key, User, Fingerprint, Clock, Zap, ChevronRight, AlertCircle, UserPlus, UserCheck, Phone, Mail, MapPin, ArrowLeft } from 'lucide-react';
 
-export const Login = () => {
-  const [isRegisterMode, setIsRegisterMode] = useState(false);
+export const Login = ({ initialRegister = false }) => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const isRegFromParam = searchParams.get('register') === 'true' || searchParams.get('mode') === 'register' || initialRegister;
+  const loginMode = searchParams.get('mode');
+
+  const [isRegisterMode, setIsRegisterMode] = useState(isRegFromParam);
   const [username, setUsername] = useState('lea_user');
   const [password, setPassword] = useState('lea_pass');
 
@@ -28,10 +33,11 @@ export const Login = () => {
     e.preventDefault();
     try {
       const data = await login(username, password);
+      const targetTab = searchParams.get('tab') || (loginMode === 'report' ? 'report' : loginMode === 'track' ? 'complaints' : loginMode === 'intel' ? 'intel' : null);
       if (data.role === 'admin') {
         navigate('/admin');
       } else if (data.role === 'user' || data.role === 'citizen') {
-        navigate('/citizen');
+        navigate(targetTab ? `/citizen?tab=${targetTab}` : '/citizen');
       } else {
         navigate('/lea');
       }
@@ -44,7 +50,8 @@ export const Login = () => {
     e.preventDefault();
     try {
       const data = await register(regForm);
-      navigate('/citizen');
+      const targetTab = searchParams.get('tab') || (loginMode === 'report' ? 'report' : loginMode === 'track' ? 'complaints' : null);
+      navigate(targetTab ? `/citizen?tab=${targetTab}` : '/citizen');
     } catch (err) {
       // Error handled by AuthContext
     }
@@ -78,6 +85,50 @@ export const Login = () => {
         position: 'relative',
         transition: 'max-width 0.2s ease'
       }}>
+        {/* Back to Public Home */}
+        <div style={{ marginBottom: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <button
+            onClick={() => navigate('/')}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#94a3b8',
+              fontSize: '0.8rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.35rem',
+              cursor: 'pointer',
+              padding: 0,
+              fontWeight: 600
+            }}
+          >
+            <ArrowLeft size={15} /> Back to Public Portal
+          </button>
+        </div>
+
+        {/* Action Mode Notice */}
+        {loginMode && (
+          <div style={{
+            backgroundColor: 'rgba(56, 189, 248, 0.12)',
+            border: '1px solid rgba(56, 189, 248, 0.3)',
+            borderRadius: '8px',
+            padding: '0.65rem 0.85rem',
+            marginBottom: '1.25rem',
+            fontSize: '0.8rem',
+            color: '#38bdf8',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem'
+          }}>
+            <AlertCircle size={16} style={{ flexShrink: 0 }} />
+            <span>
+              {loginMode === 'report' && 'Please sign in or register to lodge your cybercrime complaint.'}
+              {loginMode === 'track' && 'Please sign in or register to track your submitted complaints.'}
+              {loginMode === 'intel' && 'Please sign in or register to submit suspicious activity intelligence.'}
+            </span>
+          </div>
+        )}
+
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
           <div style={{

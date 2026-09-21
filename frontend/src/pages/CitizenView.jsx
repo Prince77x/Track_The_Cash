@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
   Shield, AlertTriangle, FileText, CheckCircle2, Clock, Upload, Download,
@@ -10,8 +11,21 @@ import {
 } from 'lucide-react';
 
 export const CitizenView = () => {
+  const location = useLocation();
   const { user, getAuthHeader } = useAuth();
-  const [activeTab, setActiveTab] = useState('overview'); // overview, report, complaints, intel, guides, profile, notifications
+  const [activeTab, setActiveTab] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get('tab');
+    return tab && ['overview', 'report', 'complaints', 'intel', 'guides', 'profile', 'notifications'].includes(tab) ? tab : 'overview';
+  });
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tab = params.get('tab');
+    if (tab && ['overview', 'report', 'complaints', 'intel', 'guides', 'profile', 'notifications'].includes(tab)) {
+      setActiveTab(tab);
+    }
+  }, [location.search]);
   const [loading, setLoading] = useState(true);
   const [dashboardData, setDashboardData] = useState(null);
   const [complaints, setComplaints] = useState([]);
