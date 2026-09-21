@@ -9,7 +9,8 @@ from backend.app.routers import (
     reports,
     simulation,
     complaints,
-    admin
+    admin,
+    citizen
 )
 
 app = FastAPI(
@@ -35,6 +36,7 @@ app.include_router(reports.router)
 app.include_router(simulation.router)
 app.include_router(complaints.router)
 app.include_router(admin.router)
+app.include_router(citizen.router)
 
 
 @app.get("/health")

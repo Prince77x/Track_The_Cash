@@ -31,6 +31,45 @@ export const AuthProvider = ({ children }) => {
       setUser({
         username,
         role: data.role,
+        full_name: data.full_name || username,
+        public_user_id: data.public_user_id,
+        email: data.email,
+        expiresIn: data.expires_in,
+      });
+      return data;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const register = async (userData) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch('/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.detail || 'Registration failed');
+      }
+
+      const data = await response.json();
+      setToken(data.access_token);
+      setUser({
+        username: userData.username,
+        role: data.role,
+        full_name: data.full_name || userData.full_name,
+        public_user_id: data.public_user_id,
+        email: data.email || userData.email,
         expiresIn: data.expires_in,
       });
       return data;
@@ -59,6 +98,7 @@ export const AuthProvider = ({ children }) => {
         role: user?.role,
         isAuthenticated: !!token,
         login,
+        register,
         logout,
         getAuthHeader,
         loading,

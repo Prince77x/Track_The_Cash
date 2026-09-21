@@ -6,6 +6,7 @@ import { Navbar } from './components/Navbar';
 import { Login } from './pages/Login';
 import { LeaView } from './pages/LeaView';
 import { AdminView } from './pages/AdminView';
+import { CitizenView } from './pages/CitizenView';
 
 const AppLayout = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -20,7 +21,9 @@ const AppLayout = ({ children }) => {
 const RootRedirect = () => {
   const { isAuthenticated, role } = useAuth();
   if (!isAuthenticated) return <Navigate to="/login" replace />;
-  return <Navigate to={role === 'admin' ? '/admin' : '/lea'} replace />;
+  if (role === 'admin') return <Navigate to="/admin" replace />;
+  if (role === 'user' || role === 'citizen') return <Navigate to="/citizen" replace />;
+  return <Navigate to="/lea" replace />;
 };
 
 export function App() {
@@ -43,6 +46,14 @@ export function App() {
               element={
                 <ProtectedRoute allowedRoles={['admin']}>
                   <AdminView />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/citizen"
+              element={
+                <ProtectedRoute allowedRoles={['user', 'citizen', 'admin']}>
+                  <CitizenView />
                 </ProtectedRoute>
               }
             />

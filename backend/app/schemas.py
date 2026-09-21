@@ -12,6 +12,21 @@ class LoginResponse(BaseModel):
     access_token: str
     role: str
     expires_in: int = 28800  # 8 hours in seconds
+    public_user_id: Optional[str] = None
+    full_name: Optional[str] = None
+    email: Optional[str] = None
+
+
+class CitizenRegisterRequest(BaseModel):
+    username: str
+    password: str
+    full_name: str
+    email: str
+    phone: Optional[str] = None
+    state: str
+    district: str
+    city: Optional[str] = None
+    address: Optional[str] = None
 
 
 class ATMPredictionItem(BaseModel):
