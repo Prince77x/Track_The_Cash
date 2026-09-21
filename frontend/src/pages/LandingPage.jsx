@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
-  Shield, ArrowRight, CheckCircle2, AlertTriangle, FileText, Lock,
+  Shield, ShieldAlert, ArrowRight, CheckCircle2, AlertTriangle, FileText, Lock,
   ChevronDown, ChevronUp, Phone, ExternalLink, HelpCircle, User,
   Smartphone, CreditCard, Clock, Eye, AlertCircle, Menu, X,
   ShieldCheck, UploadCloud, Bell, Check, Sparkles, Send,
