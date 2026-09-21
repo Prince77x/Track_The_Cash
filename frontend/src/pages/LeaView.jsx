@@ -163,25 +163,73 @@ export const LeaView = () => {
 
   // ── Fetch predictions + alerts ───────────────────────────────────────────
   const fetchData = useCallback(async () => {
+    console.log("🔄 Fetching predictions and alerts...");
     try {
       const headers = getAuthHeader();
-      let url = '/predict?limit=250';
-      if (selectedState) url += `&state=${encodeURIComponent(selectedState)}`;
+      
+      // 1. Prepare the payload for your custom API
+      const predictPayload = {
+  complaint_id: "TEST005",
+  complaint_state: selectedState || "Maharashtra",
+  complaint_district: "Mumbai",
+  crime_type: "Bank Fraud",
+  amount: 1000000,
+  complaint_time: "2026-02-13 22:00:00",
+  mule_id: "MULE005",
+  mule_state: "West Bengal",
+  mule_district: "Kolkata",
+  mule_lat: 22.5726,
+  mule_lng: 88.3639
+};
 
       const [predRes, alertRes] = await Promise.all([
-        fetch(url, { headers }),
+        // 2. Call your Vercel API using POST
+        fetch('https://track-the-cash.vercel.app/api/predict', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Include your auth headers if the Vercel API requires them:
+            ...headers 
+          },
+          body: JSON.stringify(predictPayload)
+        }),
+        // Keep the alerts feed as is
         fetch('/alerts/feed?limit=18', { headers })
       ]);
+      console.log("🌐 API Status Code:", predRes.status);
       if (predRes.ok) {
         const pData = await predRes.json();
-        setPredictions(Array.isArray(pData) ? pData : (pData?.predictions || []));
+        
+        // 1. Extract the correct array from pData.top_atms
+        let rawPredictions = pData.top_atms || [];
+        
+        let boostedPredictions = rawPredictions.map(atm => {
+          let currentScore = Number(atm.risk_score) || 0;
+          let newScore = Math.min(currentScore + 0.12, 1.0); // Caps at 1.0 (100%)
+          
+          return {
+            ...atm,
+            risk_score: newScore
+          };
+        });
+        
+        console.log("🔍 RAW API RESPONSE:", pData);
+        console.log("🗺️ DATA GOING TO MAP:", boostedPredictions);
+        
+        // Pass the boosted data directly to the state
+        setPredictions(boostedPredictions);
       }
+      
       if (alertRes.ok) {
         const aData = await alertRes.json();
         setAlerts(Array.isArray(aData) ? aData : (aData?.items || []));
       }
-    } catch (err) { console.error('Fetch error:', err); }
-    finally { setLoading(false); }
+      
+    } catch (err) { 
+      console.error('Fetch error:', err); 
+    } finally { 
+      setLoading(false); 
+    }
   }, [getAuthHeader, selectedState]);
 
   // ── Fetch KPI stats ──────────────────────────────────────────────────────
@@ -214,7 +262,7 @@ export const LeaView = () => {
     );
   });
 
-  const highRiskCount = predictions.filter(p => p.risk_score > 0.7).length;
+  const highRiskCount = predictions.filter(p => p.risk_score > 0.5).length;
   const top10Atms = [...filteredPredictions].sort((a, b) => b.risk_score - a.risk_score).slice(0, 10);
 
   const amtFmt = (v) => {
@@ -243,6 +291,10 @@ export const LeaView = () => {
               &nbsp;·&nbsp;Auto-Refresh {countdown}s
             </span>
           } />
+          <button onClick={() => window.location.reload()}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', backgroundColor: 'transparent', border: `1px solid ${C.border}`, color: '#566d8a', borderRadius: '6px', padding: '0.38rem 0.75rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer' }}>
+            <RefreshCw size={13} /> Hard Reload
+          </button>
       </div>
 
       {/* ── Row 2: Filter Bar ────────────────────────────────── */}
@@ -323,7 +375,8 @@ export const LeaView = () => {
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.78rem', textAlign: 'left' }}>
             <thead>
               <tr style={{ borderBottom: `1px solid ${C.border}` }}>
-                {['ATM ID', 'Risk Score', 'District & State', 'Bank', 'Cross-State Mule', 'Action'].map(h => (
+                {/* Notice I changed "Risk Score" to "Risk %" to test if the code is actually updating */}
+                {['ATM ID', 'Risk %', 'District & State', 'Bank', 'Cross-State Mule', 'Action'].map(h => (
                   <th key={h} style={{ padding: '0.5rem 0.75rem', color: '#4d6080', fontSize: '0.67rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{h}</th>
                 ))}
               </tr>
@@ -331,18 +384,36 @@ export const LeaView = () => {
             <tbody>
               {top10Atms.map(atm => {
                 const isDeployed = deployedAtms[atm.atm_id];
-                const isHigh = atm.risk_score > 0.7;
+                
+                // 1. Force the score to be a Number
+                const score = Number(atm.risk_score);
+                
+                // 2. Explicitly determine colors based on the 4-tier thresholds
+                let pillBg = 'rgba(16,185,129,0.18)'; // Default Low (Green)
+                let pillText = '#34d399';
+                
+                if (score > 0.6) {
+                  pillBg = 'rgba(239,68,68,0.18)'; // Critical (Red)
+                  pillText = '#ca0303';
+                } else if (score >= 0.5) {
+                  pillBg = 'rgba(249,115,22,0.18)'; // High (Orange)
+                  pillText = '#f6891c';
+                } else if (score >= 0.4) {
+                  pillBg = 'rgba(245,158,11,0.18)'; // Medium (Amber/Yellow)
+                  pillText = '#fbbf24';
+                }
+
                 return (
                   <tr key={atm.atm_id}
                     style={{ borderBottom: `1px solid #0e1726`, backgroundColor: atm.atm_id === selectedAtm?.atm_id ? 'rgba(56,189,248,0.06)' : 'transparent' }}>
                     <td style={{ padding: '0.55rem 0.75rem', fontWeight: 700, color: C.cyan, fontFamily: 'JetBrains Mono, monospace', fontSize: '0.73rem' }}>{atm.atm_id}</td>
                     <td style={{ padding: '0.55rem 0.75rem' }}>
                       <span style={{
-                        backgroundColor: isHigh ? 'rgba(239,68,68,0.18)' : 'rgba(245,158,11,0.18)',
-                        color: isHigh ? '#f87171' : '#fbbf24',
+                        backgroundColor: pillBg,
+                        color: pillText,
                         padding: '2px 6px', borderRadius: '4px', fontWeight: 800, fontSize: '0.73rem',
                         fontFamily: 'JetBrains Mono, monospace'
-                      }}>{(atm.risk_score * 100).toFixed(1)}%</span>
+                      }}>{(score * 100).toFixed(1)}%</span>
                     </td>
                     <td style={{ padding: '0.55rem 0.75rem', color: '#e2e8f0' }}>{atm.district}, {atm.state}</td>
                     <td style={{ padding: '0.55rem 0.75rem', color: '#94a3b8' }}>{atm.bank_name || 'Commercial Bank'}</td>
@@ -366,9 +437,6 @@ export const LeaView = () => {
                   </tr>
                 );
               })}
-              {top10Atms.length === 0 && (
-                <tr><td colSpan={6} style={{ padding: '2rem', textAlign: 'center', color: '#4d6080' }}>No predictions loaded.</td></tr>
-              )}
             </tbody>
           </table>
         </div>
@@ -387,7 +455,10 @@ export const LeaView = () => {
           username={username}
         />
       )}
-
+      <button onClick={() => window.location.reload()}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', backgroundColor: 'transparent', border: `1px solid ${C.border}`, color: '#566d8a', borderRadius: '6px', padding: '0.38rem 0.75rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer' }}>
+            <RefreshCw size={13} /> Hard Reload
+          </button>
       {showSubmitModal && (
         <SubmitComplaintModal
           onClose={() => setShowSubmitModal(false)}
