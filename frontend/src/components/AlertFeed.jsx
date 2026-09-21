@@ -2,11 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import { AlertCircle, AlertTriangle, ShieldCheck, Clock, Radio, Wifi, WifiOff } from 'lucide-react';
 
 export const AlertFeed = ({ alerts = [], onRefresh = () => {}, wsConnected = false }) => {
+  const safeAlerts = Array.isArray(alerts) ? alerts : (alerts?.items || []);
   const listRef = useRef(null);
 
   useEffect(() => {
     if (listRef.current) listRef.current.scrollTop = 0;
-  }, [alerts]);
+  }, [safeAlerts]);
 
   return (
     <div style={{
@@ -37,19 +38,19 @@ export const AlertFeed = ({ alerts = [], onRefresh = () => {}, wsConnected = fal
           <span style={{
             backgroundColor: 'rgba(239,68,68,0.15)', color: '#f87171',
             padding: '1px 7px', borderRadius: '999px', fontSize: '0.68rem', fontWeight: 700
-          }}>{alerts.length}</span>
+          }}>{safeAlerts.length}</span>
         </div>
       </div>
 
       {/* Feed List */}
       <div ref={listRef} style={{ overflowY: 'auto', flex: 1, padding: '0.6rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        {alerts.length === 0 ? (
+        {safeAlerts.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: '#4d6080', fontSize: '0.82rem' }}>
             <ShieldCheck size={30} style={{ margin: '0 auto 0.5rem', display: 'block', opacity: 0.4 }} />
             No velocity spikes detected.
           </div>
         ) : (
-          alerts.map((alert, idx) => {
+          safeAlerts.map((alert, idx) => {
             const isCritical = alert.severity === 'CRITICAL';
             const timeFormatted = alert.detected_at
               ? new Date(alert.detected_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })

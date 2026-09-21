@@ -13,6 +13,9 @@ export default defineConfig({
       '/analytics': 'http://localhost:8000',
       '/reports': 'http://localhost:8000',
       '/simulation': 'http://localhost:8000',
+      '/complaints': 'http://localhost:8000',
+      '/admin': 'http://localhost:8000',
+      '/citizen': 'http://localhost:8000',
       '/health': 'http://localhost:8000'
     }
   }

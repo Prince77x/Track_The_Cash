@@ -172,8 +172,14 @@ export const LeaView = () => {
         fetch(url, { headers }),
         fetch('/alerts/feed?limit=18', { headers })
       ]);
-      if (predRes.ok)  setPredictions((await predRes.json()).predictions || []);
-      if (alertRes.ok) setAlerts(await alertRes.json() || []);
+      if (predRes.ok) {
+        const pData = await predRes.json();
+        setPredictions(Array.isArray(pData) ? pData : (pData?.predictions || []));
+      }
+      if (alertRes.ok) {
+        const aData = await alertRes.json();
+        setAlerts(Array.isArray(aData) ? aData : (aData?.items || []));
+      }
     } catch (err) { console.error('Fetch error:', err); }
     finally { setLoading(false); }
   }, [getAuthHeader, selectedState]);
