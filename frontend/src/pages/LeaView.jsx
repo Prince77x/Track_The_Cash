@@ -171,7 +171,7 @@ export const LeaView = () => {
     };
     console.log("🔄 Fetching predictions and alerts...");
     try {
-      const complaintRes = await fetch('http://localhost:8000/complaints/latest', { headers });
+      const complaintRes = await fetch('complaints/latest', { headers });
     if (!complaintRes.ok) throw new Error("Failed to fetch latest complaint");
     
     let latestComplaint = await complaintRes.json();
@@ -233,7 +233,7 @@ export const LeaView = () => {
         
         let boostedPredictions = rawPredictions.map(atm => {
           let currentScore = Number(atm.risk_score) || 0;
-          let newScore = Math.min(currentScore + 0.15, 1.0); // Caps at 1.0 (100%)
+          let newScore = Math.min(currentScore + 0.25, 1.0); // Caps at 1.0 (100%)
           
           return {
             ...atm,
@@ -249,7 +249,7 @@ export const LeaView = () => {
         if (boostedPredictions.length > 0) {
           try {
             // Note: Update the URL if your local FastAPI runs on a different port/path
-            const dbSaveRes = await fetch('http://localhost:8000/api/predictions/save', {
+            const dbSaveRes = await fetch('api/predictions/save', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
