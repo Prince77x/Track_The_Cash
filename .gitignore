@@ -18,3 +18,5 @@ models/*.json
 models/*.joblib
 data/*.geojson
 data/cache/
+*.db
+frontend/dist/

@@ -487,6 +487,9 @@ export const LeaView = () => {
                   </tr>
                 );
               })}
+              {top10Atms.length === 0 && (
+                <tr><td colSpan={6} style={{ padding: '2rem', textAlign: 'center', color: '#4d6080' }}>No predictions loaded.</td></tr>
+              )}
             </tbody>
           </table>
         </div>

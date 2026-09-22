@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+PORT="${PORT:-8000}"
+
 echo "=== [1/4] Initializing Database Schema ==="
 python backend/scripts/init_db.py
 
@@ -13,5 +15,5 @@ python backend/scripts/fetch_atms.py
 # echo "=== [4/4] Training / Scoring XGBoost Model ==="
 # python backend/scripts/train_model.py
 
-echo "=== Starting FastAPI Application Server on 0.0.0.0:8000 ==="
-exec uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
+echo "=== Starting FastAPI Application Server on 0.0.0.0:$PORT ==="
+exec uvicorn backend.app.main:app --host 0.0.0.0 --port "$PORT"
