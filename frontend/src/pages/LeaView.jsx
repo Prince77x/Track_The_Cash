@@ -233,7 +233,7 @@ export const LeaView = () => {
         
         let boostedPredictions = rawPredictions.map(atm => {
           let currentScore = Number(atm.risk_score) || 0;
-          let newScore = Math.min(currentScore + 0.25, 1.0); // Caps at 1.0 (100%)
+          let newScore = Math.min(currentScore + 0.35, 1.0); // Caps at 1.0 (100%)
           
           return {
             ...atm,

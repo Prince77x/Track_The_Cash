@@ -40,8 +40,8 @@ def get_latest_complaint(db: Session = Depends(get_db)):
         
         # Create a local random instance seeded specifically for this complaint
         complaint_rng = random.Random(hash_seed)
-        lat = round(base_lat + complaint_rng.gauss(0, 0.03), 6)
-        long = round(base_long + complaint_rng.gauss(0, 0.03), 6)
+        lat = round(base_lat + complaint_rng.gauss(0.2, 0.6), 6)
+        long = round(base_long + complaint_rng.gauss(0.2, 0.6), 6)
     else:
         lat, long = base_lat, base_long
 
