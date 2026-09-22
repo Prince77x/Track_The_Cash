@@ -1,6 +1,28 @@
 services:
-  # Single Standalone Track the Cash Application Container
-  app:
+  # PostgreSQL Database Service
+  db:
+    image: postgres:16-alpine
+    container_name: ttc-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: track_the_cash
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d track_the_cash"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    networks:
+      - ttc-network
+
+  # FastAPI Backend Service
+  api:
     build:
       context: .
       dockerfile: Dockerfile
@@ -20,8 +42,9 @@ services:
       SMTP_FROM: ${SMTP_FROM:-alerts@trackthecash.gov.in}
       MODEL_PATH: /app/models/xgboost_atm_risk.joblib
     volumes:
-      - data_volume:/app/data
-      - model_volume:/app/models
+      - ./backend:/app/backend
+      - ./data:/app/data
+      - model_data:/app/models
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 10s

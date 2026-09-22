@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import desc
 
 from backend.app.database import get_db
-from backend.app.auth import require_authenticated, require_admin, record_audit
+from backend.app.auth import require_authenticated, record_audit
 from backend.app.models import (
     Prediction, ATMLocation, MuleAccount, Complaint, Alert,
     LEAOfficer, Case, utc_now
@@ -24,7 +24,7 @@ def export_reports(
     state: Optional[str] = Query(None),
     limit: int = Query(500, ge=1, le=5000),
     db: Session = Depends(get_db),
-    admin: dict = Depends(require_admin)
+    user: dict = Depends(require_authenticated)
 ):
     now = utc_now()
     cutoff_stale = now - datetime.timedelta(hours=24)
@@ -75,7 +75,7 @@ def export_reports(
         return Response(
             content=output.getvalue(),
             media_type="text/csv",
-            headers={"Content-Disposition": 'attachment; filename="predictions.csv"'}
+            headers={"Content-Disposition": f'attachment; filename="atm_risk_intelligence_{now.strftime("%Y%m%d")}.csv"'}
         )
 
     # 2. Complaints Report

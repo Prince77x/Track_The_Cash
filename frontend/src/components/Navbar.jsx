@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Shield, Map, BarChart3, LogOut, Activity, Terminal } from 'lucide-react';
+import { Shield, Map, BarChart3, LogOut, Activity, Terminal, UserCheck } from 'lucide-react';
 
 const S = {
   header: {
@@ -133,28 +133,70 @@ export const Navbar = () => {
   const handleLogout = () => { logout(); navigate('/login'); };
 
   const isAdmin = role === 'admin';
-  const officerId = isAdmin ? 'NATGRID-SYS-001' : `LEA-OFF-${(user?.username || 'lea').slice(-3).toUpperCase()}`;
-  const officerTitle = isAdmin ? 'Director S. Verma' : (user?.username || 'LEA Officer');
+  const isCitizen = role === 'user' || role === 'citizen';
+  const isLea = role === 'lea';
+
+  const defaultPath = isAdmin ? '/admin' : (isCitizen ? '/citizen' : '/lea');
+  const userIdentifier = isCitizen
+    ? (user?.public_user_id || 'TTC-USER-00124')
+    : (isAdmin ? 'NATGRID-SYS-001' : `LEA-OFF-${(user?.username || 'lea').slice(-3).toUpperCase()}`);
+  const userTitle = user?.full_name || (isAdmin ? 'Director S. Verma' : (isCitizen ? 'Citizen User' : 'LEA Officer'));
+
+  const getRoleBadgeStyle = () => {
+    if (isAdmin) {
+      return {
+        backgroundColor: 'rgba(168,85,247,0.18)',
+        color: '#c084fc',
+        border: '1px solid rgba(168,85,247,0.3)',
+        label: 'ADMIN'
+      };
+    }
+    if (isCitizen) {
+      return {
+        backgroundColor: 'rgba(16,185,129,0.18)',
+        color: '#34d399',
+        border: '1px solid rgba(16,185,129,0.3)',
+        label: 'CITIZEN'
+      };
+    }
+    return {
+      backgroundColor: 'rgba(56,189,248,0.15)',
+      color: '#38bdf8',
+      border: '1px solid rgba(56,189,248,0.25)',
+      label: 'LEA'
+    };
+  };
+
+  const badgeStyle = getRoleBadgeStyle();
 
   return (
     <header style={S.header}>
       {/* Brand */}
       <div style={S.brand}>
-        <Link to={isAdmin ? '/admin' : '/lea'} style={S.brandLogo}>
+        <Link to={defaultPath} style={S.brandLogo}>
           <Shield size={17} />
           <span>TRACK<span style={{ color: '#7dd3fc' }}>THE</span>CASH</span>
         </Link>
         <span style={S.badge}>NAT-FININT</span>
         <span style={S.subtitle}>
-          Atm Anomaly Surveillance &amp; Money Mule Interception System
+          {isCitizen ? 'Citizen Cyber Defense & Complaint Intelligence Network' : 'Atm Anomaly Surveillance & Money Mule Interception System'}
         </span>
       </div>
 
       {/* Nav */}
       <nav style={S.nav}>
-        <NavLink to="/lea" icon={Map} label="LEA Surveillance" isActive={location.pathname === '/lea'} />
-        {isAdmin && (
-          <NavLink to="/admin" icon={Terminal} label="Admin Center" isActive={location.pathname === '/admin'} activeColor="#a855f7" />
+        {isCitizen ? (
+          <NavLink to="/citizen" icon={UserCheck} label="Citizen Portal" isActive={location.pathname === '/citizen'} activeColor="#34d399" />
+        ) : (
+          <>
+            <NavLink to="/lea" icon={Map} label="LEA Surveillance" isActive={location.pathname === '/lea'} />
+            {isAdmin && (
+              <>
+                <NavLink to="/admin" icon={Terminal} label="Admin Center" isActive={location.pathname === '/admin'} activeColor="#a855f7" />
+                <NavLink to="/citizen" icon={UserCheck} label="Citizen View" isActive={location.pathname === '/citizen'} activeColor="#34d399" />
+              </>
+            )}
+          </>
         )}
       </nav>
 
@@ -166,16 +208,16 @@ export const Navbar = () => {
         </div>
 
         <div style={S.userBlock}>
-          <span style={{ fontWeight: 700, fontSize: '0.8rem', color: '#e2e8f0' }}>{officerTitle}</span>
+          <span style={{ fontWeight: 700, fontSize: '0.8rem', color: '#e2e8f0' }}>{userTitle}</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-            <span style={{ fontSize: '0.65rem', color: '#4d6080', fontFamily: 'JetBrains Mono, monospace' }}>{officerId}</span>
+            <span style={{ fontSize: '0.65rem', color: '#4d6080', fontFamily: 'JetBrains Mono, monospace' }}>{userIdentifier}</span>
             <span style={{
               ...S.roleBadge,
-              backgroundColor: isAdmin ? 'rgba(168,85,247,0.18)' : 'rgba(56,189,248,0.15)',
-              color: isAdmin ? '#c084fc' : '#38bdf8',
-              border: `1px solid ${isAdmin ? 'rgba(168,85,247,0.3)' : 'rgba(56,189,248,0.25)'}`
+              backgroundColor: badgeStyle.backgroundColor,
+              color: badgeStyle.color,
+              border: badgeStyle.border
             }}>
-              {isAdmin ? 'ADMIN' : 'LEA'}
+              {badgeStyle.label}
             </span>
           </div>
         </div>
@@ -188,3 +230,5 @@ export const Navbar = () => {
     </header>
   );
 };
+
+export default Navbar;

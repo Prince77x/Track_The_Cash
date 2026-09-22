@@ -13,7 +13,8 @@ from backend.app.routers import (
     reports,
     simulation,
     complaints,
-    admin
+    admin,
+    citizen
 )
 
 # Ensure all database tables exist on startup
@@ -43,6 +44,7 @@ app.include_router(reports.router)
 app.include_router(simulation.router)
 app.include_router(complaints.router)
 app.include_router(admin.router)
+app.include_router(citizen.router)
 
 
 @app.get("/health")

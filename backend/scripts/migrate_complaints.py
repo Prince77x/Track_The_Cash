@@ -1,24 +1,17 @@
 import sys
-from sqlalchemy import text, inspect
+from sqlalchemy import text
 from backend.app.database import engine
 
 def run_migration():
-    is_sqlite = engine.dialect.name == "sqlite"
+    print("Starting complaints table migration...")
     with engine.connect() as conn:
         with conn.begin():
-            # Drop old check constraints if they exist (Postgres only)
-            if not is_sqlite:
-                print("Dropping legacy check constraints...")
-                try:
-                    conn.execute(text("ALTER TABLE complaints DROP CONSTRAINT IF EXISTS check_complaint_status;"))
-                    conn.execute(text("ALTER TABLE complaints DROP CONSTRAINT IF EXISTS check_crime_type;"))
-                except Exception as e:
-                    print(f"Warning dropping constraints: {e}")
+            # Drop old check constraints if they exist
+            print("Dropping legacy check constraints...")
+            conn.execute(text("ALTER TABLE complaints DROP CONSTRAINT IF EXISTS check_complaint_status;"))
+            conn.execute(text("ALTER TABLE complaints DROP CONSTRAINT IF EXISTS check_crime_type;"))
 
             # Add new columns idempotently
-            inspector = inspect(engine)
-            existing_cols = [c['name'] for c in inspector.get_columns('complaints')] if 'complaints' in inspector.get_table_names() else []
-            
             columns_to_add = [
                 ("complainant_name", "VARCHAR(128) DEFAULT 'Citizen User'"),
                 ("contact_phone", "VARCHAR(64) DEFAULT '+91 98765 43210'"),
@@ -28,17 +21,15 @@ def run_migration():
                 ("description", "TEXT DEFAULT 'Suspicious cash withdrawal activity detected'"),
                 ("priority", "VARCHAR(16) DEFAULT 'HIGH'"),
                 ("assigned_officer", "VARCHAR(128)"),
-                ("investigation_notes", "JSON DEFAULT '[]'" if is_sqlite else "JSON DEFAULT '[]'::json"),
+                ("investigation_notes", "JSON DEFAULT '[]'::json"),
                 ("resolution_summary", "TEXT"),
                 ("resolved_at", "TIMESTAMP"),
                 ("updated_at", "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"),
             ]
 
             for col_name, col_type in columns_to_add:
-                if col_name not in existing_cols:
-                    print(f"Ensuring column {col_name} exists...")
-                    sql = f"ALTER TABLE complaints ADD COLUMN {col_name} {col_type}" if is_sqlite else f"ALTER TABLE complaints ADD COLUMN IF NOT EXISTS {col_name} {col_type}"
-                    conn.execute(text(sql))
+                print(f"Ensuring column {col_name} exists...")
+                conn.execute(text(f"ALTER TABLE complaints ADD COLUMN IF NOT EXISTS {col_name} {col_type};"))
 
             # Create indexes for search performance
             print("Creating performance indexes...")

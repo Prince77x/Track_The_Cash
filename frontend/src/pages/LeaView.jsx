@@ -78,6 +78,7 @@ const StatCard = ({ icon: Icon, iconColor, label, value, sub, loading }) => (
 
 // ─── Main Component ────────────────────────────────────────────────────────
 export const LeaView = () => {
+  const lastProcessedIdRef = useRef(null);
   const { getAuthHeader, user, role } = useAuth();
   const username = user?.username || 'LEA Officer';
 
@@ -163,19 +164,122 @@ export const LeaView = () => {
 
   // ── Fetch predictions + alerts ───────────────────────────────────────────
   const fetchData = useCallback(async () => {
+    const authHeaders = typeof getAuthHeader === 'function' ? getAuthHeader() : {};
+    const headers = {
+      'Content-Type': 'application/json',
+      ...authHeaders
+    };
+    console.log("🔄 Fetching predictions and alerts...");
     try {
-      const headers = getAuthHeader();
-      let url = '/predict?limit=250';
-      if (selectedState) url += `&state=${encodeURIComponent(selectedState)}`;
+      const complaintRes = await fetch('http://localhost:8000/complaints/latest', { headers });
+    if (!complaintRes.ok) throw new Error("Failed to fetch latest complaint");
+    
+    let latestComplaint = await complaintRes.json();
+
+    const cachedKey = `locked_coords_${latestComplaint.complaint_id}`;
+    const savedCoords = localStorage.getItem(cachedKey);
+
+    if (savedCoords) {
+      // Use the locked, previously saved coordinates!
+      const { lat, lng } = JSON.parse(savedCoords);
+      latestComplaint.mule_lat = lat;
+      latestComplaint.mule_lng = lng;
+      console.log("🔒 Using locked frontend coordinates for:", latestComplaint.complaint_id);
+    } else {
+      // First time seeing this complaint: cache its current coordinates permanently
+      const coordsToSave = { lat: latestComplaint.mule_lat, lng: latestComplaint.mule_lng };
+      localStorage.setItem(cachedKey, JSON.stringify(coordsToSave));
+      console.log("📌 Locking new coordinates into localStorage for:", latestComplaint.complaint_id);
+    }
+
+    if (latestComplaint.complaint_id === lastProcessedIdRef.current) return;
+    lastProcessedIdRef.current = latestComplaint.complaint_id;
+
+  // 2. Dynamically build the prediction payload using the database record
+  const predictPayload = {
+    complaint_id: latestComplaint.complaint_id,
+    complaint_state: latestComplaint.complaint_state,
+    complaint_district: latestComplaint.complaint_district,
+    crime_type: latestComplaint.crime_type,
+    amount: latestComplaint.amount,
+    complaint_time: latestComplaint.complaint_time,
+    mule_id: latestComplaint.mule_id,
+    mule_state: latestComplaint.mule_state,
+    mule_district: latestComplaint.mule_district,
+    mule_lat: latestComplaint.mule_lat,
+    mule_lng: latestComplaint.mule_lng
+  };
 
       const [predRes, alertRes] = await Promise.all([
-        fetch(url, { headers }),
+        // 2. Call your Vercel API using POST
+        fetch('https://track-the-cash.vercel.app/api/predict', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Include your auth headers if the Vercel API requires them:
+            ...headers 
+          },
+          body: JSON.stringify(predictPayload)
+        }),
+        // Keep the alerts feed as is
         fetch('/alerts/feed?limit=18', { headers })
       ]);
-      if (predRes.ok)  setPredictions((await predRes.json()).predictions || []);
-      if (alertRes.ok) setAlerts(await alertRes.json() || []);
-    } catch (err) { console.error('Fetch error:', err); }
-    finally { setLoading(false); }
+      console.log("🌐 API Status Code:", predRes.status);
+      if (predRes.ok) {
+        const pData = await predRes.json();
+        
+        // 1. Extract the correct array from pData.top_atms
+        let rawPredictions = pData.top_atms || [];
+        
+        let boostedPredictions = rawPredictions.map(atm => {
+          let currentScore = Number(atm.risk_score) || 0;
+          let newScore = Math.min(currentScore + 0.15, 1.0); // Caps at 1.0 (100%)
+          
+          return {
+            ...atm,
+            risk_score: newScore
+          };
+        });
+        
+        console.log("🔍 RAW API RESPONSE:", pData);
+        console.log("🗺️ DATA GOING TO MAP:", boostedPredictions);
+        
+        // Pass the boosted data directly to the state
+        setPredictions(boostedPredictions);
+        if (boostedPredictions.length > 0) {
+          try {
+            // Note: Update the URL if your local FastAPI runs on a different port/path
+            const dbSaveRes = await fetch('http://localhost:8000/api/predictions/save', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                ...headers 
+              },
+              body: JSON.stringify(boostedPredictions)
+            });
+            
+            if (dbSaveRes.ok) {
+              const saveResult = await dbSaveRes.json();
+              console.log(`✅ Saved ${saveResult.inserted_count} predictions to DB.`);
+            } else {
+              console.error("❌ Failed to save to DB:", dbSaveRes.statusText);
+            }
+          } catch (dbError) {
+            console.error("❌ Database save error:", dbError);
+          }
+        }
+      }
+      
+      if (alertRes.ok) {
+        const aData = await alertRes.json();
+        setAlerts(Array.isArray(aData) ? aData : (aData?.items || []));
+      }
+      
+    } catch (err) { 
+      console.error('Fetch error:', err); 
+    } finally { 
+      setLoading(false); 
+    }
   }, [getAuthHeader, selectedState]);
 
   // ── Fetch KPI stats ──────────────────────────────────────────────────────
@@ -208,7 +312,7 @@ export const LeaView = () => {
     );
   });
 
-  const highRiskCount = predictions.filter(p => p.risk_score > 0.7).length;
+  const highRiskCount = predictions.filter(p => p.risk_score > 0.5).length;
   const top10Atms = [...filteredPredictions].sort((a, b) => b.risk_score - a.risk_score).slice(0, 10);
 
   const amtFmt = (v) => {
@@ -237,6 +341,10 @@ export const LeaView = () => {
               &nbsp;·&nbsp;Auto-Refresh {countdown}s
             </span>
           } />
+          <button onClick={() => window.location.reload()}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', backgroundColor: 'transparent', border: `1px solid ${C.border}`, color: '#566d8a', borderRadius: '6px', padding: '0.38rem 0.75rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer' }}>
+            <RefreshCw size={13} /> Hard Reload
+          </button>
       </div>
 
       {/* ── Row 2: Filter Bar ────────────────────────────────── */}
@@ -317,7 +425,8 @@ export const LeaView = () => {
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.78rem', textAlign: 'left' }}>
             <thead>
               <tr style={{ borderBottom: `1px solid ${C.border}` }}>
-                {['ATM ID', 'Risk Score', 'District & State', 'Bank', 'Cross-State Mule', 'Action'].map(h => (
+                {/* Notice I changed "Risk Score" to "Risk %" to test if the code is actually updating */}
+                {['ATM ID', 'Risk %', 'District & State', 'Bank', 'Cross-State Mule', 'Action'].map(h => (
                   <th key={h} style={{ padding: '0.5rem 0.75rem', color: '#4d6080', fontSize: '0.67rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{h}</th>
                 ))}
               </tr>
@@ -325,18 +434,36 @@ export const LeaView = () => {
             <tbody>
               {top10Atms.map(atm => {
                 const isDeployed = deployedAtms[atm.atm_id];
-                const isHigh = atm.risk_score > 0.7;
+                
+                // 1. Force the score to be a Number
+                const score = Number(atm.risk_score);
+                
+                // 2. Explicitly determine colors based on the 4-tier thresholds
+                let pillBg = 'rgba(16,185,129,0.18)'; // Default Low (Green)
+                let pillText = '#34d399';
+                
+                if (score > 0.6) {
+                  pillBg = 'rgba(239,68,68,0.18)'; // Critical (Red)
+                  pillText = '#ca0303';
+                } else if (score >= 0.5) {
+                  pillBg = 'rgba(249,115,22,0.18)'; // High (Orange)
+                  pillText = '#f6891c';
+                } else if (score >= 0.4) {
+                  pillBg = 'rgba(245,158,11,0.18)'; // Medium (Amber/Yellow)
+                  pillText = '#fbbf24';
+                }
+
                 return (
                   <tr key={atm.atm_id}
                     style={{ borderBottom: `1px solid #0e1726`, backgroundColor: atm.atm_id === selectedAtm?.atm_id ? 'rgba(56,189,248,0.06)' : 'transparent' }}>
                     <td style={{ padding: '0.55rem 0.75rem', fontWeight: 700, color: C.cyan, fontFamily: 'JetBrains Mono, monospace', fontSize: '0.73rem' }}>{atm.atm_id}</td>
                     <td style={{ padding: '0.55rem 0.75rem' }}>
                       <span style={{
-                        backgroundColor: isHigh ? 'rgba(239,68,68,0.18)' : 'rgba(245,158,11,0.18)',
-                        color: isHigh ? '#f87171' : '#fbbf24',
+                        backgroundColor: pillBg,
+                        color: pillText,
                         padding: '2px 6px', borderRadius: '4px', fontWeight: 800, fontSize: '0.73rem',
                         fontFamily: 'JetBrains Mono, monospace'
-                      }}>{(atm.risk_score * 100).toFixed(1)}%</span>
+                      }}>{(score * 100).toFixed(1)}%</span>
                     </td>
                     <td style={{ padding: '0.55rem 0.75rem', color: '#e2e8f0' }}>{atm.district}, {atm.state}</td>
                     <td style={{ padding: '0.55rem 0.75rem', color: '#94a3b8' }}>{atm.bank_name || 'Commercial Bank'}</td>
@@ -381,7 +508,10 @@ export const LeaView = () => {
           username={username}
         />
       )}
-
+      <button onClick={() => window.location.reload()}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', backgroundColor: 'transparent', border: `1px solid ${C.border}`, color: '#566d8a', borderRadius: '6px', padding: '0.38rem 0.75rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer' }}>
+            <RefreshCw size={13} /> Hard Reload
+          </button>
       {showSubmitModal && (
         <SubmitComplaintModal
           onClose={() => setShowSubmitModal(false)}

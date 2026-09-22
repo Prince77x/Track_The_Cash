@@ -1,47 +1,36 @@
 import datetime
 from typing import Optional, Dict, Any
 import jwt
-import hashlib
-
-try:
-    import bcrypt
-    _HAS_BCRYPT = True
-except ImportError:
-    _HAS_BCRYPT = False
-
+import bcrypt
 from fastapi import Depends, HTTPException, status, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 
 from backend.app.config import settings
 from backend.app.database import get_db
-from backend.app.models import LEAOfficer, AuditLog, utc_now
+from backend.app.models import LEAOfficer, CitizenUser, AuditLog, utc_now
 
 security = HTTPBearer(auto_error=False)
 
 # Hardcoded demo users for fast SIH hackathon evaluation
 DEMO_USERS = {
     "lea_user": {"password": "lea_pass", "role": "lea", "full_name": "Insp. Vikram Rathore"},
-    "admin_user": {"password": "admin_pass", "role": "admin", "full_name": "Director S. Verma"}
+    "admin_user": {"password": "admin_pass", "role": "admin", "full_name": "Director S. Verma"},
+    "demo_citizen": {"password": "citizen123", "role": "user", "full_name": "Rohan Mehta", "public_user_id": "TTC-USER-00124"}
 }
 
 
 def hash_password(password: str) -> str:
-    if _HAS_BCRYPT:
-        salt = bcrypt.gensalt()
-        return bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
-    return hashlib.sha256(password.encode('utf-8')).hexdigest()
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    if _HAS_BCRYPT:
-        try:
-            if hashed_password.startswith(("$2b$", "$2a$")):
-                return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
-        except Exception:
-            pass
-    sha_hash = hashlib.sha256(plain_password.encode('utf-8')).hexdigest()
-    return plain_password == hashed_password or sha_hash == hashed_password
+    try:
+        return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
+    except Exception:
+        # Fallback for plain demo passwords if any
+        return plain_password == hashed_password
 
 
 def create_access_token(data: dict, expires_delta: Optional[datetime.timedelta] = None) -> str:
@@ -90,7 +79,9 @@ def get_current_user(credentials: Optional[HTTPAuthorizationCredentials] = Depen
         "username": username,
         "role": role,
         "full_name": payload.get("full_name", username),
-        "officer_id": payload.get("officer_id", None)
+        "officer_id": payload.get("officer_id", None),
+        "public_user_id": payload.get("public_user_id", None) or payload.get("user_id", None),
+        "email": payload.get("email", None)
     }
 
 
@@ -99,6 +90,15 @@ def require_admin(user: Dict[str, Any] = Depends(get_current_user)) -> Dict[str,
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Admin privileges required"
+        )
+    return user
+
+
+def require_citizen(user: Dict[str, Any] = Depends(get_current_user)) -> Dict[str, Any]:
+    if user.get("role") not in ["user", "citizen", "admin"]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Citizen portal access required"
         )
     return user
 

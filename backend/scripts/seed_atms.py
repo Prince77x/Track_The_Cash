@@ -1,27 +1,19 @@
-import os
-import sys
 import pandas as pd
+import os
 from datetime import date
-
-# 1. Inject parent directory into path for Docker
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-if parent_dir not in sys.path:
-    sys.path.insert(0, parent_dir)
-
 from app.database import SessionLocal
 from app.models import ATMLocation, ATMRiskHistory
 
-def ingest_atms(csv_file_path: str):
+def import_csv_to_db(csv_file_path):
     session = SessionLocal()
     try:
-        # 2. Idempotency Check to prevent reduplication
-        existing_count = session.query(ATMLocation).count()
-        if existing_count > 0:
-            print(f"✅ ATMs already populated ({existing_count} records). Skipping CSV ingestion.")
-            return existing_count
+        # 1. Check if data already exists BEFORE reading the CSV
+        existing_atms_count = session.query(ATMLocation).count()
+        if existing_atms_count > 0:
+            print(f"✅ Data already uploaded! Found {existing_atms_count} ATMs in database. Skipping CSV import.")
+            return # Exits the function immediately without touching the CSV
 
-        print(f"📥 No ATMs found. Reading from {csv_file_path}...")
+        print(f"📥 No ATMs found in database. Reading from {csv_file_path}...")
         df = pd.read_csv(csv_file_path)
         
         atm_locations = []
@@ -53,7 +45,7 @@ def ingest_atms(csv_file_path: str):
         session.bulk_save_objects(atm_locations)
         session.bulk_save_objects(risk_histories)
         session.commit()
-        print(f"🎉 Successfully imported {len(atm_locations)} new ATM records from CSV.")
+        print(f"🎉 Successfully imported {len(atm_locations)} new ATM records.")
         
     except Exception as e:
         session.rollback()
@@ -62,5 +54,5 @@ def ingest_atms(csv_file_path: str):
         session.close()
 
 if __name__ == "__main__":
-    csv_path = os.path.join(current_dir, "atm_locations.csv")
-    ingest_atms(csv_path)
+    csv_path = os.path.join(os.path.dirname(__file__), "atm_locations.csv")
+    import_csv_to_db(csv_path)

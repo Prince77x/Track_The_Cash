@@ -1,11 +1,23 @@
 import datetime
+import bcrypt
 from sqlalchemy import text, inspect
 from backend.app.database import engine, Base, SessionLocal
 from backend.app.models import (
     LEAOfficer, Case, AuditLog, AdminNotification, AdminSetting,
     Alert, Complaint, ATMLocation, MuleAccount, utc_now
 )
-from backend.app.auth import hash_password, verify_password
+
+
+def hash_password(password: str) -> str:
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
+
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    try:
+        return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
+    except Exception:
+        return False
 
 
 def run_migration():
@@ -18,25 +30,20 @@ def run_migration():
     # 2. Check and add operational columns to 'alerts' if missing
     inspector = inspect(engine)
     alert_cols = [c['name'] for c in inspector.get_columns('alerts')]
-    is_sqlite = engine.dialect.name == "sqlite"
     
     with engine.begin() as conn:
         if 'status' not in alert_cols:
             print("Adding 'status' column to alerts table...")
-            sql = "ALTER TABLE alerts ADD COLUMN status VARCHAR(32) DEFAULT 'ACTIVE'" if is_sqlite else "ALTER TABLE alerts ADD COLUMN IF NOT EXISTS status VARCHAR(32) DEFAULT 'ACTIVE'"
-            conn.execute(text(sql))
+            conn.execute(text("ALTER TABLE alerts ADD COLUMN IF NOT EXISTS status VARCHAR(32) DEFAULT 'ACTIVE'"))
         if 'assigned_officer' not in alert_cols:
             print("Adding 'assigned_officer' column to alerts table...")
-            sql = "ALTER TABLE alerts ADD COLUMN assigned_officer VARCHAR(128)" if is_sqlite else "ALTER TABLE alerts ADD COLUMN IF NOT EXISTS assigned_officer VARCHAR(128)"
-            conn.execute(text(sql))
+            conn.execute(text("ALTER TABLE alerts ADD COLUMN IF NOT EXISTS assigned_officer VARCHAR(128)"))
         if 'investigation_notes' not in alert_cols:
             print("Adding 'investigation_notes' column to alerts table...")
-            sql = "ALTER TABLE alerts ADD COLUMN investigation_notes JSON DEFAULT '[]'" if is_sqlite else "ALTER TABLE alerts ADD COLUMN IF NOT EXISTS investigation_notes JSON DEFAULT '[]'::json"
-            conn.execute(text(sql))
+            conn.execute(text("ALTER TABLE alerts ADD COLUMN IF NOT EXISTS investigation_notes JSON DEFAULT '[]'::json"))
         if 'action_history' not in alert_cols:
             print("Adding 'action_history' column to alerts table...")
-            sql = "ALTER TABLE alerts ADD COLUMN action_history JSON DEFAULT '[]'" if is_sqlite else "ALTER TABLE alerts ADD COLUMN IF NOT EXISTS action_history JSON DEFAULT '[]'::json"
-            conn.execute(text(sql))
+            conn.execute(text("ALTER TABLE alerts ADD COLUMN IF NOT EXISTS action_history JSON DEFAULT '[]'::json"))
 
     print("✓ Alerts table schema synchronized.")
 

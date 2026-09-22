@@ -109,7 +109,7 @@ def get_alerts(
         })
 
     # Return list if feed requested without pagination queries for backward compatibility
-    if offset == 0 and limit == 20 and not severity and not search:
+    if offset == 0 and not severity and not search:
         return results
 
     return {
