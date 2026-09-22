@@ -266,6 +266,7 @@ def submit_complaint(
         public_updates=initial_public_update,
         feedback={}
     )
+    print("Just To test backend citizen.py line 269 ",new_complaint)
 
     db.add(new_complaint)
     db.commit()

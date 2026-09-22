@@ -12,6 +12,23 @@ import {
 
 export const CitizenView = () => {
   const location = useLocation();
+  const STATE_DISTRICTS_MAP = {
+    "Uttar Pradesh": ["Lucknow", "Kanpur", "Noida", "Ghaziabad", "Varanasi", "Agra", "Prayagraj", "Meerut", "Bareilly", "Aligarh"],
+    "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Thane", "Nashik", "Aurangabad", "Solapur", "Kolhapur"],
+    "Rajasthan": ["Jaipur", "Jodhpur", "Kota", "Bikaner", "Ajmer", "Udaipur", "Alwar", "Bharatpur"],
+    "Telangana": ["Hyderabad", "Warangal", "Nizamabad", "Karimnagar", "Khammam", "Rangareddy"],
+    "Karnataka": ["Bengaluru Urban", "Bengaluru Rural", "Mysuru", "Hubballi-Dharwad", "Mangaluru", "Belagavi"],
+    "Delhi": ["New Delhi", "South Delhi", "North Delhi", "East Delhi", "West Delhi", "Central Delhi"],
+    "West Bengal": ["Kolkata", "Howrah", "North 24 Parganas", "South 24 Parganas", "Siliguri", "Asansol"],
+    "Bihar": ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur", "Purnia"],
+    "Madhya Pradesh": ["Indore", "Bhopal", "Jabalpur", "Gwalior", "Ujjain"],
+    "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Bhavnagar"],
+    "Haryana": ["Gurugram", "Faridabad", "Panipat", "Ambala", "Karnal"],
+    "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem"],
+    "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Kurnool"],
+    "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur", "Kollam"],
+    "Odisha": ["Bhubaneswar", "Cuttack", "Rourkela", "Berhampur", "Sambalpur"]
+  };
   const { user, getAuthHeader } = useAuth();
   const [activeTab, setActiveTab] = useState(() => {
     const params = new URLSearchParams(window.location.search);
@@ -76,7 +93,9 @@ export const CitizenView = () => {
       suspect_phone: '',
       suspect_upi: '',
       suspect_bank_acc: '',
-      suspect_platform: 'WhatsApp / Call'
+      suspect_platform: 'WhatsApp / Call',
+      suspect_state: '',    
+    suspect_district: ''  
     }
   });
   const [formSubmitting, setFormSubmitting] = useState(false);
@@ -1223,7 +1242,7 @@ export const CitizenView = () => {
                 {wizardStep === 3 && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                     <h3 style={{ fontSize: '1.1rem', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
-                      Suspect / Fraudster Details (If known)
+                      Suspect / Fraudster Details (*Required ask bank for transaction logs)
                     </h3>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                       <div>
@@ -1251,80 +1270,82 @@ export const CitizenView = () => {
                       </div>
 
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.78rem', color: '#94a3b8', marginBottom: '0.4rem' }}>
-                          Suspect UPI ID / Mule VPA
-                        </label>
-                        <input
-                          type="text"
-                          value={reportForm.suspect_details.suspect_upi}
-                          onChange={(e) => setReportForm({
-                            ...reportForm,
-                            suspect_details: { ...reportForm.suspect_details, suspect_upi: e.target.value }
-                          })}
-                          placeholder="e.g. tradesmart88@okaxis"
-                          style={{
-                            width: '100%',
-                            backgroundColor: '#080d1a',
-                            border: '1px solid #232d44',
-                            color: '#f8fafc',
-                            padding: '0.75rem',
-                            borderRadius: '8px',
-                            fontSize: '0.9rem'
-                          }}
-                        />
-                      </div>
+        <label style={{ display: 'block', fontSize: '0.78rem', color: '#94a3b8', marginBottom: '0.4rem' }}>
+          Suspect Bank/ATM withdrawal State (Refer bank logs for the Transaction)
+        </label>
+        <select
+          value={reportForm.suspect_details.suspect_state || ""}
+          onChange={(e) => setReportForm({
+            ...reportForm,
+            suspect_details: { 
+              ...reportForm.suspect_details, 
+              suspect_state: e.target.value,
+              suspect_district: "" // Resets district whenever the state changes
+            }
+          })}
+          style={{
+            width: '100%',
+            backgroundColor: '#080d1a',
+            border: '1px solid #232d44',
+            color: '#f8fafc',
+            padding: '0.75rem',
+            borderRadius: '8px',
+            fontSize: '0.9rem',
+            outline: 'none',
+            cursor: 'pointer'
+          }}
+        >
+          <option value="" disabled style={{ color: '#64748b' }}>Select withdrawal state...</option>
+          {Object.keys(STATE_DISTRICTS_MAP).map((state) => (
+            <option key={state} value={state}>{state}</option>
+          ))}
+        </select>
+      </div>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                      <div>
-                        <label style={{ display: 'block', fontSize: '0.78rem', color: '#94a3b8', marginBottom: '0.4rem' }}>
-                          Suspect Bank Account (Mule Account)
-                        </label>
-                        <input
-                          type="text"
-                          value={reportForm.suspect_details.suspect_bank_acc}
-                          onChange={(e) => setReportForm({
-                            ...reportForm,
-                            suspect_details: { ...reportForm.suspect_details, suspect_bank_acc: e.target.value }
-                          })}
-                          placeholder="e.g. IndusInd Bank - 201004928192"
-                          style={{
-                            width: '100%',
-                            backgroundColor: '#080d1a',
-                            border: '1px solid #232d44',
-                            color: '#f8fafc',
-                            padding: '0.75rem',
-                            borderRadius: '8px',
-                            fontSize: '0.9rem'
-                          }}
-                        />
-                      </div>
-
-                      <div>
-                        <label style={{ display: 'block', fontSize: '0.78rem', color: '#94a3b8', marginBottom: '0.4rem' }}>
-                          Platform Used by Scammer
-                        </label>
-                        <input
-                          type="text"
-                          value={reportForm.suspect_details.suspect_platform}
-                          onChange={(e) => setReportForm({
-                            ...reportForm,
-                            suspect_details: { ...reportForm.suspect_details, suspect_platform: e.target.value }
-                          })}
-                          placeholder="e.g. WhatsApp, Skype, Telegram, OLX"
-                          style={{
-                            width: '100%',
-                            backgroundColor: '#080d1a',
-                            border: '1px solid #232d44',
-                            color: '#f8fafc',
-                            padding: '0.75rem',
-                            borderRadius: '8px',
-                            fontSize: '0.9rem'
-                          }}
-                        />
-                      </div>
+                    <div>
+        <label style={{ display: 'block', fontSize: '0.78rem', color: '#94a3b8', marginBottom: '0.4rem' }}>
+          Suspect Withdrawal District (Refer bank logs for the Transaction)
+        </label>
+        <select
+          value={reportForm.suspect_details.suspect_district || ""}
+          onChange={(e) => setReportForm({
+            ...reportForm,
+            suspect_details: { 
+              ...reportForm.suspect_details, 
+              suspect_district: e.target.value 
+            }
+          })}
+          disabled={!reportForm.suspect_details.suspect_state}
+          style={{
+            width: '100%',
+            backgroundColor: '#080d1a',
+            border: '1px solid #232d44',
+            color: '#f8fafc',
+            padding: '0.75rem',
+            borderRadius: '8px',
+            fontSize: '0.9rem',
+            outline: 'none',
+            cursor: reportForm.suspect_details.suspect_state ? 'pointer' : 'not-allowed',
+            opacity: reportForm.suspect_details.suspect_state ? 1 : 0.6
+          }}
+        >
+          <option value="" disabled style={{ color: '#64748b' }}>
+            {reportForm.suspect_details.suspect_state 
+              ? "Select withdrawal district..." 
+              : "First select a state above..."}
+          </option>
+          
+          {reportForm.suspect_details.suspect_state && 
+            STATE_DISTRICTS_MAP[reportForm.suspect_details.suspect_state]?.map((district) => (
+              <option key={district} value={district}>
+                {district}
+              </option>
+            ))
+          }
+        </select>
+      </div>
                     </div>
-                  </div>
                 )}
 
                 {/* STEP 4: Date & Jurisdiction */}

@@ -11,9 +11,54 @@ from pydantic import BaseModel, Field
 from backend.app.database import get_db
 from backend.app.auth import require_authenticated
 from backend.app.models import Complaint, ATMLocation, Prediction, Alert, utc_now
+from backend.scripts.mule_location import get_coordinates_from_district
 
 router = APIRouter(prefix="/complaints", tags=["Complaints"])
 
+
+import hashlib
+import random
+
+@router.get("/latest")
+def get_latest_complaint(db: Session = Depends(get_db)):
+    # 1. Fetch the absolute latest complaint based on timestamp
+    latest = db.query(Complaint).order_by(Complaint.timestamp.desc()).first()
+    
+    if not latest:
+        raise HTTPException(status_code=404, detail="No complaints found in the database.")
+    
+    # 2. Safely parse JSON metadata fields stored in the row
+    suspect_info = latest.suspect_details if isinstance(latest.suspect_details, dict) else {}
+
+    # 3. Get base coordinates from district
+    base_lat, base_long = get_coordinates_from_district(latest.state, latest.district)
+    
+    # 4. Make jitter deterministic per complaint_id using an MD5 hash seed
+    if latest.complaint_id:
+        hasher = hashlib.md5(latest.complaint_id.encode('utf-8'))
+        hash_seed = int(hasher.hexdigest(), 16) % (10 ** 8)
+        
+        # Create a local random instance seeded specifically for this complaint
+        complaint_rng = random.Random(hash_seed)
+        lat = round(base_lat + complaint_rng.gauss(0, 0.03), 6)
+        long = round(base_long + complaint_rng.gauss(0, 0.03), 6)
+    else:
+        lat, long = base_lat, base_long
+
+    # 5. Return structured payload matching your prediction requirements
+    return {
+        "complaint_id": latest.complaint_id,
+        "complaint_state": latest.state,
+        "complaint_district": latest.district,
+        "crime_type": latest.crime_type,
+        "amount": latest.amount_inr,
+        "complaint_time": latest.timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+        "mule_id": latest.mule_account_id or "MULE_AUTO_01",
+        "mule_state": suspect_info.get("suspect_state", latest.state),
+        "mule_district": suspect_info.get("suspect_district", latest.district),
+        "mule_lat": lat,
+        "mule_lng": long
+    }
 # -------------------------------------------------------------------------
 # Real-Time WebSocket Connection Manager
 # -------------------------------------------------------------------------

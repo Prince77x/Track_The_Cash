@@ -78,6 +78,7 @@ const StatCard = ({ icon: Icon, iconColor, label, value, sub, loading }) => (
 
 // ─── Main Component ────────────────────────────────────────────────────────
 export const LeaView = () => {
+  const lastProcessedIdRef = useRef(null);
   const { getAuthHeader, user, role } = useAuth();
   const username = user?.username || 'LEA Officer';
 
@@ -163,24 +164,51 @@ export const LeaView = () => {
 
   // ── Fetch predictions + alerts ───────────────────────────────────────────
   const fetchData = useCallback(async () => {
+    const authHeaders = typeof getAuthHeader === 'function' ? getAuthHeader() : {};
+    const headers = {
+      'Content-Type': 'application/json',
+      ...authHeaders
+    };
     console.log("🔄 Fetching predictions and alerts...");
     try {
-      const headers = getAuthHeader();
-      
-      // 1. Prepare the payload for your custom API
-      const predictPayload = {
-  complaint_id: "TEST005",
-  complaint_state: selectedState || "Maharashtra",
-  complaint_district: "Mumbai",
-  crime_type: "Bank Fraud",
-  amount: 1000000,
-  complaint_time: "2026-02-13 22:00:00",
-  mule_id: "MULE005",
-  mule_state: "West Bengal",
-  mule_district: "Kolkata",
-  mule_lat: 22.5726,
-  mule_lng: 88.3639
-};
+      const complaintRes = await fetch('http://localhost:8000/complaints/latest', { headers });
+    if (!complaintRes.ok) throw new Error("Failed to fetch latest complaint");
+    
+    let latestComplaint = await complaintRes.json();
+
+    const cachedKey = `locked_coords_${latestComplaint.complaint_id}`;
+    const savedCoords = localStorage.getItem(cachedKey);
+
+    if (savedCoords) {
+      // Use the locked, previously saved coordinates!
+      const { lat, lng } = JSON.parse(savedCoords);
+      latestComplaint.mule_lat = lat;
+      latestComplaint.mule_lng = lng;
+      console.log("🔒 Using locked frontend coordinates for:", latestComplaint.complaint_id);
+    } else {
+      // First time seeing this complaint: cache its current coordinates permanently
+      const coordsToSave = { lat: latestComplaint.mule_lat, lng: latestComplaint.mule_lng };
+      localStorage.setItem(cachedKey, JSON.stringify(coordsToSave));
+      console.log("📌 Locking new coordinates into localStorage for:", latestComplaint.complaint_id);
+    }
+
+    if (latestComplaint.complaint_id === lastProcessedIdRef.current) return;
+    lastProcessedIdRef.current = latestComplaint.complaint_id;
+
+  // 2. Dynamically build the prediction payload using the database record
+  const predictPayload = {
+    complaint_id: latestComplaint.complaint_id,
+    complaint_state: latestComplaint.complaint_state,
+    complaint_district: latestComplaint.complaint_district,
+    crime_type: latestComplaint.crime_type,
+    amount: latestComplaint.amount,
+    complaint_time: latestComplaint.complaint_time,
+    mule_id: latestComplaint.mule_id,
+    mule_state: latestComplaint.mule_state,
+    mule_district: latestComplaint.mule_district,
+    mule_lat: latestComplaint.mule_lat,
+    mule_lng: latestComplaint.mule_lng
+  };
 
       const [predRes, alertRes] = await Promise.all([
         // 2. Call your Vercel API using POST
@@ -205,7 +233,7 @@ export const LeaView = () => {
         
         let boostedPredictions = rawPredictions.map(atm => {
           let currentScore = Number(atm.risk_score) || 0;
-          let newScore = Math.min(currentScore + 0.12, 1.0); // Caps at 1.0 (100%)
+          let newScore = Math.min(currentScore + 0.15, 1.0); // Caps at 1.0 (100%)
           
           return {
             ...atm,
