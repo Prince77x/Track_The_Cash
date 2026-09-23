@@ -188,11 +188,9 @@ export const Navbar = () => {
           <NavLink to="/citizen" icon={UserCheck} label="Citizen Portal" isActive={location.pathname === '/citizen'} activeColor="#34d399" />
         ) : (
           <>
-            <NavLink to="/lea" icon={Map} label="LEA Surveillance" isActive={location.pathname === '/lea'} />
             {isAdmin && (
               <>
                 <NavLink to="/admin" icon={Terminal} label="Admin Center" isActive={location.pathname === '/admin'} activeColor="#a855f7" />
-                <NavLink to="/citizen" icon={UserCheck} label="Citizen View" isActive={location.pathname === '/citizen'} activeColor="#34d399" />
               </>
             )}
           </>

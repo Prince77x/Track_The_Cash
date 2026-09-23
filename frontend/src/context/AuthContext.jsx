@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 const AuthContext = createContext(null);
 
@@ -6,8 +6,33 @@ export const AuthProvider = ({ children }) => {
   // In-memory token storage (per security specification, no localStorage)
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // Start true to check session on mount
   const [error, setError] = useState(null);
+
+  // 🚀 1. Define getAuthHeader first so other functions can safely use it
+  const getAuthHeader = useCallback(() => {
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  }, [token]);
+
+  // 🚀 2. Session recovery check on initial mount
+  useEffect(() => {
+    const restoreSession = async () => {
+      try {
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
+        const res = await fetch('/auth/me', { headers });
+        if (res.ok) {
+          const data = await res.json();
+          setUser(data);
+        }
+      } catch {
+        // Session expired or not logged in
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    restoreSession();
+  }, [token]);
 
   const login = async (username, password) => {
     setLoading(true);
@@ -84,10 +109,6 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setToken(null);
     setUser(null);
-  };
-
-  const getAuthHeader = () => {
-    return token ? { Authorization: `Bearer ${token}` } : {};
   };
 
   return (

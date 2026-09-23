@@ -674,9 +674,6 @@ export const Login = ({ initialRegister = false }) => {
           borderTop: '1px solid #1c2436',
           textAlign: 'center'
         }}>
-          <p style={{ fontSize: '0.65rem', color: '#576079', margin: 0, letterSpacing: '0.04em' }}>
-            AUTHENTICATED VIA FIU-IND SECURE GATEWAY • SESSION LIMIT: 8 HRS
-          </p>
         </div>
       </div>
     </div>
