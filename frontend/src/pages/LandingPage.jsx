@@ -1419,149 +1419,6 @@ export const LandingPage = () => {
         </div>
       </section>
 
-      {/* 11. CITIZEN DASHBOARD PREVIEW */}
-      <section style={{
-        padding: '4rem 1.5rem',
-        backgroundColor: 'rgba(15, 23, 42, 0.5)',
-        borderTop: '1px solid rgba(255, 255, 255, 0.05)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
-      }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <span style={{
-              fontSize: '0.78rem',
-              fontWeight: 700,
-              color: '#38bdf8',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase'
-            }}>
-              Citizen Experience
-            </span>
-            <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#ffffff', margin: '0.5rem 0 0.5rem' }}>
-              Citizen Dashboard Preview
-            </h2>
-            <p style={{ fontSize: '0.95rem', color: '#94a3b8' }}>
-              An intuitive private portal to view your complaint records and communicate updates.
-            </p>
-          </div>
-
-          {/* Mock Dashboard UI Card */}
-          <div style={{
-            backgroundColor: '#0c1322',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
-            borderRadius: '14px',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6)',
-            overflow: 'hidden'
-          }}>
-            {/* Window bar */}
-            <div style={{
-              backgroundColor: '#090e1a',
-              padding: '0.75rem 1.25rem',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#ef4444' }} />
-                <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#f59e0b' }} />
-                <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#10b981' }} />
-                <span style={{ fontSize: '0.75rem', color: '#64748b', marginLeft: '0.5rem' }}>
-                  TrackTheCash — My Complaints (Citizen Portal)
-                </span>
-              </div>
-              <span style={{
-                fontSize: '0.7rem',
-                backgroundColor: 'rgba(56, 189, 248, 0.12)',
-                color: '#38bdf8',
-                border: '1px solid rgba(56, 189, 248, 0.25)',
-                padding: '0.15rem 0.6rem',
-                borderRadius: '4px',
-                fontWeight: 600
-              }}>
-                Example dashboard preview
-              </span>
-            </div>
-
-            {/* Dashboard Mock Body */}
-            <div style={{ padding: '1.75rem' }}>
-              {/* Top Stats Cards */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-                gap: '1rem',
-                marginBottom: '1.5rem'
-              }}>
-                <div style={mockStatCard}>
-                  <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Total Complaints</div>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#ffffff' }}>2</div>
-                </div>
-                <div style={mockStatCard}>
-                  <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Active Complaints</div>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#38bdf8' }}>1</div>
-                </div>
-                <div style={mockStatCard}>
-                  <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Resolved Complaints</div>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#10b981' }}>1</div>
-                </div>
-                <div style={mockStatCard}>
-                  <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Pending Actions</div>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#f59e0b' }}>0</div>
-                </div>
-              </div>
-
-              {/* Mock Complaint Row */}
-              <div style={{
-                backgroundColor: '#070c17',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                borderRadius: '10px',
-                padding: '1.25rem'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: '1rem',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
-                  paddingBottom: '0.85rem',
-                  marginBottom: '0.85rem'
-                }}>
-                  <div>
-                    <span style={{ fontSize: '0.75rem', color: '#64748b' }}>Complaint ID: </span>
-                    <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#ffffff', fontFamily: 'monospace' }}>
-                      #TTC-2026-0841
-                    </span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                    <span style={{
-                      fontSize: '0.72rem',
-                      backgroundColor: 'rgba(245, 158, 11, 0.15)',
-                      color: '#f59e0b',
-                      border: '1px solid rgba(245, 158, 11, 0.3)',
-                      padding: '0.2rem 0.65rem',
-                      borderRadius: '4px',
-                      fontWeight: 700
-                    }}>
-                      UNDER REVIEW
-                    </span>
-                    <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
-                      Last Updated: Today, 11:30 AM
-                    </span>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', fontSize: '0.85rem', color: '#cbd5e1' }}>
-                  <div><strong>Category:</strong> UPI QR Code Phishing</div>
-                  <div><strong>Amount Reported:</strong> ₹25,000</div>
-                  <div><strong>Evidence Attached:</strong> 2 Screenshots</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* 12. CYBER SAFETY SECTION */}
       <section id="cyber-safety" style={{ padding: '4.5rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3rem' }}>
@@ -1860,21 +1717,6 @@ export const LandingPage = () => {
         </div>
       </section>
 
-      {/* 16. PROTOTYPE DISCLAIMER */}
-      <section style={{ padding: '2rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.03)',
-          border: '1px dashed rgba(255, 255, 255, 0.15)',
-          borderRadius: '10px',
-          padding: '1.25rem',
-          textAlign: 'center',
-          fontSize: '0.82rem',
-          color: '#94a3b8',
-          lineHeight: 1.5
-        }}>
-          <strong>Important Prototype Notice:</strong> TrackTheCash is a prototype platform developed to demonstrate a citizen-focused cybercrime reporting and intelligence workflow. Do not submit real sensitive financial credentials, passwords, PINs, OTPs or other authentication secrets.
-        </div>
-      </section>
 
       {/* 17. FOOTER */}
       <footer style={{
@@ -1902,14 +1744,30 @@ export const LandingPage = () => {
               fontSize: '1.1rem',
               marginBottom: '1rem'
             }}>
-              <Shield size={20} color="#38bdf8" /> TRACKTHECASH
+              <div style={{
+              width: '38px',
+              height: '38px',
+              borderRadius: '10px',
+              background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 4px 14px rgba(37, 99, 235, 0.35)'
+            }}>
+              <Shield size={22} color="#ffffff" />
+            </div>
+              <span style={{
+                fontSize: '1.2rem',
+                fontWeight: 800,
+                letterSpacing: '0.02em',
+                color: '#ffffff'
+              }}>
+                TRACK<span style={{ color: '#38bdf8' }}>THE</span>CASH
+              </span>
             </div>
             <p style={{ fontSize: '0.85rem', lineHeight: 1.6, color: '#94a3b8', marginBottom: '1rem' }}>
               Citizen cybercrime support portal helping individuals report cyber incidents, maintain evidence, and track complaint statuses transparently.
             </p>
-            <div style={{ fontSize: '0.8rem', color: '#64748b' }}>
-              Smart India Hackathon 2026 Prototype
-            </div>
           </div>
 
           {/* Col 2: Citizen Services */}
