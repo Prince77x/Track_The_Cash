@@ -163,124 +163,125 @@ export const LeaView = () => {
   }, [addToast]);
 
   // ── Fetch predictions + alerts ───────────────────────────────────────────
-  const fetchData = useCallback(async () => {
-    const authHeaders = typeof getAuthHeader === 'function' ? getAuthHeader() : {};
-    const headers = {
-      'Content-Type': 'application/json',
-      ...authHeaders
-    };
-    console.log("🔄 Fetching predictions and alerts...");
-    try {
-      const complaintRes = await fetch('complaints/latest', { headers });
-    if (!complaintRes.ok) throw new Error("Failed to fetch latest complaint");
+  const processedIdsRef = useRef(new Set());
+
+const fetchData = useCallback(async () => {
+  const authHeaders = typeof getAuthHeader === 'function' ? getAuthHeader() : {};
+  const headers = {
+    'Content-Type': 'application/json',
+    ...authHeaders
+  };
+  
+  console.log("🔄 Fetching recent complaints batch...");
+  try {
+    const complaintRes = await fetch('complaints/latest?limit=5', { headers });
+    if (!complaintRes.ok) throw new Error("Failed to fetch recent complaints");
     
-    let latestComplaint = await complaintRes.json();
+    const complaintsList = await complaintRes.json();
+    if (!Array.isArray(complaintsList) || complaintsList.length === 0) return;
 
-    const cachedKey = `locked_coords_${latestComplaint.complaint_id}`;
-    const savedCoords = localStorage.getItem(cachedKey);
-
-    if (savedCoords) {
-      // Use the locked, previously saved coordinates!
-      const { lat, lng } = JSON.parse(savedCoords);
-      latestComplaint.mule_lat = lat;
-      latestComplaint.mule_lng = lng;
-      console.log("🔒 Using locked frontend coordinates for:", latestComplaint.complaint_id);
-    } else {
-      // First time seeing this complaint: cache its current coordinates permanently
-      const coordsToSave = { lat: latestComplaint.mule_lat, lng: latestComplaint.mule_lng };
-      localStorage.setItem(cachedKey, JSON.stringify(coordsToSave));
-      console.log("📌 Locking new coordinates into localStorage for:", latestComplaint.complaint_id);
+    // Filter out complaints we have already processed
+    const newComplaints = complaintsList.filter(c => !processedIdsRef.current.has(c.complaint_id));
+    if (newComplaints.length === 0) {
+      console.log("⏸️ No new complaints to process.");
+      return;
     }
 
-    if (latestComplaint.complaint_id === lastProcessedIdRef.current) return;
-    lastProcessedIdRef.current = latestComplaint.complaint_id;
+    // Mark new complaints as processed
+    newComplaints.forEach(c => processedIdsRef.current.add(c.complaint_id));
 
-  // 2. Dynamically build the prediction payload using the database record
-  const predictPayload = {
-    complaint_id: latestComplaint.complaint_id,
-    complaint_state: latestComplaint.complaint_state,
-    complaint_district: latestComplaint.complaint_district,
-    crime_type: latestComplaint.crime_type,
-    amount: latestComplaint.amount,
-    complaint_time: latestComplaint.complaint_time,
-    mule_id: latestComplaint.mule_id,
-    mule_state: latestComplaint.mule_state,
-    mule_district: latestComplaint.mule_district,
-    mule_lat: latestComplaint.mule_lat,
-    mule_lng: latestComplaint.mule_lng
-  };
+    const predictPayloads = newComplaints.map(complaint => {
+      const cachedKey = `locked_coords_${complaint.complaint_id}`;
+      const savedCoords = localStorage.getItem(cachedKey);
 
-      const [predRes, alertRes] = await Promise.all([
-        // 2. Call your Vercel API using POST
+      if (savedCoords) {
+        const { lat, lng } = JSON.parse(savedCoords);
+        complaint.mule_lat = lat;
+        complaint.mule_lng = lng;
+      } else {
+        const coordsToSave = { lat: complaint.mule_lat, lng: complaint.mule_lng };
+        localStorage.setItem(cachedKey, JSON.stringify(coordsToSave));
+      }
+
+      return {
+        complaint_id: complaint.complaint_id,
+        complaint_state: complaint.complaint_state,
+        complaint_district: complaint.complaint_district,
+        crime_type: complaint.crime_type,
+        amount: complaint.amount,
+        complaint_time: complaint.complaint_time,
+        mule_id: complaint.mule_id,
+        mule_state: complaint.mule_state,
+        mule_district: complaint.mule_district,
+        mule_lat: complaint.mule_lat,
+        mule_lng: complaint.mule_lng
+      };
+    });
+
+    const [predictionResults, alertRes] = await Promise.all([
+      Promise.all(predictPayloads.map(payload => 
         fetch('https://track-the-cash.vercel.app/api/predict', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            // Include your auth headers if the Vercel API requires them:
-            ...headers 
-          },
-          body: JSON.stringify(predictPayload)
-        }),
-        // Keep the alerts feed as is
-        fetch('/alerts/feed?limit=18', { headers })
-      ]);
-      console.log("🌐 API Status Code:", predRes.status);
-      if (predRes.ok) {
-        const pData = await predRes.json();
-        
-        // 1. Extract the correct array from pData.top_atms
-        let rawPredictions = pData.top_atms || [];
-        
-        let boostedPredictions = rawPredictions.map(atm => {
-          let currentScore = Number(atm.risk_score) || 0;
-          let newScore = Math.min(currentScore + 0.35, 1.0); // Caps at 1.0 (100%)
-          
-          return {
-            ...atm,
-            risk_score: newScore
-          };
+          headers: { 'Content-Type': 'application/json', ...headers },
+          body: JSON.stringify(payload)
+        }).then(res => res.ok ? res.json() : null)
+      )),
+      fetch('/alerts/feed?limit=18', { headers })
+    ]);
+
+    const batchSessionId = Date.now();
+    let allBoostedPredictions = [];
+    
+    predictionResults.forEach(pData => {
+      if (!pData) return;
+      const rawPredictions = pData.top_atms || [];
+      const boosted = rawPredictions.map(atm => ({
+        ...atm,
+        risk_score: Math.min((Number(atm.risk_score) || 0) + 0.35, 1.0),
+        batch_session_id: batchSessionId 
+      }));
+      allBoostedPredictions.push(...boosted);
+    });
+
+    if (allBoostedPredictions.length > 0) {
+      // ⚠️ CRITICAL: Replace predictions completely with ONLY this new batch session
+      setPredictions(allBoostedPredictions);
+      
+      try {
+        const uniqueAtmsMap = new Map();
+        allBoostedPredictions.forEach(atm => {
+          if (!uniqueAtmsMap.has(atm.atm_id) || atm.risk_score > uniqueAtmsMap.get(atm.atm_id).risk_score) {
+            uniqueAtmsMap.set(atm.atm_id, atm);
+          }
+        });
+        const uniqueBoostedPredictions = Array.from(uniqueAtmsMap.values());
+
+        const dbSaveRes = await fetch('api/predictions/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', ...headers },
+          body: JSON.stringify(uniqueBoostedPredictions)
         });
         
-        console.log("🔍 RAW API RESPONSE:", pData);
-        console.log("🗺️ DATA GOING TO MAP:", boostedPredictions);
-        
-        // Pass the boosted data directly to the state
-        setPredictions(boostedPredictions);
-        if (boostedPredictions.length > 0) {
-          try {
-            // Note: Update the URL if your local FastAPI runs on a different port/path
-            const dbSaveRes = await fetch('api/predictions/save', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                ...headers 
-              },
-              body: JSON.stringify(boostedPredictions)
-            });
-            
-            if (dbSaveRes.ok) {
-              const saveResult = await dbSaveRes.json();
-              console.log(`✅ Saved ${saveResult.inserted_count} predictions to DB.`);
-            } else {
-              console.error("❌ Failed to save to DB:", dbSaveRes.statusText);
-            }
-          } catch (dbError) {
-            console.error("❌ Database save error:", dbError);
-          }
+        if (dbSaveRes.ok) {
+          const saveResult = await dbSaveRes.json();
+          console.log(`✅ Saved ${saveResult.inserted_count} unique predictions to DB.`);
         }
+      } catch (dbError) {
+        console.error("❌ Database save error:", dbError);
       }
-      
-      if (alertRes.ok) {
-        const aData = await alertRes.json();
-        setAlerts(Array.isArray(aData) ? aData : (aData?.items || []));
-      }
-      
-    } catch (err) { 
-      console.error('Fetch error:', err); 
-    } finally { 
-      setLoading(false); 
     }
-  }, [getAuthHeader, selectedState]);
+
+    if (alertRes.ok) {
+      const aData = await alertRes.json();
+      setAlerts(Array.isArray(aData) ? aData : (aData?.items || []));
+    }
+
+  } catch (err) {
+    console.error('Fetch error:', err);
+  } finally {
+    setLoading(false);
+  }
+}, [getAuthHeader]);
 
   // ── Fetch KPI stats ──────────────────────────────────────────────────────
   const fetchStats = useCallback(async () => {
@@ -313,8 +314,23 @@ export const LeaView = () => {
   });
 
   const highRiskCount = predictions.filter(p => p.risk_score > 0.5).length;
-  const top10Atms = [...filteredPredictions].sort((a, b) => b.risk_score - a.risk_score).slice(0, 10);
 
+  // 1. Find the newest batch session ID currently in state
+  const latestSessionId = predictions.length > 0
+    ? Math.max(...predictions.map(p => p.batch_session_id || 0))
+    : 0;
+
+  // 2. Filter to keep ONLY predictions belonging to that exact latest fetch run
+  const latestBatchPredictions = predictions.filter(p => p.batch_session_id === latestSessionId);
+
+  // 3. Deduplicate by atm_id and sort by risk score (no upper limit)
+  const uniqueAtmsMap = new Map();
+  latestBatchPredictions.forEach(atm => {
+    if (!uniqueAtmsMap.has(atm.atm_id) || atm.risk_score > uniqueAtmsMap.get(atm.atm_id).risk_score) {
+      uniqueAtmsMap.set(atm.atm_id, atm);
+    }
+  });
+  const top10Atms = Array.from(latestBatchPredictions.values()).sort((a, b) => b.risk_score - a.risk_score);
   const amtFmt = (v) => {
     if (!v) return '₹0';
     const cr = v / 10000000;
@@ -394,7 +410,7 @@ export const LeaView = () => {
       <div style={{ display: 'grid', gridTemplateColumns: '3fr 1fr', gap: '1rem', minHeight: '520px' }}>
         <div style={{ backgroundColor: C.card, border: `1px solid ${C.border}`, borderRadius: '12px', padding: '0.5rem', overflow: 'hidden' }}>
           <RiskMap
-            predictions={filteredPredictions}
+            predictions={top10Atms}
             selectedAtmId={selectedAtm?.atm_id}
             onSelectAtm={setSelectedAtm}
           />
