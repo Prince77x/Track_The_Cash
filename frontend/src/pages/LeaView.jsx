@@ -357,10 +357,10 @@ const fetchData = useCallback(async () => {
               &nbsp;·&nbsp;Auto-Refresh {countdown}s
             </span>
           } />
-          <button onClick={() => window.location.reload()}
-            style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', backgroundColor: 'transparent', border: `1px solid ${C.border}`, color: '#566d8a', borderRadius: '6px', padding: '0.38rem 0.75rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer' }}>
-            <RefreshCw size={13} /> Hard Reload
-          </button>
+          <button onClick={() => { fetchData(); fetchStats(); setCountdown(60); addToast('Refreshed', 'Dashboard data updated successfully', 'info'); }}
+  style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', backgroundColor: 'transparent', border: `1px solid ${C.border}`, color: '#566d8a', borderRadius: '6px', padding: '0.38rem 0.75rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer' }}>
+  <RefreshCw size={13} /> Hard Refresh
+</button>
       </div>
 
       {/* ── Row 2: Filter Bar ────────────────────────────────── */}
@@ -425,47 +425,44 @@ const fetchData = useCallback(async () => {
         liveUpdates={liveUpdates}
       />
 
-      {/* ── Row 5: Top-10 High-Risk ATM Action Table ─────────── */}
+      {/* ── Row 5: Top Priority ATM Action Table (Scrollable Rolling Buffer) ─── */}
       <div style={{ backgroundColor: C.card, border: `1px solid ${C.border}`, borderRadius: '12px', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <Layers size={16} color={C.red} />
             <h3 style={{ fontSize: '0.9rem', fontWeight: 800, margin: 0, color: '#f1f5f9' }}>
-              Top Priority ATM Hotspots — Next 24 Hours
+              Top Priority ATM Hotspots 
             </h3>
           </div>
           <span style={{ fontSize: '0.7rem', color: '#4d6080' }}>Ranked by XGBoost Probability</span>
         </div>
 
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.78rem', textAlign: 'left' }}>
-            <thead>
+        {/* 🚀 SCROLLABLE CONTAINER: Locks height and enables vertical/horizontal scrolling */}
+        <div style={{ maxHeight: '360px', overflowY: 'auto', overflowX: 'auto', border: `1px solid ${C.border}`, borderRadius: '8px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.78rem', textAlign: 'left', position: 'relative' }}>
+            <thead style={{ position: 'sticky', top: 0, backgroundColor: C.card, zIndex: 10 }}>
               <tr style={{ borderBottom: `1px solid ${C.border}` }}>
-                {/* Notice I changed "Risk Score" to "Risk %" to test if the code is actually updating */}
                 {['ATM ID', 'Risk %', 'District & State', 'Bank', 'Cross-State Mule', 'Action'].map(h => (
-                  <th key={h} style={{ padding: '0.5rem 0.75rem', color: '#4d6080', fontSize: '0.67rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{h}</th>
+                  <th key={h} style={{ padding: '0.55rem 0.75rem', color: '#4d6080', fontSize: '0.67rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', backgroundColor: C.card }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {top10Atms.map(atm => {
+              {filteredPredictions.map(atm => {
                 const isDeployed = deployedAtms[atm.atm_id];
-                
-                // 1. Force the score to be a Number
                 const score = Number(atm.risk_score);
                 
-                // 2. Explicitly determine colors based on the 4-tier thresholds
-                let pillBg = 'rgba(16,185,129,0.18)'; // Default Low (Green)
+                let pillBg = 'rgba(16,185,129,0.18)';
                 let pillText = '#34d399';
                 
                 if (score > 0.6) {
-                  pillBg = 'rgba(239,68,68,0.18)'; // Critical (Red)
+                  pillBg = 'rgba(239,68,68,0.18)';
                   pillText = '#ca0303';
                 } else if (score >= 0.5) {
-                  pillBg = 'rgba(249,115,22,0.18)'; // High (Orange)
+                  pillBg = 'rgba(249,115,22,0.18)';
                   pillText = '#f6891c';
                 } else if (score >= 0.4) {
-                  pillBg = 'rgba(245,158,11,0.18)'; // Medium (Amber/Yellow)
+                  pillBg = 'rgba(245,158,11,0.18)';
                   pillText = '#fbbf24';
                 }
 
@@ -503,7 +500,7 @@ const fetchData = useCallback(async () => {
                   </tr>
                 );
               })}
-              {top10Atms.length === 0 && (
+              {filteredPredictions.length === 0 && (
                 <tr><td colSpan={6} style={{ padding: '2rem', textAlign: 'center', color: '#4d6080' }}>No predictions loaded.</td></tr>
               )}
             </tbody>
@@ -524,10 +521,6 @@ const fetchData = useCallback(async () => {
           username={username}
         />
       )}
-      <button onClick={() => window.location.reload()}
-            style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', backgroundColor: 'transparent', border: `1px solid ${C.border}`, color: '#566d8a', borderRadius: '6px', padding: '0.38rem 0.75rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer' }}>
-            <RefreshCw size={13} /> Hard Reload
-          </button>
       {showSubmitModal && (
         <SubmitComplaintModal
           onClose={() => setShowSubmitModal(false)}
