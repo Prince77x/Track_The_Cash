@@ -13,13 +13,13 @@ import {
 
 // ─── Shared style tokens ───────────────────────────────────────────────────
 const C = {
-  bg:     '#060913',
-  card:   '#0c1322',
+  bg: '#060913',
+  card: '#0c1322',
   border: '#17233d',
-  cyan:   '#38bdf8',
-  red:    '#ef4444',
-  amber:  '#f59e0b',
-  green:  '#10b981',
+  cyan: '#38bdf8',
+  red: '#ef4444',
+  amber: '#f59e0b',
+  green: '#10b981',
 };
 
 const cardStyle = {
@@ -83,21 +83,21 @@ export const LeaView = () => {
   const username = user?.username || 'LEA Officer';
 
   // ATM / prediction data
-  const [predictions, setPredictions]     = useState([]);
-  const [alerts, setAlerts]               = useState([]);
-  const [stats, setStats]                 = useState(null);
-  const [statsLoading, setStatsLoading]   = useState(true);
-  const [loading, setLoading]             = useState(true);
-  const [selectedAtm, setSelectedAtm]     = useState(null);
-  const [deployedAtms, setDeployedAtms]   = useState({});
+  const [predictions, setPredictions] = useState([]);
+  const [alerts, setAlerts] = useState([]);
+  const [stats, setStats] = useState(null);
+  const [statsLoading, setStatsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [selectedAtm, setSelectedAtm] = useState(null);
+  const [deployedAtms, setDeployedAtms] = useState({});
   const [selectedState, setSelectedState] = useState('');
-  const [searchQuery, setSearchQuery]     = useState('');
-  const [countdown, setCountdown]         = useState(60);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [countdown, setCountdown] = useState(60);
 
   // Complaints
   const [selectedComplaint, setSelectedComplaint] = useState(null);
-  const [showSubmitModal, setShowSubmitModal]       = useState(false);
-  const [liveUpdates, setLiveUpdates]               = useState([]);
+  const [showSubmitModal, setShowSubmitModal] = useState(false);
+  const [liveUpdates, setLiveUpdates] = useState([]);
 
   // WebSocket
   const [wsConnected, setWsConnected] = useState(false);
@@ -142,7 +142,7 @@ export const LeaView = () => {
           } else if (msg.event === 'COMPLAINT_UPDATED' && msg.data) {
             setLiveUpdates(prev => [...prev, msg]);
           }
-        } catch {}
+        } catch { }
       };
 
       ws.onclose = () => {
@@ -172,43 +172,43 @@ export const LeaView = () => {
     console.log("🔄 Fetching predictions and alerts...");
     try {
       const complaintRes = await fetch('complaints/latest', { headers });
-    if (!complaintRes.ok) throw new Error("Failed to fetch latest complaint");
-    
-    let latestComplaint = await complaintRes.json();
+      if (!complaintRes.ok) throw new Error("Failed to fetch latest complaint");
 
-    const cachedKey = `locked_coords_${latestComplaint.complaint_id}`;
-    const savedCoords = localStorage.getItem(cachedKey);
+      let latestComplaint = await complaintRes.json();
 
-    if (savedCoords) {
-      // Use the locked, previously saved coordinates!
-      const { lat, lng } = JSON.parse(savedCoords);
-      latestComplaint.mule_lat = lat;
-      latestComplaint.mule_lng = lng;
-      console.log("🔒 Using locked frontend coordinates for:", latestComplaint.complaint_id);
-    } else {
-      // First time seeing this complaint: cache its current coordinates permanently
-      const coordsToSave = { lat: latestComplaint.mule_lat, lng: latestComplaint.mule_lng };
-      localStorage.setItem(cachedKey, JSON.stringify(coordsToSave));
-      console.log("📌 Locking new coordinates into localStorage for:", latestComplaint.complaint_id);
-    }
+      const cachedKey = `locked_coords_${latestComplaint.complaint_id}`;
+      const savedCoords = localStorage.getItem(cachedKey);
 
-    if (latestComplaint.complaint_id === lastProcessedIdRef.current) return;
-    lastProcessedIdRef.current = latestComplaint.complaint_id;
+      if (savedCoords) {
+        // Use the locked, previously saved coordinates!
+        const { lat, lng } = JSON.parse(savedCoords);
+        latestComplaint.mule_lat = lat;
+        latestComplaint.mule_lng = lng;
+        console.log("🔒 Using locked frontend coordinates for:", latestComplaint.complaint_id);
+      } else {
+        // First time seeing this complaint: cache its current coordinates permanently
+        const coordsToSave = { lat: latestComplaint.mule_lat, lng: latestComplaint.mule_lng };
+        localStorage.setItem(cachedKey, JSON.stringify(coordsToSave));
+        console.log("📌 Locking new coordinates into localStorage for:", latestComplaint.complaint_id);
+      }
 
-  // 2. Dynamically build the prediction payload using the database record
-  const predictPayload = {
-    complaint_id: latestComplaint.complaint_id,
-    complaint_state: latestComplaint.complaint_state,
-    complaint_district: latestComplaint.complaint_district,
-    crime_type: latestComplaint.crime_type,
-    amount: latestComplaint.amount,
-    complaint_time: latestComplaint.complaint_time,
-    mule_id: latestComplaint.mule_id,
-    mule_state: latestComplaint.mule_state,
-    mule_district: latestComplaint.mule_district,
-    mule_lat: latestComplaint.mule_lat,
-    mule_lng: latestComplaint.mule_lng
-  };
+      if (latestComplaint.complaint_id === lastProcessedIdRef.current) return;
+      lastProcessedIdRef.current = latestComplaint.complaint_id;
+
+      // 2. Dynamically build the prediction payload using the database record
+      const predictPayload = {
+        complaint_id: latestComplaint.complaint_id,
+        complaint_state: latestComplaint.complaint_state,
+        complaint_district: latestComplaint.complaint_district,
+        crime_type: latestComplaint.crime_type,
+        amount: latestComplaint.amount,
+        complaint_time: latestComplaint.complaint_time,
+        mule_id: latestComplaint.mule_id,
+        mule_state: latestComplaint.mule_state,
+        mule_district: latestComplaint.mule_district,
+        mule_lat: latestComplaint.mule_lat,
+        mule_lng: latestComplaint.mule_lng
+      };
 
       const [predRes, alertRes] = await Promise.all([
         // 2. Call your Vercel API using POST
@@ -217,7 +217,7 @@ export const LeaView = () => {
           headers: {
             'Content-Type': 'application/json',
             // Include your auth headers if the Vercel API requires them:
-            ...headers 
+            ...headers
           },
           body: JSON.stringify(predictPayload)
         }),
@@ -227,23 +227,23 @@ export const LeaView = () => {
       console.log("🌐 API Status Code:", predRes.status);
       if (predRes.ok) {
         const pData = await predRes.json();
-        
+
         // 1. Extract the correct array from pData.top_atms
         let rawPredictions = pData.top_atms || [];
-        
+
         let boostedPredictions = rawPredictions.map(atm => {
           let currentScore = Number(atm.risk_score) || 0;
           let newScore = Math.min(currentScore + 0.35, 1.0); // Caps at 1.0 (100%)
-          
+
           return {
             ...atm,
             risk_score: newScore
           };
         });
-        
+
         console.log("🔍 RAW API RESPONSE:", pData);
         console.log("🗺️ DATA GOING TO MAP:", boostedPredictions);
-        
+
         // Pass the boosted data directly to the state
         setPredictions(boostedPredictions);
         if (boostedPredictions.length > 0) {
@@ -253,11 +253,11 @@ export const LeaView = () => {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                ...headers 
+                ...headers
               },
               body: JSON.stringify(boostedPredictions)
             });
-            
+
             if (dbSaveRes.ok) {
               const saveResult = await dbSaveRes.json();
               console.log(`✅ Saved ${saveResult.inserted_count} predictions to DB.`);
@@ -269,16 +269,16 @@ export const LeaView = () => {
           }
         }
       }
-      
+
       if (alertRes.ok) {
         const aData = await alertRes.json();
         setAlerts(Array.isArray(aData) ? aData : (aData?.items || []));
       }
-      
-    } catch (err) { 
-      console.error('Fetch error:', err); 
-    } finally { 
-      setLoading(false); 
+
+    } catch (err) {
+      console.error('Fetch error:', err);
+    } finally {
+      setLoading(false);
     }
   }, [getAuthHeader, selectedState]);
 
@@ -288,7 +288,7 @@ export const LeaView = () => {
     try {
       const res = await fetch('/complaints/analytics/stats', { headers: getAuthHeader() });
       if (res.ok) setStats(await res.json());
-    } catch {}
+    } catch { }
     setStatsLoading(false);
   }, [getAuthHeader]);
 
@@ -318,7 +318,7 @@ export const LeaView = () => {
   const amtFmt = (v) => {
     if (!v) return '₹0';
     const cr = v / 10000000;
-    return cr >= 1 ? `₹${cr.toFixed(2)} Cr` : `₹${(v/100000).toFixed(2)} L`;
+    return cr >= 1 ? `₹${cr.toFixed(2)} Cr` : `₹${(v / 100000).toFixed(2)} L`;
   };
 
   return (
@@ -329,22 +329,22 @@ export const LeaView = () => {
 
       {/* ── Row 1: KPI Stats ─────────────────────────────────── */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.75rem' }}>
-        <StatCard icon={Building}      iconColor={C.cyan}  label="Monitored ATMs"       value={predictions.length}                       loading={loading} />
-        <StatCard icon={AlertTriangle} iconColor={C.red}   label="Critical Hotspots"    value={highRiskCount}                            loading={loading} />
-        <StatCard icon={Radio}         iconColor="#f97316" label="Active Complaints"     value={stats?.active_complaints ?? '—'}          loading={statsLoading} />
-        <StatCard icon={TrendingUp}    iconColor={C.amber} label="Suspect Vol (24h)"     value={stats?.suspect_volume_24h_display ?? '—'} loading={statsLoading} />
-        <StatCard icon={CheckCircle}   iconColor={C.green} label="Resolution Rate"       value={stats ? `${stats.resolution_rate}%` : '—'} loading={statsLoading} sub={`${stats?.resolved_complaints ?? 0} resolved`} />
-        <StatCard icon={Activity}      iconColor="#a855f7" label="Alerts Today"          value={stats?.total_alerts_today ?? '—'}         loading={statsLoading}
+        <StatCard icon={Building} iconColor={C.cyan} label="Monitored ATMs" value={predictions.length} loading={loading} />
+        <StatCard icon={AlertTriangle} iconColor={C.red} label="Critical Hotspots" value={highRiskCount} loading={loading} />
+        <StatCard icon={Radio} iconColor="#f97316" label="Active Complaints" value={stats?.active_complaints ?? '—'} loading={statsLoading} />
+        <StatCard icon={TrendingUp} iconColor={C.amber} label="Suspect Vol (24h)" value={stats?.suspect_volume_24h_display ?? '—'} loading={statsLoading} />
+        <StatCard icon={CheckCircle} iconColor={C.green} label="Resolution Rate" value={stats ? `${stats.resolution_rate}%` : '—'} loading={statsLoading} sub={`${stats?.resolved_complaints ?? 0} resolved`} />
+        <StatCard icon={Activity} iconColor="#a855f7" label="Alerts Today" value={stats?.total_alerts_today ?? '—'} loading={statsLoading}
           sub={
             <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
               <span style={{ color: '#f87171' }}>{stats?.critical_alerts_count ?? 0} CRITICAL</span>
               &nbsp;·&nbsp;Auto-Refresh {countdown}s
             </span>
           } />
-          <button onClick={() => window.location.reload()}
-            style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', backgroundColor: 'transparent', border: `1px solid ${C.border}`, color: '#566d8a', borderRadius: '6px', padding: '0.38rem 0.75rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer' }}>
-            <RefreshCw size={13} /> Hard Reload
-          </button>
+        <button onClick={() => window.location.reload()}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', backgroundColor: 'transparent', border: `1px solid ${C.border}`, color: '#566d8a', borderRadius: '6px', padding: '0.38rem 0.75rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer' }}>
+          <RefreshCw size={13} /> Hard Reload
+        </button>
       </div>
 
       {/* ── Row 2: Filter Bar ────────────────────────────────── */}
@@ -361,7 +361,7 @@ export const LeaView = () => {
             <select value={selectedState} onChange={e => setSelectedState(e.target.value)}
               style={{ backgroundColor: '#060d1e', color: '#f1f5f9', border: `1px solid ${C.border}`, borderRadius: '5px', padding: '0.25rem 0.55rem', fontSize: '0.75rem', outline: 'none', cursor: 'pointer' }}>
               <option value="">All States</option>
-              {['Uttar Pradesh','Maharashtra','Rajasthan','Telangana','Karnataka','Delhi','West Bengal','Bihar','Madhya Pradesh','Gujarat','Tamil Nadu','Haryana','Punjab'].map(s => (
+              {['Uttar Pradesh', 'Maharashtra', 'Rajasthan', 'Telangana', 'Karnataka', 'Delhi', 'West Bengal', 'Bihar', 'Madhya Pradesh', 'Gujarat', 'Tamil Nadu', 'Haryana', 'Punjab'].map(s => (
                 <option key={s} value={s}>{s}</option>
               ))}
             </select>
@@ -434,14 +434,14 @@ export const LeaView = () => {
             <tbody>
               {top10Atms.map(atm => {
                 const isDeployed = deployedAtms[atm.atm_id];
-                
+
                 // 1. Force the score to be a Number
                 const score = Number(atm.risk_score);
-                
+
                 // 2. Explicitly determine colors based on the 4-tier thresholds
                 let pillBg = 'rgba(16,185,129,0.18)'; // Default Low (Green)
                 let pillText = '#34d399';
-                
+
                 if (score > 0.6) {
                   pillBg = 'rgba(239,68,68,0.18)'; // Critical (Red)
                   pillText = '#ca0303';
@@ -509,9 +509,9 @@ export const LeaView = () => {
         />
       )}
       <button onClick={() => window.location.reload()}
-            style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', backgroundColor: 'transparent', border: `1px solid ${C.border}`, color: '#566d8a', borderRadius: '6px', padding: '0.38rem 0.75rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer' }}>
-            <RefreshCw size={13} /> Hard Reload
-          </button>
+        style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', backgroundColor: 'transparent', border: `1px solid ${C.border}`, color: '#566d8a', borderRadius: '6px', padding: '0.38rem 0.75rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer' }}>
+        <RefreshCw size={13} /> Hard Reload
+      </button>
       {showSubmitModal && (
         <SubmitComplaintModal
           onClose={() => setShowSubmitModal(false)}
