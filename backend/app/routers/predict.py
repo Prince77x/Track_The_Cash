@@ -31,14 +31,20 @@ def get_db():
     finally:
         db.close()
 
+
+@router.get("/latest")
+def get_latest_predictions(limit: int = 20, db: Session = Depends(get_db)):
+    """Returns the rolling buffer of latest predictions for the LEA dashboard."""
+    predictions = db.query(Prediction).order_by(Prediction.prediction_id.desc()).limit(limit).all()
+    return predictions
+
 # 2. Create the POST endpoint
+from sqlalchemy import text
+
 @router.post("/api/predictions/save")
 def save_boosted_predictions(predictions: List[PredictionInput], db: Session = Depends(get_db)):
     try:
-        # 1. Clear out old predictions so they don't stack up
-        db.query(Prediction).delete()
-        
-        # 2. Insert the fresh boosted predictions
+        # 1. Insert the fresh boosted predictions for the current batch
         db_preds = [
             Prediction(
                 atm_id=p.atm_id,
@@ -51,11 +57,27 @@ def save_boosted_predictions(predictions: List[PredictionInput], db: Session = D
         
         db.bulk_save_objects(db_preds)
         db.commit()
+
+        # 2. STRICT ROLLING PRUNING: Keep only the 20 most recent records, delete anything older
+        db.execute(text("""
+            DELETE FROM predictions 
+            WHERE prediction_id NOT IN (
+                SELECT prediction_id FROM (
+                    SELECT prediction_id FROM predictions 
+                    ORDER BY predicted_at DESC, prediction_id DESC 
+                    LIMIT 20
+                ) AS subquery
+            );
+        """))
+        db.commit()
+
         return {"status": "success", "inserted_count": len(db_preds)}
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
 
+
+    
 @router.get("/predict", response_model=PredictResponse)
 def get_predictions(
     state: Optional[str] = Query(None, description="Optional state filter"),
