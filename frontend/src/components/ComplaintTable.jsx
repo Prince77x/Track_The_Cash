@@ -145,13 +145,13 @@ export const ComplaintTable = ({ getAuthHeader, onSelectComplaint, liveUpdates =
         </div>
       </div>
 
-      {/* Table */}
-      <div style={{ overflowX: 'auto', flex: 1 }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.78rem' }}>
-          <thead>
+      {/* 🚀 Scrollable Table Container */}
+      <div style={{ maxHeight: '360px', overflowY: 'auto', overflowX: 'auto', flex: 1 }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.78rem', position: 'relative' }}>
+          <thead style={{ position: 'sticky', top: 0, backgroundColor: '#0c1322', zIndex: 10 }}>
             <tr style={{ borderBottom: '1px solid #17233d' }}>
               {['Complaint ID', 'Priority', 'Category', 'Location', 'Amount (₹)', 'Status', 'Officer', 'Received', ''].map(h => (
-                <th key={h} style={{ padding: '0.55rem 0.8rem', textAlign: 'left', fontSize: '0.67rem', fontWeight: 700, color: '#4d6080', textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>{h}</th>
+                <th key={h} style={{ padding: '0.55rem 0.8rem', textAlign: 'left', fontSize: '0.67rem', fontWeight: 700, color: '#4d6080', textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap', backgroundColor: '#0c1322' }}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -192,7 +192,7 @@ export const ComplaintTable = ({ getAuthHeader, onSelectComplaint, liveUpdates =
 
       {/* Pagination */}
       {total > LIMIT && (
-        <div style={{ padding: '0.6rem 1.1rem', borderTop: '1px solid #17233d', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ padding: '0.6rem 1.1rem', borderTop: '1px solid #17233d', display: 'flex', alignItems: 'center', justifyContent: 'space-system' }}>
           <span style={{ fontSize: '0.72rem', color: '#4d6080' }}>
             Showing {offset + 1}–{Math.min(offset + LIMIT, total)} of {total}
           </span>

@@ -177,7 +177,6 @@ export const Navbar = () => {
           <Shield size={17} />
           <span>TRACK<span style={{ color: '#7dd3fc' }}>THE</span>CASH</span>
         </Link>
-        <span style={S.badge}>NAT-FININT</span>
         <span style={S.subtitle}>
           {isCitizen ? 'Citizen Cyber Defense & Complaint Intelligence Network' : 'Atm Anomaly Surveillance & Money Mule Interception System'}
         </span>
