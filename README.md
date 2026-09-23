@@ -1,7 +1,6 @@
 # TrackTheCash — AI-Powered Predictive Analytics Framework for Cybercrime Cash-Withdrawal Locations
 
-> **Smart India Hackathon (SIH 2026)** | Problem Statement: `SIH26184` (Ministry of Home Affairs / Indian Cyber Crime Coordination Centre — I4C)  
-> **Mission:** Transform India's cybercrime response from reactive fund blocking to proactive, geographic ATM cash-out defense before illicit cash withdrawal occurs.
+Develop a proactive predictive analytics framework that analyzes cybercrime complaints and financial data to forecast likely cash withdrawal locations, identify emerging geographic risk zones, and provide real-time actionable intelligence to Law Enforcement Agencies (LEAs), banks, Financial Institutions (FIs), and I4C for faster intervention, fund blocking, and improved recovery.
 
 ---
 
@@ -42,11 +41,10 @@ The system delivers real-time geographic intelligence through an interactive **L
 
 ## 2. Problem Statement
 
-* **The Speed Gap:** Cybercrime victims typically take hours or days to register complaints. However, organized mule rings execute rapid cash withdrawals at physical ATMs in under 30 minutes.
-* **Reactive Deficiencies:** Current interventions focus on freezing bank balances. Once cash is physically dispensed from an ATM machine, trace recovery drops drastically.
-* **Geographic Blindspot:** Financial transaction logs provide account numbers and timestamps but lack predictive spatial forecasting indicating *where* mules are heading next.
-* **Cross-State Coordination Delays:** Fraud committed against a victim in one state (e.g., Rajasthan) frequently routes funds into mule accounts situated in another state (e.g., Uttar Pradesh), introducing jurisdictional friction.
-
+- The Scale Gap: NCRP receives approximately 8,000 cybercrime complaints daily, making manual analysis and reactive response increasingly difficult.
+- Reactive Deficiencies: Existing interventions primarily focus on fund blocking and recovery after fraud is reported, creating a need for proactive risk identification.
+- Geographic Blindspot: Existing complaint and financial data contain valuable time, location, and transaction patterns, but lack predictive intelligence to forecast likely cash withdrawal locations.
+- Cross-Jurisdiction Gap: Cybercrime transactions can span multiple states and jurisdictions, making real-time intelligence sharing and coordinated LEA response challenging.
 ---
 
 ## 3. Solution Overview
@@ -249,9 +247,9 @@ graph LR
 
 ---
 
-## 12. SIH 2026 Requirement Mapping
+## 12. KAYA 2026 Requirement Mapping
 
-| SIH26184 Problem Statement Requirement | TrackTheCash Implementation | Primary Source Evidence |
+| KAYA Problem Statement Requirement | TrackTheCash Implementation | Primary Source Evidence |
 | :--- | :--- | :--- |
 | **Predictive ATM Cash-Out Risk** | XGBoost classifier calculating 24h rolling probability scores | [`backend/app/ml/model.py`](file:///Users/apple/Documents/Track_The_Cash/backend/app/ml/model.py) |
 | **Complaint Velocity Spike Detection** | Rule-based moving average spike detector with 6h window | [`backend/app/ml/spike_detector.py`](file:///Users/apple/Documents/Track_The_Cash/backend/app/ml/spike_detector.py) |
@@ -529,10 +527,7 @@ Track_The_Cash/
 
 ## 👥 Project Contributors
 * **Mohit** — DevOps, Data Pipelines, & Containerization
-* **Shubham** — Machine Learning, Feature Engineering, & Evaluation
-* **Hari** — Backend APIs, Database Architecture, & JWT Security
-* **Prince** — Frontend Architecture, Leaflet Geospatial UI, & Command Dashboards
+* **Shubham** — Machine Learning, Feature Engineering, DevOps & Evaluation
+* **Prince** — Frontend Architecture, Leaflet Geospatial UI, & Command Dashboards,Backend APIs, Database Architecture, & JWT Security
 
 ---
-
-*TrackTheCash — Built for Smart India Hackathon (SIH 2026) | Problem Statement SIH26184 (MHA / I4C)*
