@@ -526,8 +526,8 @@ Track_The_Cash/
 ---
 
 ## 👥 Project Contributors
+* **Prince** — Frontend Architecture, Leaflet Geospatial UI, & Command Dashboards,Backend APIs, Database Architecture, & JWT Security
 * **Mohit** — DevOps, Data Pipelines, & Containerization
 * **Shubham** — Machine Learning, Feature Engineering, DevOps & Evaluation
-* **Prince** — Frontend Architecture, Leaflet Geospatial UI, & Command Dashboards,Backend APIs, Database Architecture, & JWT Security
-
+* **Hari**
 ---
